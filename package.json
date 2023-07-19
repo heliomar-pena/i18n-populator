@@ -1,5 +1,5 @@
 {
-  "name": "i18n-translate",
+  "name": "i18n-translate-generator",
   "version": "1.0.0",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
@@ -9,7 +9,11 @@
   "keywords": [
     "i18n",
     "tools",
-    "save-time"
+    "save-time",
+    "cli",
+    "cli-app",
+    "cli-tool",
+    "development-tool"
   ],
   "author": "victordev2002@gmail.com",
   "license": "ISC",
