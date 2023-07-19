@@ -1,0 +1,31 @@
+{
+    "basePath": "example/i18n",
+    "languages": [
+        {
+            "name": "en",
+            "files": [
+                "en.json"
+            ]
+        },
+        {
+            "name": "de",
+            "files": [
+                "de.json"
+            ]
+        },
+        {
+            "name": "ja",
+            "files": [
+                "jp.json"
+            ]
+        },
+        {
+            "name": "es",
+            "files": [
+                "es.json",
+                "cl.json",
+                "ec.json"
+            ]
+        }
+    ]
+}
