@@ -8,7 +8,7 @@ const { configPath, parsePath } = require('./utils/getConfigPath');
 const fs = require('fs');
 
 program
-  .name('i18n-translate')
+  .name('i18n-translate-generator')
   .description('CLI to translate JavaScript strings')
   .version('1.0.0');
 
