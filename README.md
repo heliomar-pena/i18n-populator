@@ -81,3 +81,19 @@ For example
 ```sh
 npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
 ```
+
+## Configuration file
+
+The configuration file is an json file which allow you to modify certain aspects of the project, like the languages that you want to translate, the path of the translations files, etc. Here is a list of the properties that you can modify on the configuration file.
+
+| Property | Type | Description | Required | Example | Default |
+| --- | --- | --- | --- | --- | --- |
+| `basePath` | string | The path where the translations files are located. | <center>:white_check_mark:</center> | `"./src/assets/i18n"` | |
+| `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | <center>:white_check_mark:</center> | `[{ "name": "en", "files": ["en.json"] }]` | |
+
+## Commands
+
+| Command | Description | Arguments | Example |
+| --- | --- | --- | --- |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. <br/>`sourceLanguage`: The language of the text that you wrote on `text`. <br/>`propertyName`: The property name that you want to be used to include your new translation on your project | `npx i18n-auto-translate translate "my text" "en" "myText"` |
+| `help` | Show the help menu with all the available commands. | | `npx i18n-auto-translate help` |
