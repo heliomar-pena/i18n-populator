@@ -11,7 +11,8 @@
     "cli.js",
     "SUPPORTED-LANGUAGE.json",
     "utils/translate.js",
-    "utils/getConfigPath.js"
+    "utils/getConfigPath.js",
+    "utils/getTranslationFile.js"
   ],
   "keywords": [
     "i18n",
