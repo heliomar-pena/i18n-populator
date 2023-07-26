@@ -13,7 +13,8 @@ npx i18n-translate-generator translate "Hello world" "en" "greetings"
 ## Roadmap
 
 - [x] Generates translations for all the languages that you're handling on your project free.
-- [ ] Allow custom paths for translations files and configuration file.
+- [x] Allow custom paths for translations files and configuration file.
+- [ ] Create landing page and logo for the project.
 - [ ] Handle properly text interpolation on most of cases. For example (Hi {{name}}!)
 - [ ] Allow translate various text at once saving queries to Google Translate API.
 - [ ] Allow use Google API Key to use your own account.
