@@ -2,6 +2,8 @@
 
 Make easiest translations for your project with only one terminal command. Generate translations for all the languages that you're handling on your project free.
 
+![i18n translations (1)](https://github.com/victor-heliomar/i18n-translation-generator/assets/66505715/2566afc9-7120-466c-b9e5-4301e32bd64d)
+
 This project uses [Google Translate API](https://github.com/vitalets/google-translate-api) to generate the translations, which is using [Translateer](https://github.com/Songkeys/Translateer) to access Google Translate API free an unlimited using Puppeteer. In a future I'll include the option to use an Google API Key so you could use it with your own account.
 
 > DISCLAIMER! To be 100% legal please use official Google Translate API.
