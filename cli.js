@@ -25,18 +25,16 @@ program.command('translate')
 
       const { languages, basePath } = require(settingsFile); 
       
-      let count = 0;
-
-      while (count < languages.length) {
-        const language = languages[count];
+      for await (const language of languages) {
+        console.time(`Generate translation ${text} ${language.name}`);
         const { text: result } = await translate(text, { from: sourceLanguage, to: language.name });
         language.files.forEach(fileName => {
           const { file: languageJson, parsedPath } = getOrCreateTranslationFile(basePath, fileName);
           languageJson[nameOfTranslation] = result;
 
           fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
+          console.timeEnd(`Generate translation ${text} ${language.name}`);
         });
-        count++;
       }
     } catch (error) {
       console.error('No config file found', error);
