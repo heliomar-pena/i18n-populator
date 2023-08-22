@@ -1,6 +1,6 @@
 {
   "name": "i18n-translate-generator",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,7 @@
   "license": "ISC",
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.0",
-    "commander": "^8.3.0"
+    "commander": "^8.3.0",
+    "dset": "^3.1.2"
   }
 }
