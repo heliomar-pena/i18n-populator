@@ -79,6 +79,25 @@ You only need to specify in what language is wrote the text that you're passing 
 
 Also, additionally you can specify the path of the configuration file, by default it will search for the file called `i18n-auto-translate.config.json` on the root of your project, but you can specify another path with the `-s` or `--settings-file` flag.
 
+### Nested Translations
+
+You can nest translations by using the `.` character, for example to create the next json:
+
+```json
+
+{
+  "accountSettings": {
+    "title": "Account settings"
+  }
+}
+```
+
+You only need to pass the next text to the command:
+
+```sh
+npx i18n-translate-generator translate "Account settings" "en" "accountSettings.title"
+```
+
 For example
 
 ```sh
