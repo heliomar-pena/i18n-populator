@@ -16,7 +16,7 @@ npx i18n-translate-generator translate "Hello world" "en" "greetings"
 
 - [x] Generates translations for all the languages that you're handling on your project free.
 - [x] Allow custom paths for translations files and configuration file.
-- [ ] Create the possibility of nest new translations (for example { accountSettings: { title: 'Account settings' } })
+- [x] Create the possibility of nest new translations (for example { accountSettings: { title: 'Account settings' } })
 - [ ] Create landing page and logo for the project.
 - [ ] Handle properly text interpolation on most of cases. For example (Hi {{name}}!)
 - [ ] Allow translate various text at once saving queries to Google Translate API.
