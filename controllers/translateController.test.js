@@ -1,4 +1,4 @@
-const { translate } = require('../utils/translate');
+const { translate } = require('@vitalets/google-translate-api');
 const { translateController } = require('./translateController');
 const { configPath, config } = require('../utils/getConfigPath');
 const { getOrCreateJsonFile } = require('../utils/getOrCreateJsonFile');

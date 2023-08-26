@@ -10,11 +10,13 @@
   },
   "bin": "cli.js",
   "files": [
+    "config.js",
     "cli.js",
     "SUPPORTED-LANGUAGE.json",
-    "utils/translate.js",
     "utils/getConfigPath.js",
-    "utils/getTranslationFile.js"
+    "utils/getOrCreateJsonFile.js",
+    "utils/validateSettingsFile.js",
+    "controllers/translateController.js"
   ],
   "keywords": [
     "i18n",
