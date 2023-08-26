@@ -79,9 +79,19 @@ You only need to specify in what language is wrote the text that you're passing 
 
 Also, additionally you can specify the path of the configuration file, by default it will search for the file called `i18n-auto-translate.config.json` on the root of your project, but you can specify another path with the `-s` or `--settings-file` flag.
 
+For example
+
+```sh
+npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
+```
+
 ### Nested Translations
 
-You can nest translations by using the `.` character, for example to create the next json:
+You can nest translations by using the `.` character on the property name parameter, for example:
+
+```sh
+npx i18n-translate-generator translate "Account settings" "en" "accountSettings.title"
+```
 
 ```json
 
@@ -92,16 +102,37 @@ You can nest translations by using the `.` character, for example to create the 
 }
 ```
 
-You only need to pass the next text to the command:
+You can continue nesting translations as much as you want.
 
 ```sh
-npx i18n-translate-generator translate "Account settings" "en" "accountSettings.title"
+npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
 ```
 
-For example
+```json
+{
+  "accountSettings": {
+    "title": "Account settings",
+    "email": "Email",
+  }
+}
+```
 
 ```sh
-npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
+npx i18n-translate-generator translate "Are you sure you want to change your email?" "en" "accountSettings.modal.edit.title"
+```
+
+```json
+{
+  "accountSettings": {
+    "title": "Account settings",
+    "email": "Email",
+    "modal": {
+        "edit": {
+            "title": "Are you sure you want to change your email?",
+        }
+    }
+  }
+}
 ```
 
 ## Configuration file
@@ -110,12 +141,12 @@ The configuration file is an json file which allow you to modify certain aspects
 
 | Property | Type | Description | Required | Example | Default |
 | --- | --- | --- | --- | --- | --- |
-| `basePath` | string | The path where the translations files are located. | <center>:white_check_mark:</center> | `"./src/assets/i18n"` | |
-| `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | <center>:white_check_mark:</center> | `[{ "name": "en", "files": ["en.json"] }]` | |
+| `basePath` | string | The path where the translations files are located. | :white_check_mark: | `"./src/assets/i18n"` | |
+| `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | :white_check_mark: | `[{ "name": "en", "files": ["en.json"] }]` | |
 
 ## Commands
 
 | Command | Description | Arguments | Example |
 | --- | --- | --- | --- |
-| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. <br/>`sourceLanguage`: The language of the text that you wrote on `text`. <br/>`propertyName`: The property name that you want to be used to include your new translation on your project | `npx i18n-auto-translate translate "my text" "en" "myText"` |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`. `propertyName`: The property name that you want to be used to include your new translation on your project | `npx i18n-auto-translate translate "my text" "en" "myText"` |
 | `help` | Show the help menu with all the available commands. | | `npx i18n-auto-translate help` |
