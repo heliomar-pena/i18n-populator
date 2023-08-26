@@ -16,7 +16,7 @@ npx i18n-translate-generator translate "Hello world" "en" "greetings"
 
 - [x] Generates translations for all the languages that you're handling on your project free.
 - [x] Allow custom paths for translations files and configuration file.
-- [ ] Create the possibility of nest new translations (for example { accountSettings: { title: 'Account settings' } })
+- [x] Create the possibility of nest new translations (for example { accountSettings: { title: 'Account settings' } })
 - [ ] Create landing page and logo for the project.
 - [ ] Handle properly text interpolation on most of cases. For example (Hi {{name}}!)
 - [ ] Allow translate various text at once saving queries to Google Translate API.
@@ -85,18 +85,67 @@ For example
 npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
 ```
 
+### Nested Translations
+
+You can nest translations by using the `.` character on the property name parameter, for example:
+
+```sh
+npx i18n-translate-generator translate "Account settings" "en" "accountSettings.title"
+```
+
+```json
+{
+  "accountSettings": {
+    "title": "Configuración de la cuenta",
+  }
+}
+```
+
+You can continue nesting translations as much as you want.
+
+```sh
+npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
+```
+
+```json
+{
+  "accountSettings": {
+    "title": "Configuración de la cuenta",
+    "email": "Correo electrónico",
+  }
+}
+```
+
+```sh
+npx i18n-translate-generator translate "Are you sure you want to change your email?" "en" "accountSettings.modal.edit.title"
+```
+
+```json
+{
+  "accountSettings": {
+    "title": "Configuración de la cuenta",
+    "email": "Correo electrónico",
+    "modal": {
+      "edit": {
+        "title": "¿Estás seguro que quieres cambiar tu correo?",
+      }
+    }
+  }
+}
+```
+
 ## Configuration file
 
 The configuration file is an json file which allow you to modify certain aspects of the project, like the languages that you want to translate, the path of the translations files, etc. Here is a list of the properties that you can modify on the configuration file.
 
 | Property | Type | Description | Required | Example | Default |
 | --- | --- | --- | --- | --- | --- |
-| `basePath` | string | The path where the translations files are located. | <center>:white_check_mark:</center> | `"./src/assets/i18n"` | |
-| `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | <center>:white_check_mark:</center> | `[{ "name": "en", "files": ["en.json"] }]` | |
+| `basePath` | string | The path where the translations files are located. | :white_check_mark: | `"./src/assets/i18n"` | |
+| `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | :white_check_mark: | `[{ "name": "en", "files": ["en.json"] }]` | |
 
 ## Commands
 
 | Command | Description | Arguments | Example |
 | --- | --- | --- | --- |
-| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. <br/>`sourceLanguage`: The language of the text that you wrote on `text`. <br/>`propertyName`: The property name that you want to be used to include your new translation on your project | `npx i18n-auto-translate translate "my text" "en" "myText"` |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`. `propertyName`: The property name that you want to be used to include your new translation on your project | `npx i18n-auto-translate translate "my text" "en" "myText"` |
 | `help` | Show the help menu with all the available commands. | | `npx i18n-auto-translate help` |
