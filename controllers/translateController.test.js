@@ -8,6 +8,7 @@ describe("TranslateController", () => {
     let text, sourceLanguage, nameOfTranslation;
     beforeEach(() => {
         jest.clearAllMocks();
+        jest.resetModules();
         text = 'Hello World';
         sourceLanguage = 'en';
         nameOfTranslation = 'helloWorld';
@@ -103,7 +104,7 @@ describe("TranslateController", () => {
         expect(file.helloWorld).toBe(`Hello World translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
     });
 
-    it.skip("It's creating properly the files with object nesting", async () => {
+    it("It's creating properly the files with object nesting", async () => {
         const testConfig = {
             basePath: 'test-configs/translations',
             languages: [
@@ -129,7 +130,7 @@ describe("TranslateController", () => {
         expect(file.nested.helloWorld).toBe(`Hello World translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
     })
 
-    it.skip("It's creating properly the files with deep object nesting", async () => {
+    it("It's creating properly the files with deep object nesting", async () => {
         const testConfig = {
             basePath: 'test-configs/translations',
             languages: [
@@ -184,7 +185,7 @@ describe("TranslateController", () => {
         expect(file.helloWorld2).toBe(`Hello World translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
     })
 
-    it.skip("It's preserving old data on the files even when the name of the translation is nested", async () => {
+    it("It's preserving old data on the files even when the name of the translation is nested", async () => {
         const testConfig = {
             basePath: 'test-configs/translations',
             languages: [

@@ -1,5 +1,5 @@
 {
-    "basePath": "example/i18n",
+    "basePath": "test-configs/translations",
     "languages": [
         {
             "name": "en",
