@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { parsePath } = require('./getConfigPath');
 
-const getOrCreateTranslationFile = (basePath, fileName) => {
+const getOrCreateJsonFile = (basePath, fileName) => {
     const parsedPath = parsePath(`${basePath}/${fileName}`);
     
     if (fs.existsSync(parsedPath)) {
@@ -21,4 +21,4 @@ const getOrCreateTranslationFile = (basePath, fileName) => {
     return { file, parsedPath };
 }
 
-module.exports = { getOrCreateTranslationFile };
+module.exports = { getOrCreateJsonFile };

@@ -4,15 +4,19 @@
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "bin": "cli.js",
   "files": [
+    "config.js",
     "cli.js",
     "SUPPORTED-LANGUAGE.json",
-    "utils/translate.js",
     "utils/getConfigPath.js",
-    "utils/getTranslationFile.js"
+    "utils/getOrCreateJsonFile.js",
+    "utils/validateSettingsFile.js",
+    "controllers/translateController.js"
   ],
   "keywords": [
     "i18n",
@@ -29,5 +33,8 @@
     "@vitalets/google-translate-api": "^9.2.0",
     "commander": "^8.3.0",
     "dset": "^3.1.2"
+  },
+  "devDependencies": {
+    "jest": "^29.6.4"
   }
 }
