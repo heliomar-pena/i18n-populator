@@ -96,7 +96,7 @@ npx i18n-translate-generator translate "Account settings" "en" "accountSettings.
 ```json
 {
   "accountSettings": {
-    "title": "Account settings"
+    "title": "Configuración de la cuenta",
   }
 }
 ```
@@ -110,8 +110,8 @@ npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
 ```json
 {
   "accountSettings": {
-    "title": "Account settings",
-    "email": "Email",
+    "title": "Configuración de la cuenta",
+    "email": "Correo electrónico",
   }
 }
 ```
@@ -123,12 +123,12 @@ npx i18n-translate-generator translate "Are you sure you want to change your ema
 ```json
 {
   "accountSettings": {
-    "title": "Account settings",
-    "email": "Email",
+    "title": "Configuración de la cuenta",
+    "email": "Correo electrónico",
     "modal": {
-        "edit": {
-            "title": "Are you sure you want to change your email?",
-        }
+      "edit": {
+        "title": "¿Estás seguro que quieres cambiar tu correo?",
+      }
     }
   }
 }
