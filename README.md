@@ -94,7 +94,6 @@ npx i18n-translate-generator translate "Account settings" "en" "accountSettings.
 ```
 
 ```json
-
 {
   "accountSettings": {
     "title": "Account settings"
