@@ -7,7 +7,7 @@ const { translate } = require('./utils/translate');
 const { configPath } = require('./utils/getConfigPath');
 const { getOrCreateTranslationFile } = require('./utils/getTranslationFile');
 const fs = require('fs');
-const { dset: set } = require('dset');
+const { dset: setDeepValue } = require('dset');
 
 program
   .name('i18n-translate-generator')
@@ -31,8 +31,8 @@ program.command('translate')
         const { text: result } = await translate(text, { from: sourceLanguage, to: language.name });
 
         language.files.forEach(fileName => {
-          let { file: languageJson, parsedPath } = getOrCreateTranslationFile(basePath, fileName);
-          set(languageJson, nameOfTranslation, result);
+          const { file: languageJson, parsedPath } = getOrCreateTranslationFile(basePath, fileName);
+          setDeepValue(languageJson, nameOfTranslation, result);
 
           fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
           console.timeEnd(`Generate translation ${text} ${language.name}`);
