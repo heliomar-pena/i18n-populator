@@ -31,7 +31,7 @@ program.command('translate')
         const { text: result } = await translate(text, { from: sourceLanguage, to: language.name });
 
         language.files.forEach(fileName => {
-          let { file: languageJson, parsedPath } = getOrCreateTranslationFile(basePath, fileName);          
+          let { file: languageJson, parsedPath } = getOrCreateTranslationFile(basePath, fileName);
           set(languageJson, nameOfTranslation, result);
 
           fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
