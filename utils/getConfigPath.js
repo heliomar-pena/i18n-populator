@@ -1,10 +1,13 @@
-const path = require('path');
-const configPath = path.join(process.cwd(), 'i18n-auto-translate.config.json');
+const { defaultConfigPath } = require('../config');
 
-const config = require(configPath);
+const path = require('path');
+const configPath = defaultConfigPath; 
 
 const parsePath = (customPath) => {
     return path.join(process.cwd(), customPath)
-}
+};
+
+const configPathParsed = parsePath(configPath);
+const config = require(configPathParsed);
 
 module.exports = { configPath, config, parsePath };
