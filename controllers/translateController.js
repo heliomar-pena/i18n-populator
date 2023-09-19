@@ -1,4 +1,4 @@
-const { translate } = require('@vitalets/google-translate-api');
+const { translate } = require('../services/translateService');
 const { getOrCreateJsonFile } = require('../utils/getOrCreateJsonFile');
 const fs = require('fs');
 const { parsePath } = require('../utils/getConfigPath');
@@ -17,7 +17,7 @@ const translateController = async (text, sourceLanguage, nameOfTranslation, opti
   const { languages, basePath } = require(settingsFilePath); 
   
   for await (const language of languages) {
-    const { text: result } = await translate(text, { from: sourceLanguage, to: language.name });
+    const { text: result } = await translate(text, sourceLanguage, language.name);
 
     language.files.forEach(fileName => {
       const { file: languageJson, parsedPath } = getOrCreateJsonFile(basePath, fileName);
