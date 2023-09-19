@@ -20,12 +20,15 @@ describe("TranslateController", () => {
         }
     })
 
-    it("It's calling translate function for each language on config path", async () => {
+    it("It's calling translate function for each language on config path except for the source language", async () => {
         const { languages } = config;
 
         await translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: configPath });
 
-        expect(translate).toHaveBeenCalledTimes(languages.length);
+        const isSourceLanguage = languages.some(language => language.name === sourceLanguage);
+        const timesToBeCalled = isSourceLanguage ? languages.length - 1 : languages.length;
+
+        expect(translate).toHaveBeenCalledTimes(timesToBeCalled);
     });
 
     it("It's throwing an error if no config file is found", async () => {
@@ -37,9 +40,15 @@ describe("TranslateController", () => {
             basePath: "test-configs/translations",
             languages: [
                 {
-                    name: 'en',
+                    name: 'es',
                     files: [
-                        "en.json",
+                        "es.json",
+                    ]
+                },
+                {
+                    name: 'fr',
+                    files: [
+                        "fr.json",
                     ]
                 }
             ]
@@ -51,7 +60,7 @@ describe("TranslateController", () => {
 
         await translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/custom-config.json' });
 
-        expect(translate).toHaveBeenCalledTimes(1); 
+        expect(translate).toHaveBeenCalledTimes(2); 
     });
 
     it("It's throwing an error if no languages are found on config file", async () => {
@@ -83,9 +92,9 @@ describe("TranslateController", () => {
             basePath: 'test-configs/translations',
             languages: [
                 {
-                    name: 'en',
+                    name: 'es',
                     files: [
-                        'en.json',
+                        'es.json',
                     ]
                 }
             ]
@@ -109,9 +118,9 @@ describe("TranslateController", () => {
             basePath: 'test-configs/translations',
             languages: [
                 {
-                    name: 'en',
+                    name: 'es',
                     files: [
-                        'en.json',
+                        'es.json',
                     ]
                 }
             ]
@@ -135,9 +144,9 @@ describe("TranslateController", () => {
             basePath: 'test-configs/translations',
             languages: [
                 {
-                    name: 'en',
+                    name: 'es',
                     files: [
-                        'en.json',
+                        'es.json',
                     ]
                 }
             ]
@@ -161,9 +170,9 @@ describe("TranslateController", () => {
             basePath: 'test-configs/translations',
             languages: [
                 {
-                    name: 'en',
+                    name: 'es',
                     files: [
-                        'en.json',
+                        'es.json',
                     ]
                 }
             ]
@@ -190,9 +199,9 @@ describe("TranslateController", () => {
             basePath: 'test-configs/translations',
             languages: [
                 {
-                    name: 'en',
+                    name: 'es',
                     files: [
-                        'en.json',
+                        'es.json',
                     ]
                 }
             ]
