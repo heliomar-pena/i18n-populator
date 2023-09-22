@@ -12,6 +12,10 @@ describe("TranslateController", () => {
         text = 'Hello World';
         sourceLanguage = 'en';
         nameOfTranslation = 'helloWorld';
+        
+        if (fs.existsSync('test-configs')) {
+            fs.rmSync('test-configs', { recursive: true });
+        }
     })
     
     afterEach(() => {

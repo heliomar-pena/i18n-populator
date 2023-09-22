@@ -32,7 +32,8 @@
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.0",
     "commander": "^8.3.0",
-    "dset": "^3.1.2"
+    "dset": "^3.1.2",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "jest": "^29.6.4"
