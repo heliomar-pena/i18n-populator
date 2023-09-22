@@ -35,7 +35,7 @@ const translateController = async (text, sourceLanguage, nameOfTranslation, opti
         shouldOverwrite = ['y', 'yes'].includes(userRequestOverwrite.toLowerCase());
       }
 
-      if (!existProperty || shouldOverwrite) {
+      if (!hasPropertyInFile || shouldOverwrite) {
         setDeepValue(languageJson, nameOfTranslation, result);
         fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
       }
