@@ -4,6 +4,9 @@ const fs = require('fs');
 const { parsePath } = require('../utils/getConfigPath');
 const { validateSettingsFile } = require('../utils/validateSettingsFile');
 const { dset: setDeepValue } = require('dset');
+const { has } = require('../utils/objectUtils');
+const { autoComplete } = require('../utils/promptUtils');
+const prompt = require('prompt-sync')();
 
 const translateController = async (text, sourceLanguage, nameOfTranslation, options) => {
   const settingsFilePath = parsePath(options.settingsFile);
@@ -21,9 +24,22 @@ const translateController = async (text, sourceLanguage, nameOfTranslation, opti
 
     language.files.forEach(fileName => {
       const { file: languageJson, parsedPath } = getOrCreateJsonFile(basePath, fileName);
-      setDeepValue(languageJson, nameOfTranslation, result);
+      const existProperty = has(languageJson, nameOfTranslation); 
+      let userWantsOverwrite = 'no';
+      let wantsOverwrite = false;
 
-      fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
+      if (existProperty) {
+        userWantsOverwrite = prompt(`The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `, {
+          autocomplete: autoComplete(['y', 'n', 'yes', 'no'])
+        });
+
+        wantsOverwrite = ['y', 'yes'].includes(userWantsOverwrite.toLowerCase());
+      }
+
+      if (!existProperty || wantsOverwrite) {
+        setDeepValue(languageJson, nameOfTranslation, result);
+        fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
+      }
     });
   }
 };
