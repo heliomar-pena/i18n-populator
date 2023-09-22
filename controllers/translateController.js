@@ -24,19 +24,18 @@ const translateController = async (text, sourceLanguage, nameOfTranslation, opti
 
     language.files.forEach(fileName => {
       const { file: languageJson, parsedPath } = getOrCreateJsonFile(basePath, fileName);
-      const existProperty = hasProperty(languageJson, nameOfTranslation); 
-      let userWantsOverwrite = 'no';
-      let wantsOverwrite = false;
+      const hasPropertyInFile = hasProperty(languageJson, nameOfTranslation); 
+      let shouldOverwrite = false;
 
-      if (existProperty) {
-        userWantsOverwrite = prompt(`The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `, {
+      if (hasPropertyInFile) {
+        let userRequestOverwrite = prompt(`The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `, {
           autocomplete: autoComplete(['y', 'n', 'yes', 'no'])
         });
 
-        wantsOverwrite = ['y', 'yes'].includes(userWantsOverwrite.toLowerCase());
+        shouldOverwrite = ['y', 'yes'].includes(userRequestOverwrite.toLowerCase());
       }
 
-      if (!existProperty || wantsOverwrite) {
+      if (!existProperty || shouldOverwrite) {
         setDeepValue(languageJson, nameOfTranslation, result);
         fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
       }
