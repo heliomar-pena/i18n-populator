@@ -4,7 +4,7 @@ const fs = require('fs');
 const { parsePath } = require('../utils/getConfigPath');
 const { validateSettingsFile } = require('../utils/validateSettingsFile');
 const { dset: setDeepValue } = require('dset');
-const { has } = require('../utils/objectUtils');
+const { hasProperty } = require('../utils/objectUtils');
 const { autoComplete } = require('../utils/promptUtils');
 const prompt = require('prompt-sync')();
 
@@ -24,7 +24,7 @@ const translateController = async (text, sourceLanguage, nameOfTranslation, opti
 
     language.files.forEach(fileName => {
       const { file: languageJson, parsedPath } = getOrCreateJsonFile(basePath, fileName);
-      const existProperty = has(languageJson, nameOfTranslation); 
+      const existProperty = hasProperty(languageJson, nameOfTranslation); 
       let userWantsOverwrite = 'no';
       let wantsOverwrite = false;
 
