@@ -11,6 +11,11 @@ describe("Object utils tests", () => {
             const obj = { test: "test" };
             expect(hasProperty(obj, "test2")).toBe(false);
         })
+        
+        it("should work using a array of strings as path", () => {
+            const obj = { test: { test2: "test" } };
+            expect(hasProperty(obj, ["test", "test2"])).toBe(true);
+        })
 
         it("should return true if object has the nested property", () => {
             const obj = { test: { test2: "test2" } };
