@@ -4,16 +4,7 @@
  * @returns {function(string): string[]} a function that receives a string and returns an array of commands that start with that string
  */
 const autoComplete = (commands = []) => {
-  return (str) => {
-    var results = [];
-    
-    commands.forEach((command) => {
-      if (command.indexOf(str) == 0)
-        results.push(command);
-    });
-
-    return results;
-  };
+  return (str) => commands.filter((command) => command.indexOf(str) === 0);
 };
 
 module.exports = { autoComplete };
