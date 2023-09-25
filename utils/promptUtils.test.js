@@ -1,4 +1,5 @@
-const {autoComplete} = require('./promptUtils');
+const {autoComplete, confirmUserAction} = require('./promptUtils');
+const prompt = require('prompt-sync')();
 
 describe('promptUtils', () => {
     describe('autoComplete', () => {
@@ -55,4 +56,40 @@ describe('promptUtils', () => {
             expect(result5).toEqual(['maybe']);
         });
     });
+});
+
+describe('confirmUserAction', () => {
+  it('returns true when user confirms action', () => {
+    const message = 'Are you sure you want to proceed?';
+    const expected = true;
+
+    const result = confirmUserAction(message);
+
+    expect(prompt).toHaveBeenCalledWith(message, { autocomplete: expect.any(Function) });
+    expect(result).toEqual(expected);
+  });
+
+  it('returns false when user cancels action', () => {
+    const message = 'Are you sure you want to proceed?';
+    const expected = false;
+
+    prompt.mockImplementationOnce(() => 'no');
+
+    const result = confirmUserAction(message);
+
+    expect(prompt).toHaveBeenCalledWith(message, { autocomplete: expect.any(Function) });
+    expect(result).toEqual(expected);
+  });
+
+  it('returns false if user inserts an invalid option', () => {
+    const message = 'Are you sure you want to proceed?';
+    const expected = false;
+
+    prompt.mockImplementationOnce(() => 'invalid option');
+
+    const result = confirmUserAction(message);
+
+    expect(prompt).toHaveBeenCalledWith(message, { autocomplete: expect.any(Function) });
+    expect(result).toEqual(expected);
+  });
 });

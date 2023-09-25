@@ -320,6 +320,8 @@ describe("TranslateController", () => {
                     name: 'es',
                     files: [
                         'es.json',
+                        'es-ES.json',
+                        'es-MX.json'
                     ]
                 }
             ]
@@ -339,9 +341,13 @@ describe("TranslateController", () => {
 
         await translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/test-config.json' });
 
-        const { file: newFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[0]);
+        const { file: esFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[0]);
+        const { file: esMxFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[1]);
+        const { file: esEsFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[2]);
 
-        expect(newFile[nameOfTranslation]).toBe(text);
+        expect(esFile[nameOfTranslation]).toBe(text);
+        expect(esMxFile[nameOfTranslation]).toBe(`${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
+        expect(esEsFile[nameOfTranslation]).toBe(`${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
 
         expect(prompt).toHaveBeenCalledTimes(1);
     });
