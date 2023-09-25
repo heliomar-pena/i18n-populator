@@ -4,9 +4,7 @@ const fs = require('fs');
 const { parsePath } = require('../utils/getConfigPath');
 const { validateSettingsFile } = require('../utils/validateSettingsFile');
 const { dset: setDeepValue } = require('dset');
-const { hasProperty } = require('../utils/objectUtils');
-const { autoComplete } = require('../utils/promptUtils');
-const prompt = require('prompt-sync')();
+const { validateAndPromptUserJSONFiles } = require('../utils/validateAndPromptUserJSONFiles');
 
 const translateController = async (text, sourceLanguage, nameOfTranslation, options) => {
   const settingsFilePath = parsePath(options.settingsFile);
@@ -20,25 +18,16 @@ const translateController = async (text, sourceLanguage, nameOfTranslation, opti
   const { languages, basePath } = require(settingsFilePath); 
   
   for await (const language of languages) {
+    const filesToEdit = validateAndPromptUserJSONFiles(basePath, language.files, nameOfTranslation);
+
+    if (filesToEdit.length === 0) continue;
+
     const { text: result } = await translate(text, sourceLanguage, language.name);
 
-    language.files.forEach(fileName => {
-      const { file: languageJson, parsedPath } = getOrCreateJsonFile(basePath, fileName);
-      const hasPropertyInFile = hasProperty(languageJson, nameOfTranslation); 
-      let shouldOverwrite = false;
+    filesToEdit.forEach(({ file, parsedPath }) => {
+      setDeepValue(file, nameOfTranslation, result);
 
-      if (hasPropertyInFile) {
-        let userRequestOverwrite = prompt(`The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `, {
-          autocomplete: autoComplete(['y', 'n', 'yes', 'no'])
-        });
-
-        shouldOverwrite = ['y', 'yes'].includes(userRequestOverwrite.toLowerCase());
-      }
-
-      if (!hasPropertyInFile || shouldOverwrite) {
-        setDeepValue(languageJson, nameOfTranslation, result);
-        fs.writeFileSync(parsedPath, JSON.stringify(languageJson, null, 2));
-      }
+      fs.writeFileSync(parsedPath, JSON.stringify(file, null, 2));
     });
   }
 };
