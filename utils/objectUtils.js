@@ -13,9 +13,9 @@ const hasProperty = (obj, path) => {
    * // returns ["test", "test2", "test3"]
    * "test[test2].test3".match(/([^[.\]])+/g)
    */
-  const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g)
+  const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
 
-  const objHasProperty = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], obj) !== undefined;
+  const objHasProperty = pathArray?.reduce((prevObj, key) => prevObj && prevObj[key], obj) !== undefined;
 
   return objHasProperty;
 }
