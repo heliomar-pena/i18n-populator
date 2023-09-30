@@ -86,5 +86,10 @@ describe("Object utils tests", () => {
             const obj = { test: "0" };
             expect(hasProperty(obj, "test")).toBe(true);  
         })
+
+        it("If path string doesn't match with the regexp, should return false", () => {
+            const obj = { test: "test" };
+            expect(hasProperty(obj, ".")).toBe(false);
+        })
     })
 })
