@@ -2,6 +2,7 @@ const { translate } = require('@vitalets/google-translate-api');
 const { translateController } = require('./translateController');
 const { configPath, config } = require('../utils/getConfigPath');
 const { getOrCreateJsonFile } = require('../utils/getOrCreateJsonFile');
+const prompt = require('prompt-sync')();
 const fs = require('fs');
 
 describe("TranslateController", () => {
@@ -12,6 +13,10 @@ describe("TranslateController", () => {
         text = 'Hello World';
         sourceLanguage = 'en';
         nameOfTranslation = 'helloWorld';
+        
+        if (fs.existsSync('test-configs')) {
+            fs.rmSync('test-configs', { recursive: true });
+        }
     })
     
     afterEach(() => {
@@ -277,5 +282,73 @@ describe("TranslateController", () => {
         fs.writeFileSync('test-configs/test-config-with-empty-files.json', JSON.stringify(testConfig, null, 2));
 
         await expect(translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/test-config-with-empty-files.json' })).rejects.toThrow("There is an invalid language config on your settings file, please check it");
+    });
+
+    it("It's notifying the user if the property already exists on the file and ask if he wants to overwrite it", async () => {
+        const testConfig = {
+            basePath: 'test-configs/translations',
+            languages: [
+                {
+                    name: 'es',
+                    files: [
+                        'es.json',
+                    ]
+                }
+            ]
+        }
+
+        getOrCreateJsonFile('test-configs', 'test-config.json', testConfig);
+
+        fs.writeFileSync('test-configs/test-config.json', JSON.stringify(testConfig, null, 2));
+
+        const { file } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[0]);
+
+        file[nameOfTranslation] = text;
+
+        fs.writeFileSync(`${testConfig.basePath}/${testConfig.languages[0].files[0]}`, JSON.stringify(file, null, 2));
+
+        await translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/test-config.json' });
+
+        expect(prompt).toHaveBeenCalledTimes(1);
+    });
+    
+    it("It's not overwriting the file if the user doesn't want to", async () => {
+        const testConfig = {
+            basePath: 'test-configs/translations',
+            languages: [
+                {
+                    name: 'es',
+                    files: [
+                        'es.json',
+                        'es-ES.json',
+                        'es-MX.json'
+                    ]
+                }
+            ]
+        }
+
+        getOrCreateJsonFile('test-configs', 'test-config.json', testConfig);
+
+        fs.writeFileSync('test-configs/test-config.json', JSON.stringify(testConfig, null, 2));
+
+        const { file } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[0]);
+
+        file[nameOfTranslation] = text;
+
+        fs.writeFileSync(`${testConfig.basePath}/${testConfig.languages[0].files[0]}`, JSON.stringify(file, null, 2));
+
+        prompt.mockImplementationOnce(() => 'no');
+
+        await translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/test-config.json' });
+
+        const { file: esFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[0]);
+        const { file: esMxFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[1]);
+        const { file: esEsFile } = getOrCreateJsonFile(testConfig.basePath, testConfig.languages[0].files[2]);
+
+        expect(esFile[nameOfTranslation]).toBe(text);
+        expect(esMxFile[nameOfTranslation]).toBe(`${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
+        expect(esEsFile[nameOfTranslation]).toBe(`${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`);
+
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 });
