@@ -33,6 +33,12 @@ describe('validateAndPromptUserJSONFiles', () => {
         });
     })
 
+    afterEach(() => {
+        if (fs.existsSync('test-configs')) {
+            fs.rmSync('test-configs', { recursive: true });
+        }
+    })
+
     it("should not include the json files that already have the property if the user doesn't confirm it", () => {
         prompt.mockImplementationOnce(() => 'no');
 
