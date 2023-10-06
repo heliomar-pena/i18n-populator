@@ -4,12 +4,12 @@ Make easiest translations for your project with only one terminal command. Gener
 
 ![i18n translations (1)](https://github.com/victor-heliomar/i18n-translation-generator/assets/66505715/2566afc9-7120-466c-b9e5-4301e32bd64d)
 
-This project uses [Google Translate API](https://github.com/vitalets/google-translate-api) to generate the translations, which is using [Translateer](https://github.com/Songkeys/Translateer) to access Google Translate API free an unlimited using Puppeteer. In a future I'll include the option to use an Google API Key so you could use it with your own account.
+This project uses [Google Translate API](https://github.com/vitalets/google-translate-api) and [Bing Translate API](https://github.com/plainheart/bing-translate-api) to generate the translations. In a future I'll include the option to use an Google API Key / Bing Api Key so you could use it with your own account.
 
 > DISCLAIMER! To be 100% legal please use official Google Translate API.
 
 ```sh
-npx i18n-translate-generator translate "Hello world" "en" "greetings"
+npx i18n-translate-generator translate "Hello world" "en" "greetings" --engine "bing"
 ```
 
 ## Roadmap
@@ -17,6 +17,7 @@ npx i18n-translate-generator translate "Hello world" "en" "greetings"
 - [x] Generates translations for all the languages that you're handling on your project free.
 - [x] Allow custom paths for translations files and configuration file.
 - [x] Create the possibility of nest new translations (for example { accountSettings: { title: 'Account settings' } })
+- [x] Integrate at least two translation APIs so user could use the one that fits better for him.
 - [ ] Create landing page and logo for the project.
 - [ ] Handle properly text interpolation on most of cases. For example (Hi {{name}}!)
 - [ ] Allow translate various text at once saving queries to Google Translate API.
@@ -26,21 +27,21 @@ npx i18n-translate-generator translate "Hello world" "en" "greetings"
 
 1. Create translations for all the languages that you're handling on your project with only one command for free saving a lot of time.
 2. It's easy to use and configure.
-3. Doesn't need Google Translation API Key.
+3. API Key is not mandatory. (Next versions will allow use your own API Key in case you want to use your own account and avoid free request limit)
 4. Work on the most recent versions of NodeJS. (Tested on v14.16.1)
 
 ## How to use
 
 ### Install
 
-Actually it is not required to install it on your project to work. But you can optionally install it locally or globally with npm or yarn. So when you ran npx it will use your local or global installation instead of download it each time.
+Actually it is not required to install it on your project to work. But you can optionally install it locally or globally with npm or yarn. So when you ran npx it will use your local or global installation instead of download it each time. In case you want to install it on your project it's recommended install it as dev dependency.
 
 ```sh
-npm install i18n-translate-generator
+npm install --save-dev i18n-translate-generator
 ```
 
 ```sh
-yarn add i18n-translate-generator
+yarn add i18n-translate-generator --dev
 ```
 
 ### Translate
@@ -50,6 +51,10 @@ yarn add i18n-translate-generator
 ```json
 {
     "basePath": "example/i18n", // The base path where is your translation json files
+    "translationEngines": [ // Your preference translation engines
+        "google",
+        "bing"
+    ],
     "languages": [ // The languages that you want to translate
         {
             "name": "en", // The language that you're handling on the files that you will include in files property
@@ -83,6 +88,54 @@ For example
 
 ```sh
 npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
+```
+
+### Choosing translation engine
+
+Currently there are two translation engines available, Google Translate and Bing Translate. There are two ways to configure the engine(s) that you want to use. The first one is specifying the engines on the configuration file, and the second one is specifying the engine that you want to use on the command.
+
+#### How it works
+
+You can only specify one engine through the CLI command, but you can specify multiple engines on the configuration file. When you define multiple engines on the configuration file, it will use them on order of preference, and if one of them fails, it will use the next one.
+
+If you don't define any engine on the configuration file and you don't specify any engine on the command, it will use by default all the translation engine that are free and doesn't need API Key.
+
+#### Define engines on configuration file
+
+To define them on the configuration file you should create a new property called "translationEngines", which should content an array of engines in order of preference (I meant, put first the engine that you like more and then the second one that you like more, and so on). The engines that you can use are "google" and "bing".
+
+For example:
+
+```json
+{
+    "basePath": "example/i18n", // The base path where is your translation json files
+    "translationEngines": [ // Your preference translation engines
+        "google",
+        "bing"
+    ],
+    "languages": [ // The languages that you want to translate
+        {
+            "name": "en", // The language that you're handling on the files that you will include in files property
+            "files": [
+                "en.json" // All the files where you're handling the language mentioned above
+            ]
+        }
+    ]
+}
+```
+
+#### Define engine on command
+
+To define the engine on the command you should use the flag `-e` or `--engine` followed by the engine that you want to use. The engines that you can use are "google" and "bing". 
+
+If you specify a engine on the command, it will put it on the first position of the array of engines, and then it will use the engines that you defined on the configuration file.
+
+If you don't specify any engine, the program will try to get your preferences from your configuration file, and if you don't have any configuration file, it will use by default all the translation engine that are free and doesn't need API Key.
+
+For example:
+
+```sh
+npx i18n-translate-generator translate "Welcome to the jungle" "en" "welcomeMessage" -e "bing"
 ```
 
 ### Nested Translations
@@ -142,6 +195,7 @@ The configuration file is an json file which allow you to modify certain aspects
 | --- | --- | --- | --- | --- | --- |
 | `basePath` | string | The path where the translations files are located. | :white_check_mark: | `"./src/assets/i18n"` | |
 | `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | :white_check_mark: | `[{ "name": "en", "files": ["en.json"] }]` | |
+| `translationEngines` | string[] | The translation engines that you want to use in order of preference. The available engines are "google" and "bing". | | `["google", "bing"]` | `["google", "bing"]` |
 
 ## Commands
 

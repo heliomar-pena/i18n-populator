@@ -31,6 +31,7 @@
   "license": "ISC",
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.0",
+    "bing-translate-api": "^2.9.1",
     "commander": "^8.3.0",
     "dset": "^3.1.2",
     "prompt-sync": "^4.2.0"
