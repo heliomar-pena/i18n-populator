@@ -35,6 +35,6 @@ describe('translate', () => {
 
   it('should throw an error if an invalid engine is provided', async () => {
     const engine = 'invalid';
-    await expect(translate(text, from, to, engine)).rejects.toThrow(`Invalid engine. Try with one of these: ${validEngines}`);
+    await expect(translate(text, from, to, engine)).rejects.toThrow(`Invalid engine. Try with one of these: ${validEngines.join(', ')}`);
   });
 });

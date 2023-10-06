@@ -1,5 +1,3 @@
-const { validEngines } = require("../services/translateService");
-
 /**
  * By default use Engines that doesn't require an API key
  */
@@ -25,4 +23,4 @@ const getTranslationEnginesToUse = ({ settingsTranslationEngines, cliArgEngine }
     return translationEnginesToUse;
 }
 
-module.exports = { getTranslationEnginesToUse }
+module.exports = { getTranslationEnginesToUse, DEFAULT_ENGINES }
