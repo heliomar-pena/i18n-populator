@@ -1,5 +1,9 @@
 {
     "basePath": "test-configs/translations",
+    "translationEngines": [
+        "google",
+        "bing"
+    ],
     "languages": [
         {
             "name": "en",
