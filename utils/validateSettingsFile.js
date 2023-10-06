@@ -1,10 +1,11 @@
 const fs = require('fs');
+const { validEngines, isEngineValid } = require('../services/translateService');
 
 const validateSettingsFile = (settingsFilePath) => { 
     const existsFile = fs.existsSync(settingsFilePath);
     if (!settingsFilePath || !existsFile) throw new Error(`No settings file found on file path ${settingsFilePath}`);
 
-    const { languages, basePath } = require(settingsFilePath); 
+    const { languages, basePath, translationEngines: settingsTranslationEngines } = require(settingsFilePath); 
     
     if (!languages?.length || !basePath?.length) throw new Error('No languages or basePath found, please check your settings file');
 
@@ -20,6 +21,12 @@ const validateSettingsFile = (settingsFilePath) => {
     });
 
     if (!isValidLanguagesConfig) throw new Error('There is an invalid language config on your settings file, please check it');
+
+    if (settingsTranslationEngines?.length) {
+        const isValidSettingsTranslationEngines = settingsTranslationEngines?.every(isEngineValid);
+
+        if (!isValidSettingsTranslationEngines) throw new Error(`There is an invalid translation engine on your settings file, here are the valid ones: ${validEngines.join(', ')}`);
+    }
 
     return true;
 }
