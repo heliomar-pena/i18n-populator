@@ -16,6 +16,7 @@ program.command('translate')
   .argument('<text>', 'Text to translate')
   .addArgument(new Argument('<source-language>', 'source language of the string').choices(supportedLanguages))
   .argument('<name-of-translation>', 'Name of your translation')
+  .option('-e, --engine <string>', 'engine to use for the translation')
   .option('-s, --settings-file <string>', 'path to the settings file', configPath)
   .action(translateController);
 

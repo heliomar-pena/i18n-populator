@@ -1,7 +1,9 @@
 const { translate: googleTranslate } = require('@vitalets/google-translate-api');
+const { translate: bingTranslate } = require('./bingTranslate');
 
 const translateEngines = {
-    google: googleTranslate
+    google: googleTranslate,
+    bing: bingTranslate
 }
 
 const validEngines = Object.keys(translateEngines).join(', ');
