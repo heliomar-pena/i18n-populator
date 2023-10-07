@@ -126,7 +126,7 @@ For example:
 
 #### Define engine on command
 
-To define the engine on the command you should use the flag `-e` or `--engine` followed by the engine that you want to use. The engines that you can use are "google" and "bing". 
+To define the engine on the command you should use the flag `-e` or `--engine` followed by the engine that you want to use. The engines that you can use are "google" and "bing".
 
 If you specify a engine on the command, it will put it on the first position of the array of engines, and then it will use the engines that you defined on the configuration file.
 
@@ -199,7 +199,7 @@ The configuration file is an json file which allow you to modify certain aspects
 
 ## Commands
 
-| Command | Description | Arguments | Example |
-| --- | --- | --- | --- |
-| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`. `propertyName`: The property name that you want to be used to include your new translation on your project | `npx i18n-auto-translate translate "my text" "en" "myText"` |
-| `help` | Show the help menu with all the available commands. | | `npx i18n-auto-translate help` |
+| Command | Description | Arguments | Options | Example |
+| --- | --- | --- | --- | --- |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate.<br /> `sourceLanguage`: The language of the text that you wrote on `text`.<br/>`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. <br>`--settings-file, -s`: Custom path for the settings file. Default is "i18n-auto-translate.config.json" | `npx i18n-auto-translate translate "my text" "en" "myText"` |
+| `help` | Show the help menu with all the available commands. | | | `npx i18n-auto-translate help` |
