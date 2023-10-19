@@ -1,6 +1,6 @@
 {
   "name": "i18n-translate-generator",
-  "version": "1.0.16",
+  "version": "1.0.2",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,14 @@
     "SUPPORTED-LANGUAGE.json",
     "utils/getConfigPath.js",
     "utils/getOrCreateJsonFile.js",
+    "utils/getTranslationEnginePreferences.js",
+    "utils/objectUtils.js",
+    "utils/promptUtils.js",
+    "utils/validateAndPromptUserJSONFiles.js",
     "utils/validateSettingsFile.js",
-    "controllers/translateController.js"
+    "controllers/translateController.js",
+    "services/bingTranslate.js",
+    "services/translateService.js"
   ],
   "keywords": [
     "i18n",
