@@ -10,3 +10,7 @@ jest.mock(
   },
   { virtual: true },
 );
+
+jest.mock('bing-translate-api', () => ({
+  translate: jest.fn((text, from, to) => ({ translation: `${text} translated from ${from} to ${to} using bing` })),
+}));

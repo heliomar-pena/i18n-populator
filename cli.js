@@ -14,9 +14,10 @@ program
 program.command('translate')
   .description('Translate a text and put the result on the files in the output directory')
   .argument('<text>', 'Text to translate')
-  .addArgument(new Argument('<source-language>', 'source language of the string').choices(supportedLanguages))
+  .addArgument(new Argument('<source-language>', 'Source language of the string').choices(supportedLanguages))
   .argument('<name-of-translation>', 'Name of your translation')
-  .option('-s, --settings-file <string>', 'path to the settings file', configPath)
+  .option('-e, --engine <string>', "Engine to use for the translation. In case you don't define it will be use by default all the translation engines that are free and doesn't requires API Key.")
+  .option('-s, --settings-file <string>', 'Path to the settings file', configPath)
   .action(translateController);
 
 program.parse();

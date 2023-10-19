@@ -4,6 +4,7 @@ const { configPath, config } = require('../utils/getConfigPath');
 const { getOrCreateJsonFile } = require('../utils/getOrCreateJsonFile');
 const prompt = require('prompt-sync')();
 const fs = require('fs');
+const { validEngines } = require('../services/translateService');
 
 describe("TranslateController", () => {
     let text, sourceLanguage, nameOfTranslation;
@@ -79,6 +80,29 @@ describe("TranslateController", () => {
 
         await expect(translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/no-languages.json' })).rejects.toThrow("No languages or basePath found, please check your settings file");
     })
+
+    it("It's throwing an error if an invalid translation engine is provided", async () => {
+        const invalidTranslationEngineConfig = {
+            basePath: "test-configs/translations",
+            translationEngines: [
+                'invalid-engine',
+            ],
+            languages: [
+                {
+                    name: 'es',
+                    files: [
+                        "es.json",
+                    ]
+                }
+            ]
+        };
+
+        getOrCreateJsonFile('test-configs', 'invalid-translation-engine.json', invalidTranslationEngineConfig)
+
+        fs.writeFileSync('test-configs/invalid-translation-engine.json', JSON.stringify(invalidTranslationEngineConfig, null, 2));
+
+        await expect(translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: 'test-configs/invalid-translation-engine.json' })).rejects.toThrow(`There is an invalid translation engine on your settings file, here are the valid ones: ${validEngines.join(', ')}`);
+    });
 
     it("It's throwing an error if text is not provided", async () => {
         await expect(translateController(undefined, sourceLanguage, nameOfTranslation, { settingsFile: configPath })).rejects.toThrow("No text to translate provided");
