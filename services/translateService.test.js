@@ -18,6 +18,13 @@ describe('translate', () => {
     expect(result.text).toBe(`Hello world! translated from ${from} to ${to}`);
   });
 
+  it('should translate text from English to Spanish using Bing Translate', async () => {
+    const engine = 'bing';
+    const result = await translate(text, from, to, engine);
+
+    expect(result.text).toBe(`Hello world! translated from ${from} to ${to} using ${engine}`);
+  });
+
   it('should return the same text if from and to languages are the same', async () => {
     to = 'en';
 
@@ -28,6 +35,6 @@ describe('translate', () => {
 
   it('should throw an error if an invalid engine is provided', async () => {
     const engine = 'invalid';
-    await expect(translate(text, from, to, engine)).rejects.toThrow(`Invalid engine. Try with one of these: ${validEngines}`);
+    await expect(translate(text, from, to, engine)).rejects.toThrow(`Invalid engine. Try with one of these: ${validEngines.join(', ')}`);
   });
 });
