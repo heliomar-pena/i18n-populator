@@ -1,10 +1,16 @@
-const { translate: googleTranslate } = require("@vitalets/google-translate-api");
+const {
+  translate: googleTranslate,
+} = require("@vitalets/google-translate-api");
 const { translate: bingTranslate } = require("./bingTranslate");
-const { getTranslationEnginesToUse } = require("../utils/getTranslationEnginePreferences");
+const { translate: libreTranslate } = require("./libreTranslate");
+const {
+  getTranslationEnginesToUse,
+} = require("../utils/getTranslationEnginePreferences");
 
 const translateEngines = {
   google: googleTranslate,
   bing: bingTranslate,
+  libreTranslate,
 };
 
 const validEngines = Object.keys(translateEngines);
@@ -27,7 +33,9 @@ const isEngineValid = (engine) => validEngines.includes(engine);
  */
 const translate = async (text, from, to, engine = "google") => {
   if (!translateEngines[engine])
-    throw new Error(`Invalid engine. Try with one of these: ${validEngines.join(', ')}`);
+    throw new Error(
+      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
+    );
 
   if (from === to) return { text };
 
@@ -96,4 +104,9 @@ const setTranslateWithFallbackEngines = ({
   return { engines, translate: translateWithFallbackEngines };
 };
 
-module.exports = { translate, validEngines, setTranslateWithFallbackEngines, isEngineValid };
+module.exports = {
+  translate,
+  validEngines,
+  setTranslateWithFallbackEngines,
+  isEngineValid,
+};
