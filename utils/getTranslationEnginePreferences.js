@@ -1,7 +1,7 @@
 /**
  * By default use Engines that doesn't require an API key
  */
-const DEFAULT_ENGINES = ['google', 'bing'];
+const DEFAULT_ENGINES = ['google', 'bing', 'libreTranslate'];
 
 /**
  * Returns an array of translation engines to use based on the provided settings and CLI arguments. If no one is provided then the default engines are returned.
