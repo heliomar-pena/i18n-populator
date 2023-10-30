@@ -2,7 +2,8 @@
     "basePath": "test-configs/translations",
     "translationEngines": [
         "google",
-        "bing"
+        "bing",
+        "libreTranslate"
     ],
     "languages": [
         {

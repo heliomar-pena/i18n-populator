@@ -4,12 +4,13 @@ Make easiest translations for your project with only one terminal command. Gener
 
 ![i18n translations (1)](https://github.com/victor-heliomar/i18n-translation-generator/assets/66505715/2566afc9-7120-466c-b9e5-4301e32bd64d)
 
-This project uses [Google Translate API](https://github.com/vitalets/google-translate-api) and [Bing Translate API](https://github.com/plainheart/bing-translate-api) to generate the translations. In a future I'll include the option to use an Google API Key / Bing Api Key so you could use it with your own account.
+This project uses [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate), [Google Translate API](https://github.com/vitalets/google-translate-api) and [Bing Translate API](https://github.com/plainheart/bing-translate-api) to generate the translations. In a future I'll include the option to use an Google API Key / Bing Api Key so you could use it with your own account.
 
-> DISCLAIMER! To be 100% legal please use official Google Translate API.
+> DISCLAIMER! To be 100% legal please use LibreTranslate engine or use the official Bing or Google Translate API.
 
 ```sh
 npx i18n-translate-generator translate "Hello world" "en" "greetings" --engine "bing"
+
 ```
 
 ## Roadmap
@@ -38,10 +39,12 @@ Actually it is not required to install it on your project to work. But you can o
 
 ```sh
 npm install --save-dev i18n-translate-generator
+
 ```
 
 ```sh
 yarn add i18n-translate-generator --dev
+
 ```
 
 ### Translate
@@ -53,7 +56,8 @@ yarn add i18n-translate-generator --dev
     "basePath": "example/i18n", // The base path where is your translation json files
     "translationEngines": [ // Your preference translation engines
         "google",
-        "bing"
+        "bing",
+        "libreTranslate"
     ],
     "languages": [ // The languages that you want to translate
         {
@@ -64,6 +68,7 @@ yarn add i18n-translate-generator --dev
         }
     ]
 }
+
 ```
 
 Also you can check an example on [configuration file](./i18n-auto-translate.config.json)
@@ -72,12 +77,14 @@ Also you can check an example on [configuration file](./i18n-auto-translate.conf
 
 ```sh
 npx i18n-translate-generator translate "Hello world" "en" "greetings"
+
 ```
 
 Another example in spanish
 
 ```sh
 npx i18n-translate-generator translate "Hola mundo" "es" "greetings"
+
 ```
 
 You only need to specify in what language is wrote the text that you're passing through command, since all the languages that you want to translate are specified on the configuration file.
@@ -88,6 +95,7 @@ For example
 
 ```sh
 npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
+
 ```
 
 ### Choosing translation engine
@@ -111,7 +119,8 @@ For example:
     "basePath": "example/i18n", // The base path where is your translation json files
     "translationEngines": [ // Your preference translation engines
         "google",
-        "bing"
+        "bing",
+        "libreTranslate"
     ],
     "languages": [ // The languages that you want to translate
         {
@@ -122,6 +131,7 @@ For example:
         }
     ]
 }
+
 ```
 
 #### Define engine on command
@@ -136,6 +146,7 @@ For example:
 
 ```sh
 npx i18n-translate-generator translate "Welcome to the jungle" "en" "welcomeMessage" -e "bing"
+
 ```
 
 ### Nested Translations
@@ -144,6 +155,7 @@ You can nest translations by using the `.` character on the property name parame
 
 ```sh
 npx i18n-translate-generator translate "Account settings" "en" "accountSettings.title"
+
 ```
 
 ```json
@@ -152,12 +164,14 @@ npx i18n-translate-generator translate "Account settings" "en" "accountSettings.
     "title": "Configuración de la cuenta",
   }
 }
+
 ```
 
 You can continue nesting translations as much as you want.
 
 ```sh
 npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
+
 ```
 
 ```json
@@ -167,10 +181,12 @@ npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
     "email": "Correo electrónico",
   }
 }
+
 ```
 
 ```sh
 npx i18n-translate-generator translate "Are you sure you want to change your email?" "en" "accountSettings.modal.edit.title"
+
 ```
 
 ```json
@@ -185,6 +201,7 @@ npx i18n-translate-generator translate "Are you sure you want to change your ema
     }
   }
 }
+
 ```
 
 ## Configuration file
@@ -195,11 +212,11 @@ The configuration file is an json file which allow you to modify certain aspects
 | --- | --- | --- | --- | --- | --- |
 | `basePath` | string | The path where the translations files are located. | :white_check_mark: | `"./src/assets/i18n"` | |
 | `languages` | { name: string, files: string[] }[] | The languages that you want to translate and the files where are you saving their translations | :white_check_mark: | `[{ "name": "en", "files": ["en.json"] }]` | |
-| `translationEngines` | string[] | The translation engines that you want to use in order of preference. The available engines are "google" and "bing". | | `["google", "bing"]` | `["google", "bing"]` |
+| `translationEngines` | string[] | The translation engines that you want to use in order of preference. The available engines are "google", "libreTranslate" and "bing". | | `["google", "bing", "libreTranslate"]` | `["google", "bing", "libreTranslate"]` |
 
 ## Commands
 
 | Command | Description | Arguments | Options | Example |
 | --- | --- | --- | --- | --- |
-| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate.<br /> `sourceLanguage`: The language of the text that you wrote on `text`.<br/>`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. <br>`--settings-file, -s`: Custom path for the settings file. Default is "i18n-auto-translate.config.json" | `npx i18n-auto-translate translate "my text" "en" "myText"` |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`.`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. `--settings-file, -s`: Custom path for the settings file. Default is "i18n-auto-translate.config.json" | `npx i18n-auto-translate translate "my text" "en" "myText"` |
 | `help` | Show the help menu with all the available commands. | | | `npx i18n-auto-translate help` |
