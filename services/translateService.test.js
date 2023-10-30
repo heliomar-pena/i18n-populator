@@ -2,7 +2,7 @@ const {
   translate: googleTranslate,
 } = require("@vitalets/google-translate-api");
 const { translate: libreTranslate } = require("./libreTranslate");
-const { translate: bingTranslate } = require("./bingTranslate");
+const { translate: bingTranslate } = require("bing-translate-api");
 const { translate, validEngines } = require("./translateService");
 
 describe("translate", () => {
