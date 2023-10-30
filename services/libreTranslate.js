@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 
 const mirrors = [
-    "https://translate.terraprint.co/translate",
-    "https://trans.zillyhuhn.com/translate",
+    "https://transdkjfhslate.terraprint.co/translate",
+    "https://transdsfhsjfs.zillyhuhn.com/translate",
 ]
 
 const libreTranslate = async (text, {from, to}) => {
@@ -21,9 +21,11 @@ const libreTranslate = async (text, {from, to}) => {
             
             return { text: res.translatedText }
         } catch (err) {
-            console.log(`Mirror failed: ${url}. Trying with the next one...`)
+            console.log(`Mirror failed: ${url} with the next error:\n\n> ${err.message}\n\nTrying with the next one...\n`);
         }
     }
+
+    throw new Error("All libreTranslate mirrors failed. Please try again later.")
 }
 
 const translate = async (text, { from, to }) => {
