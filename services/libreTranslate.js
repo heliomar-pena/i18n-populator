@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 
 const mirrors = [
-    "https://transdkjfhslate.terraprint.co/translate",
-    "https://transdsfhsjfs.zillyhuhn.com/translate",
+    "https://translate.terraprint.co/translate",
+    "https://trans.zillyhuhn.com/translate",
 ]
 
 const libreTranslate = async (text, {from, to}) => {
