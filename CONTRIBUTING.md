@@ -29,7 +29,7 @@ Scan through our existing issues to find one that interests you. If you find an 
 
 #### Help to solve the community doubts
 
-If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts throught the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/CODE_OF_CONDUCT.md)
+If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/CODE_OF_CONDUCT.md)
 
 ### Making changes
 
@@ -64,13 +64,18 @@ Congratulations 🎉🎉 The i18n translation generator team thanks you ✨.
 This is a list of ideas that which you can check if you wants collaborate on the project but still doesn't know what could you do:
 
 1. Integrate a new translation API
-  -  As the most of translation API requires API Key, there are a lot of services that I could not integrate on this project, the most of projects have limited countries where their services works, for example, and I will not be able to integrate the most of them. Translation APIs as [DeepL](https://www.deepl.com/en/translator) for example, or another one that you uses and is not here, feel free of integrate it on the code so you and other users that already are clients of those translation services would be able to use it also, everything thanks to you. So if there is any translation service that you're using, it have API, and you have an API key that you can use for development, you can help us to integrate it to the project.
+
+- As the most of translation API requires API Key, there are a lot of services that I could not integrate on this project, the most of projects have limited countries where their services works, for example, and I will not be able to integrate the most of them. Translation APIs as [DeepL](https://www.deepl.com/en/translator) for example, or another one that you uses and is not here, feel free of integrate it on the code so you and other users that already are clients of those translation services would be able to use it also, everything thanks to you. So if there is any translation service that you're using, it have API, and you have an API key that you can use for development, you can help us to integrate it to the project.
+
 2. Improve the documentation
-  -  Documentation is a exhaustive work, create readable and clear documentations for all the project is not an easy task, and of course, will help to know the point of view of other people. That is why if you see that there is something that could be improved on the doc, you could suggest it as a PR or as an issue and it will help us a lot.
+
+- Documentation is a exhaustive work, create readable and clear documentations for all the project is not an easy task, and of course, will help to know the point of view of other people. That is why if you see that there is something that could be improved on the doc, you could suggest it as a PR or as an issue and it will help us a lot.
+
 3. Collaborate on side projects related to the project
-  -  We are currently working on some projects related to i18n translation generator in order to improve the way you create i18n translations the most possible. Projects in mind are:
-    1. Landing Page to explain easily the idea to developers.
-    2. Documentation Page in order to improve the doc of the project and make more easier the use of it.
-    3. Visual Studio Code Extension in order to create a user interface for users that doesn't feel comfortable with CLI Commands. 
-    
+
+- We are currently working on some projects related to i18n translation generator in order to improve the way you create i18n translations the most possible. Projects in mind are:
+   1. Landing Page to explain easily the idea to developers.
+   2. Documentation Page in order to improve the doc of the project and make more easier the use of it.
+   3. Visual Studio Code Extension in order to create a user interface for users that doesn't feel comfortable with CLI Commands.
+
 Feel free to collaborate on any of them! We would appreciate any help!
