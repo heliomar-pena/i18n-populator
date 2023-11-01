@@ -15,13 +15,13 @@ To get an overview of the project, read the README file. Here are some resources
 
 ## Getting started
 
-There are a lot of things that you could do to collaborate on open sources projects!. Will leave you some ideas about what could you do to help us to improve i18n translation generator
+There are a lot of things that you could do to collaborate on open sources projects!. Will leave you some ideas about what could you do to help us to improve i18n translation generator.
 
 ### Issues
 
 #### Create a new issue
 
-If you spot any problem while using the project, see any error on the doc, or just wants to suggest changes to improve the project you can [create a new issue](https://github.com/victor-heliomar/i18n-translation-generator/issues/new/choose). Please make sure of check first that the issue doesn't exists already exists on the [issues list](https://github.com/victor-heliomar/i18n-translation-generator/issues)
+If you spot any problem while using the project, see any error on the doc, or just wants to suggest changes to improve the project you can [create a new issue](https://github.com/victor-heliomar/i18n-translation-generator/issues/new/choose). Please make sure of check first that the issue doesn't exists already exists on the [issues list](https://github.com/victor-heliomar/i18n-translation-generator/issues).
 
 #### Solve an issue
 
@@ -29,7 +29,7 @@ Scan through our existing issues to find one that interests you. If you find an 
 
 #### Help to solve the community doubts
 
-If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/CODE_OF_CONDUCT.md)
+If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/CODE_OF_CONDUCT.md).
 
 ### Making changes
 
@@ -49,7 +49,7 @@ Commit the changes once you're happy with them. Please make sure you're adding a
 
 When you're finished with the changes, create a pull request, also known as a PR.
 
-- Add a clear description and title about your changes to your PR information, so reviewers can understand easily the context of your code and code review process is speed up 🚀
+- Add a clear description and title about your changes to your PR information, so reviewers can understand easily the context of your code and code review process is speed up 🚀.
 - Don't forget to [link PR to issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) if you are solving one.
 - We may ask for changes to be made before a PR can be merged, either using [suggested changes](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request) or pull request comments. You can apply suggested changes directly through the UI. You can make any other changes in your fork, then commit them to your branch.
 - As you update your PR and apply changes, mark each conversation as [resolved](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request#resolving-conversations).
