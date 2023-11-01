@@ -37,7 +37,7 @@ If there is any doubt on any issue and you think you can help to solve it, then 
 
 1. Fork the repository.
 2. Clone the repository forked.
-3. Install or update to Node.js, at the version specified in .npmrc file.
+3. Install or update to Node.js, at the version specified in `.npmrc` file.
 4. Create a working branch and start working on your changes.
 5. Make sure adding tests to your new changes and self-review your code to speed up review process.
 
