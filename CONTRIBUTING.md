@@ -1,6 +1,6 @@
 # Welcome to the i18n Translation Generator contributing guide
 
-Thank you for investing your time in contributing to our project! Any contribution you make will be reflected on docs.github.com ✨.
+Thank you for investing your time in contributing to our project!.
 
 In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
 
