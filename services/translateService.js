@@ -6,6 +6,7 @@ const { translate: libreTranslate } = require("./libreTranslate");
 const {
   getTranslationEnginesToUse,
 } = require("../utils/getTranslationEnginePreferences");
+const { validateLanguageIsSupportedByEngine } = require("../utils/validateLanguageIsSupportedByEngine");
 
 const translateEngines = {
   google: googleTranslate,
@@ -76,18 +77,27 @@ const setTranslateWithFallbackEngines = ({
     );
 
     for await (const engine of enginesFiltered) {
-      await translate(text, from, to, engine)
-        .then(({ text }) => {
-          result = text;
-        })
-        .catch(() => {
-          console.log(
-            `Error translating with ${engine} engine. Trying next engine...`
-          );
-          enginesFailed.push(engine);
-        });
+      try {
+        // Validate that the language is supported by the engine to avoid unnecessary network requests
+        validateLanguageIsSupportedByEngine(from, engine);
+        validateLanguageIsSupportedByEngine(to, engine);
 
-      if (result) break;
+        await translate(text, from, to, engine)
+          .then(({ text }) => {
+            result = text;
+            console.log(`Translated successfully with ${engine} engine. Result: ${text}`)
+          })
+          .catch(() => {
+            console.log(
+              `Error translating with ${engine} engine. Trying next engine...`
+            );
+            enginesFailed.push(engine);
+          });
+
+        if (result) break;
+      } catch (error) {
+        console.log(error.message);
+      }
     }
 
     if (!result) {

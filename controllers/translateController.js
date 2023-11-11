@@ -4,17 +4,17 @@ const { validateSettingsFile } = require('../utils/validateSettingsFile');
 const { dset: setDeepValue } = require('dset');
 const { validateAndPromptUserJSONFiles } = require('../utils/validateAndPromptUserJSONFiles');
 const { setTranslateWithFallbackEngines, isEngineValid } = require('../services/translateService');
+const { validateLanguageRequested } = require('../utils/validateLanguageRequested');
 
 const translateController = async (text, sourceLanguage, nameOfTranslation, options) => {
   const settingsFilePath = parsePath(options.settingsFile);
-  const isValidSettingsFile = validateSettingsFile(settingsFilePath);
-
-  if (!isValidSettingsFile) throw new Error('Invalid settings file');
+  validateSettingsFile(settingsFilePath);
+  validateLanguageRequested(sourceLanguage, options.engine);
+  
   if (!text) throw new Error('No text to translate provided');
-  if (!sourceLanguage) throw new Error('No source language provided');
   if (!nameOfTranslation) throw new Error('No name of translation provided');
   
-  const { languages, basePath, translationEngines: settingsTranslationEngines } = require(settingsFilePath); 
+  const { languages, basePath, translationEngines: settingsTranslationEngines } = require(settingsFilePath);
 
   if (options.engine && !isEngineValid(options.engine)) throw new Error(`You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(', ')}`);
 
