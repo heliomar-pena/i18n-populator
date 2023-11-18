@@ -1,27 +1,8 @@
 const {
-  translate: googleTranslate,
-} = require("@vitalets/google-translate-api");
-const { translate: bingTranslate } = require("./bingTranslate");
-const { translate: libreTranslate } = require("./libreTranslate");
-const {
-  getTranslationEnginesToUse,
-} = require("../utils/getTranslationEnginePreferences");
-const { validateLanguageIsSupportedByEngine } = require("../utils/validateLanguageIsSupportedByEngine");
-
-const translateEngines = {
-  google: googleTranslate,
-  bing: bingTranslate,
-  libreTranslate,
-};
-
-const validEngines = Object.keys(translateEngines);
-
-/**
- * Checks if the given translation engine is valid.
- * @param {string} engine - The translation engine to check.
- * @returns {boolean} - True if the given translation engine is valid, false otherwise.
- */
-const isEngineValid = (engine) => validEngines.includes(engine);
+  getLanguageCodeByEngine,
+} = require("../utils/supportedLanguagesUtils");
+const { getTranslationEnginesToUse } = require("../utils/getTranslationEnginePreferences");
+const { validEngines, translateEngines, isEngineValid } = require("../utils/translationEnginesUtils");
 
 /**
  * Translates the given text from one language to another using the specified translation engine.
@@ -33,7 +14,7 @@ const isEngineValid = (engine) => validEngines.includes(engine);
  * @throws {Error} - If an invalid translation engine is specified.
  */
 const translate = async (text, from, to, engine = "google") => {
-  if (!translateEngines[engine])
+  if (!isEngineValid(engine))
     throw new Error(
       `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
     );
@@ -79,19 +60,19 @@ const setTranslateWithFallbackEngines = ({
     for await (const engine of enginesFiltered) {
       try {
         // Validate that the language is supported by the engine to avoid unnecessary network requests
-        validateLanguageIsSupportedByEngine(from, engine);
-        validateLanguageIsSupportedByEngine(to, engine);
+        const fromLanguageCode = getLanguageCodeByEngine(from, engine);
+        const toLanguageCode = getLanguageCodeByEngine(to, engine);
 
-        await translate(text, from, to, engine)
+        await translate(text, fromLanguageCode, toLanguageCode, engine)
           .then(({ text }) => {
             result = text;
             console.log(`Translated successfully with ${engine} engine. Result: ${text}`)
           })
           .catch(() => {
-            console.log(
+            enginesFailed.push(engine);
+            throw new Error(
               `Error translating with ${engine} engine. Trying next engine...`
             );
-            enginesFailed.push(engine);
           });
 
         if (result) break;
@@ -104,7 +85,7 @@ const setTranslateWithFallbackEngines = ({
       const enginesUsed = engines.join(", ");
 
       throw new Error(
-        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}. Please check your internet connection and try again.`
+        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-translation-generator/issues/new`
       );
     }
 

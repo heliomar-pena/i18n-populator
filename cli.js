@@ -4,6 +4,7 @@ const { Command, Argument } = require('commander');
 const program = new Command();
 const { configPath } = require('./utils/getConfigPath');
 const { translateController } = require('./controllers/translateController');
+const { languagesController } = require('./controllers/languagesController');
 
 program
   .name('i18n-translate-generator')
@@ -18,5 +19,10 @@ program.command('translate')
   .option('-e, --engine <string>', "Engine to use for the translation. In case you don't define it will be use by default all the translation engines that are free and doesn't requires API Key.")
   .option('-s, --settings-file <string>', 'Path to the settings file', configPath)
   .action(translateController);
+
+program.command('languages')
+  .description('Show the languages supported in ISO-639-1 standard')
+  .option('-e, --engine <string>', 'Filter the language supported list by engine')
+  .action(languagesController);
 
 program.parse();

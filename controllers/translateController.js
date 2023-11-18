@@ -4,7 +4,7 @@ const { validateSettingsFile } = require('../utils/validateSettingsFile');
 const { dset: setDeepValue } = require('dset');
 const { validateAndPromptUserJSONFiles } = require('../utils/validateAndPromptUserJSONFiles');
 const { setTranslateWithFallbackEngines, isEngineValid } = require('../services/translateService');
-const { validateLanguageRequested } = require('../utils/validateLanguageRequested');
+const { validateLanguageRequested } = require('../utils/supportedLanguagesUtils');
 
 const translateController = async (text, sourceLanguage, nameOfTranslation, options) => {
   const settingsFilePath = parsePath(options.settingsFile);
