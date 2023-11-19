@@ -6,88 +6,20 @@ on:
       - dev
 
 jobs:
-  test_node_14:
+  test:
     runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: [21, 20, 18, 16, 14]
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Using Node.js 14
+      - name: Using Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm test
-
-  test_node_16:
-    runs-on: ubuntu-20.04
-    needs: test_node_14
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Using Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm test
-
-  test_node_18:
-    runs-on: ubuntu-20.04
-    needs: test_node_16
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Using Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm test
-
-  test_node_20:
-    runs-on: ubuntu-20.04
-    needs: test_node_18
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Using Node.js 20
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm test
-
-  test_node_21:
-    runs-on: ubuntu-20.04
-    needs: test_node_20
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Using Node.js 21
-        uses: actions/setup-node@v3
-        with:
-          node-version: 21
+          node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
         run: npm install
