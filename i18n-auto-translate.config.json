@@ -31,6 +31,12 @@
                 "cl.json",
                 "ec.json"
             ]
+        },
+        {
+            "name": "no",
+            "files": [
+                "no.json"
+            ]
         }
     ]
 }

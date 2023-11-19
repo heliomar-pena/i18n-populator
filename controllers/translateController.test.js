@@ -5,6 +5,7 @@ const { getOrCreateJsonFile } = require('../utils/getOrCreateJsonFile');
 const prompt = require('prompt-sync')();
 const fs = require('fs');
 const { validEngines } = require('../services/translateService');
+const { getLanguagesCodesWithNames, supportedLanguages } = require('../utils/supportedLanguagesUtils');
 
 describe("TranslateController", () => {
     let text, sourceLanguage, nameOfTranslation;
@@ -109,7 +110,14 @@ describe("TranslateController", () => {
     });
 
     it("It's throwing an error if source language is not provided", async () => {
-        await expect(translateController(text, undefined, nameOfTranslation, { settingsFile: configPath })).rejects.toThrow("No source language provided");
+        const error = new Error('No language provided');
+        await expect(translateController(text, undefined, nameOfTranslation, { settingsFile: configPath })).rejects.toThrow(`${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join('\n')}`);
+    });
+
+    it("It's throwing an error if source language is not supported", async () => {
+        const sourceLanguage = 'invalid-language';
+        const error = new Error(`Language ${sourceLanguage} is not supported`);
+        await expect(translateController(text, sourceLanguage, nameOfTranslation, { settingsFile: configPath })).rejects.toThrow(`${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join('\n')}`);
     });
 
     it("It's throwing an error if name of translation is not provided", async () => {
