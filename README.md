@@ -220,4 +220,4 @@ The configuration file is an json file which allow you to modify certain aspects
 | --- | --- | --- | --- | --- |
 | `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`.`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. `--settings-file, -s`: Custom path for the settings file. Default is "i18n-auto-translate.config.json" | `npx i18n-auto-translate translate "my text" "en" "myText"` |
 | `help` | Show the help menu with all the available commands. | | | `npx i18n-auto-translate help` |
-| `languages` | Show the supported languages of all the engines or filter it by engines. | | `--engine, -e`: Filter the supported languages by engine. | `npx i18n-auto-translate languages` |
+| `languages` | Show the supported languages of all the engines or filter it by engines. | | `--by-engine, -be`: Filter the supported languages by engine. | `npx i18n-auto-translate languages` |

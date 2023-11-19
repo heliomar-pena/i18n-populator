@@ -22,7 +22,7 @@ program.command('translate')
 
 program.command('languages')
   .description('Show the languages supported in ISO-639-1 standard')
-  .option('-e, --engine <string>', 'Filter the language supported list by engine')
+  .option('-be, --by-engine <string>', 'Filter the language supported list by engine')
   .action(languagesController);
 
 program.parse();
