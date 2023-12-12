@@ -5,6 +5,7 @@ const program = new Command();
 const { configPath } = require('./utils/getConfigPath');
 const { translateController } = require('./controllers/translateController');
 const { languagesController } = require('./controllers/languagesController');
+const { generateConfigController } = require('./controllers/generateConfigController');
 
 program
   .name('i18n-translate-generator')
@@ -24,5 +25,9 @@ program.command('languages')
   .description('Show the languages supported in ISO-639-1 standard')
   .option('-be, --by-engine <string>', 'Filter the language supported list by engine')
   .action(languagesController);
+
+program.command('init')
+  .description('Start the configuration wizard to create the settings file')
+  .action(generateConfigController);
 
 program.parse();
