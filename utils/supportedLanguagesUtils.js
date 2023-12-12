@@ -14,6 +14,12 @@ const supportedLanguages = Object.keys(allLanguagesCodes).reduce((acc, language)
 }, {});
 
 /**
+ * An array containing all the supported languages without extra data as language name or supported engines. Only the language code.
+ * b.e ['en', 'es', 'pt', ...]
+ */
+const supportedLanguagesCodes = Object.keys(supportedLanguages);
+
+/**
  * Groups the supported languages by engine.
  *
  * @type {Object.<string, string[]>}
@@ -117,5 +123,6 @@ module.exports = {
     supportedLanguagesByBing,
     supportedLanguagesByGoogle,
     supportedLanguagesByLibreTranslate,
-    supportedLanguagesGroupedByEngine    
+    supportedLanguagesGroupedByEngine,
+    supportedLanguagesCodes    
 }

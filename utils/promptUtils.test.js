@@ -64,7 +64,7 @@ describe("confirmUserAction", () => {
 
     const result = confirmUserAction(message);
 
-    expect(prompt).toHaveBeenCalledWith(message, {
+    expect(prompt).toHaveBeenCalledWith(message, "no", {
       autocomplete: expect.any(Function),
     });
     expect(result).toEqual(expected);
@@ -78,7 +78,7 @@ describe("confirmUserAction", () => {
 
     const result = confirmUserAction(message);
 
-    expect(prompt).toHaveBeenCalledWith(message, {
+    expect(prompt).toHaveBeenCalledWith(message, "no", {
       autocomplete: expect.any(Function),
     });
     expect(result).toEqual(expected);
@@ -92,7 +92,7 @@ describe("confirmUserAction", () => {
 
     const result = confirmUserAction(message);
 
-    expect(prompt).toHaveBeenCalledWith(message, {
+    expect(prompt).toHaveBeenCalledWith(message, "no", {
       autocomplete: expect.any(Function),
     });
     expect(result).toEqual(expected);
