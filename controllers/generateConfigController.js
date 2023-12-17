@@ -6,14 +6,13 @@ const { listFilesOnDirectory } = require("../utils/listFiles");
 const { supportedLanguagesCodes } = require("../utils/supportedLanguagesUtils");
 
 const _promptTranslationEngines = () => {
-  const translationEngines = [...validEngines];
   const translationEnginesToUse = [];
 
   console.log(
     "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file."
   );
 
-  for (translationEngine of translationEngines) {
+  for (translationEngine of validEngines) {
     const shouldUseEngine = confirmUserAction(
       `Do you want to use ${translationEngine} as translation engine? (y/n): `
     );
@@ -34,7 +33,7 @@ const _promptBasePath = async () => {
   do {
     let hasError = false;
     basePath = promptUserInput(
-      'Base path for the translations files: b.e "src/localizations.": '
+      'Base path for the translations files: e.g "src/localizations.": '
     );
 
     if (!basePath) {
