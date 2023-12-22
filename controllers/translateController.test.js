@@ -1,11 +1,13 @@
 const { translate } = require('@vitalets/google-translate-api');
 const { translateController } = require('./translateController');
-const { configPath, config } = require('../utils/getConfigPath');
+const { configPath, parsePath } = require('../utils/getConfigPath');
 const { getOrCreateJsonFile } = require('../utils/getOrCreateJsonFile');
 const prompt = require('prompt-sync')();
 const fs = require('fs');
 const { validEngines } = require('../services/translateService');
 const { getLanguagesCodesWithNames, supportedLanguages } = require('../utils/supportedLanguagesUtils');
+
+const config = require(parsePath(configPath));
 
 describe("TranslateController", () => {
     let text, sourceLanguage, nameOfTranslation;
