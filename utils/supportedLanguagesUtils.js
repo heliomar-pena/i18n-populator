@@ -39,7 +39,7 @@ const supportedLanguagesGroupedByEngine = Object.keys(supportedLanguages).reduce
  * The supported languages by Google.
  * @type {Object}
  */
-const supportedLanguagesByGoogle = supportedLanguagesGroupedByEngine.g.oogle;
+const supportedLanguagesByGoogle = supportedLanguagesGroupedByEngine.google;
 
 /**
  * The supported languages by Bing.
