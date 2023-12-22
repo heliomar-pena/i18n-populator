@@ -15,7 +15,7 @@ const supportedLanguages = Object.keys(allLanguagesCodes).reduce((acc, language)
 
 /**
  * An array containing all the supported languages without extra data as language name or supported engines. Only the language code.
- * e.g ['en', 'es', 'pt', ...]
+ * e.g. ['en', 'es', 'pt', ...]
  */
 const supportedLanguagesCodes = Object.keys(supportedLanguages);
 
@@ -39,7 +39,7 @@ const supportedLanguagesGroupedByEngine = Object.keys(supportedLanguages).reduce
  * The supported languages by Google.
  * @type {Object}
  */
-const supportedLanguagesByGoogle = supportedLanguagesGroupedByEngine.google;
+const supportedLanguagesByGoogle = supportedLanguagesGroupedByEngine.g.oogle;
 
 /**
  * The supported languages by Bing.
