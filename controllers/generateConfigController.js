@@ -33,7 +33,7 @@ const _promptBasePath = async () => {
   do {
     let hasError = false;
     basePath = promptUserInput(
-      'Base path for the translations files: e.g "src/localizations.": '
+      'Base path for the translations files: e.g. "src/localizations.": '
     );
 
     if (!basePath) {
