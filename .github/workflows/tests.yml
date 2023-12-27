@@ -24,5 +24,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Create package to simulate it is installed from npm
+        run: npm pack
+
+      - name: Unzip package
+        run: tar -xzf i18n-translate-generator-*.tgz
+
+      - name: Moves into package folder
+        run: cd package
+
       - name: Run Tests
         run: npm test
