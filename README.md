@@ -47,7 +47,17 @@ yarn add i18n-translate-generator --dev
 
 ```
 
-### Translate
+### Init command
+
+Init command will start a wizard to help you to create the configuration file for your project. It will ask you for the path where your translations files are located, then will guide you to select the languages that corresponds to each file and finally will ask you for the translation engines that you want to use. This will make the configuration a lot easier.
+
+```sh
+npx i18n-translate-generator init
+```
+
+Anyway, if you want to create the configuration file manually, you can create a i18n-auto-translate.config.json on the root of your project and continue reading the next section.
+
+### Configuration file
 
 1. The first thing you need to do is create a json file that will work as configuration of the project, it have the next structure:
 
