@@ -1,6 +1,6 @@
 {
   "name": "i18n-translate-generator",
-  "version": "1.0.4",
+  "version": "1.0.41",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
   "scripts": {
