@@ -1,6 +1,6 @@
-# i18n auto translations generator
+# i18n translate generator
 
-Make easiest translations for your project with only one terminal command. Generate translations for all the languages that you're handling on your project free.
+Generate translations for all your i18n jsons with only one terminal command.
 
 ![i18n translations (1)](https://github.com/victor-heliomar/i18n-translation-generator/assets/66505715/2566afc9-7120-466c-b9e5-4301e32bd64d)
 
