@@ -34,7 +34,7 @@
     "services/libreTranslate.js"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "i18n",
