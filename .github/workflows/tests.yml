@@ -2,8 +2,6 @@ name: Run Tests
 
 on:
   pull_request:
-    branches:
-      - dev
 
 jobs:
   test:
@@ -28,7 +26,7 @@ jobs:
         run: npm pack
 
       - name: Unzip package
-        run: tar -xzf i18n-translate-generator-*.tgz
+        run: tar -xzf i18n-populator-*.tgz
 
       - name: Moves into package folder
         run: cd package
