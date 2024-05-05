@@ -1,7 +1,7 @@
 name: i18n-populator
 
 on:
-  create:
+  push:
     branches:
       - testing-release
   # release:
