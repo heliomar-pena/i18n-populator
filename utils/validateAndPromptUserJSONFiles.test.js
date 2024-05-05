@@ -56,6 +56,8 @@ describe('validateAndPromptUserJSONFiles', () => {
         const filesToEdit = validateAndPromptUserJSONFiles(basePath, filesName, nameOfTranslation);
         const expectedFiles = filesName.map((fileName) => ({ file: filesMock[fileName], parsedPath: parsePath(`${basePath}/${fileName}`) }));
 
+        console.log({ filesToEdit, expectedFiles, prompt })
+
         expect(prompt).toHaveBeenCalledTimes(1);
         expect(filesToEdit).toEqual(expectedFiles); 
     });
