@@ -1,5 +1,5 @@
 {
-  "name": "i18n-populator",
+  "name": "@victorpc/i18n-populator",
   "version": "1.0.43",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
