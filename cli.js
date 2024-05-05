@@ -8,7 +8,7 @@ const { languagesController } = require('./controllers/languagesController');
 const { generateConfigController } = require('./controllers/generateConfigController');
 
 program
-  .name('i18n-translate-generator')
+  .name('i18n-populator')
   .description('CLI to translate JavaScript strings')
   .version('1.0.0');
 

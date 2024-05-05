@@ -9,7 +9,7 @@ This project uses [LibreTranslate](https://github.com/LibreTranslate/LibreTransl
 > DISCLAIMER! To be 100% legal please use LibreTranslate engine or use the official Bing or Google Translate API.
 
 ```sh
-npx i18n-translate-generator translate "Hello world" "en" "greetings" --engine "bing"
+npx i18n-populator translate "Hello world" "en" "greetings" --engine "bing"
 
 ```
 
@@ -38,12 +38,12 @@ npx i18n-translate-generator translate "Hello world" "en" "greetings" --engine "
 Actually it is not required to install it on your project to work. But you can optionally install it locally or globally with npm or yarn. So when you ran npx it will use your local or global installation instead of download it each time. In case you want to install it on your project it's recommended install it as dev dependency.
 
 ```sh
-npm install --save-dev i18n-translate-generator
+npm install --save-dev i18n-populator
 
 ```
 
 ```sh
-yarn add i18n-translate-generator --dev
+yarn add i18n-populator --dev
 
 ```
 
@@ -52,7 +52,7 @@ yarn add i18n-translate-generator --dev
 Init command will start a wizard to help you to create the configuration file for your project. It will ask you for the path where your translations files are located, then will guide you to select the languages that corresponds to each file and finally will ask you for the translation engines that you want to use. This will make the configuration a lot easier.
 
 ```sh
-npx i18n-translate-generator init
+npx i18n-populator init
 ```
 
 Anyway, if you want to create the configuration file manually, you can create a i18n-auto-translate.config.json on the root of your project and continue reading the next section.
@@ -86,14 +86,14 @@ Also you can check an example on [configuration file](./i18n-auto-translate.conf
 2. In order to translate, you need to run the `translate` command, write the phrase you want to translate and select the source language that it is wrote in, and at the end add a name for your new translation, this will be used on your json files as property name.
 
 ```sh
-npx i18n-translate-generator translate "Hello world" "en" "greetings"
+npx i18n-populator translate "Hello world" "en" "greetings"
 
 ```
 
 Another example in spanish
 
 ```sh
-npx i18n-translate-generator translate "Hola mundo" "es" "greetings"
+npx i18n-populator translate "Hola mundo" "es" "greetings"
 
 ```
 
@@ -104,7 +104,7 @@ Also, additionally you can specify the path of the configuration file, by defaul
 For example
 
 ```sh
-npx i18n-translate-generator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
+npx i18n-populator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
 
 ```
 
@@ -155,7 +155,7 @@ If you don't specify any engine, the program will try to get your preferences fr
 For example:
 
 ```sh
-npx i18n-translate-generator translate "Welcome to the jungle" "en" "welcomeMessage" -e "bing"
+npx i18n-populator translate "Welcome to the jungle" "en" "welcomeMessage" -e "bing"
 
 ```
 
@@ -164,7 +164,7 @@ npx i18n-translate-generator translate "Welcome to the jungle" "en" "welcomeMess
 You can nest translations by using the `.` character on the property name parameter, for example:
 
 ```sh
-npx i18n-translate-generator translate "Account settings" "en" "accountSettings.title"
+npx i18n-populator translate "Account settings" "en" "accountSettings.title"
 
 ```
 
@@ -180,7 +180,7 @@ npx i18n-translate-generator translate "Account settings" "en" "accountSettings.
 You can continue nesting translations as much as you want.
 
 ```sh
-npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
+npx i18n-populator translate "Email" "en" "accountSettings.email"
 
 ```
 
@@ -195,7 +195,7 @@ npx i18n-translate-generator translate "Email" "en" "accountSettings.email"
 ```
 
 ```sh
-npx i18n-translate-generator translate "Are you sure you want to change your email?" "en" "accountSettings.modal.edit.title"
+npx i18n-populator translate "Are you sure you want to change your email?" "en" "accountSettings.modal.edit.title"
 
 ```
 
