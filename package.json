@@ -1,5 +1,5 @@
 {
-  "name": "@victor-heliomar/i18n-populator",
+  "name": "i18n-populator",
   "version": "1.0.44",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
@@ -34,7 +34,7 @@
     "services/libreTranslate.js"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "i18n",
