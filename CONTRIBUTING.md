@@ -21,7 +21,7 @@ There are a lot of things that you could do to collaborate on open sources proje
 
 #### Create a new issue
 
-If you spot any problem while using the project, see any error on the doc, or just wants to suggest changes to improve the project you can [create a new issue](https://github.com/victor-heliomar/i18n-translation-generator/issues/new/choose). Please make sure of check first that the issue doesn't exists already exists on the [issues list](https://github.com/victor-heliomar/i18n-translation-generator/issues).
+If you spot any problem while using the project, see any error on the doc, or just wants to suggest changes to improve the project you can [create a new issue](https://github.com/victor-heliomar/i18n-populator/issues/new/choose). Please make sure of check first that the issue doesn't exists already exists on the [issues list](https://github.com/victor-heliomar/i18n-populator/issues).
 
 #### Solve an issue
 
@@ -29,7 +29,7 @@ Scan through our existing issues to find one that interests you. If you find an 
 
 #### Help to solve the community doubts
 
-If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/CODE_OF_CONDUCT.md).
+If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-populator/blob/dev/CODE_OF_CONDUCT.md).
 
 ### Making changes
 
