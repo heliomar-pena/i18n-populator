@@ -2,8 +2,8 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-const prompt = require('prompt-sync')({
-  sigint: true
+const prompt = require("prompt-sync")({
+  sigint: true,
 });
 
 /**
@@ -21,19 +21,19 @@ const autoComplete = (commands = []) => {
  * @returns {boolean} true if the user confirms the action, false otherwise
  */
 const confirmUserAction = (message) => {
-  const userAnswer = prompt(message, 'no', {
-    autocomplete: autoComplete(['y', 'n', 'yes', 'no'])
+  const userAnswer = prompt(message, "no", {
+    autocomplete: autoComplete(["y", "n", "yes", "no"]),
   });
 
-  const userConfirmed = ['y', 'yes'].includes(userAnswer.toLowerCase());
+  const userConfirmed = ["y", "yes"].includes(userAnswer.toLowerCase());
 
   return userConfirmed;
-}
+};
 
 const promptUserInput = (message, autocomplete = []) => {
   return prompt(message, {
-    autocomplete: autoComplete(autocomplete)
+    autocomplete: autoComplete(autocomplete),
   });
-}
+};
 
 module.exports = { autoComplete, confirmUserAction, promptUserInput };

@@ -1,7 +1,7 @@
 /**
  * By default use Engines that doesn't require an API key
  */
-const DEFAULT_ENGINES = ['google', 'bing', 'libreTranslate'];
+const DEFAULT_ENGINES = ["google", "bing", "libreTranslate"];
 
 /**
  * Returns an array of translation engines to use based on the provided settings and CLI arguments. If no one is provided then the default engines are returned.
@@ -10,24 +10,28 @@ const DEFAULT_ENGINES = ['google', 'bing', 'libreTranslate'];
  * @param {string} options.cliArgEngine - The translation engine specified as a CLI argument.
  * @returns {Array} - The array of translation engines to use.
  */
-const getTranslationEnginesToUse = ({ settingsTranslationEngines, cliArgEngine }) => {
-    const translationEnginesToUse = [];
+const getTranslationEnginesToUse = ({
+  settingsTranslationEngines,
+  cliArgEngine,
+}) => {
+  const translationEnginesToUse = [];
 
-    if (cliArgEngine) {
-        translationEnginesToUse.push(cliArgEngine);
-    }
+  if (cliArgEngine) {
+    translationEnginesToUse.push(cliArgEngine);
+  }
 
-    if (settingsTranslationEngines) {
-        const settingsTranslationEnginesFiltered = settingsTranslationEngines.filter((engine) => engine !== cliArgEngine);
+  if (settingsTranslationEngines) {
+    const settingsTranslationEnginesFiltered =
+      settingsTranslationEngines.filter((engine) => engine !== cliArgEngine);
 
-        translationEnginesToUse.push(...settingsTranslationEnginesFiltered);
-    }
-    
-    if (translationEnginesToUse.length === 0) {
-        translationEnginesToUse.push(...DEFAULT_ENGINES);
-    }
-    
-    return translationEnginesToUse;
-}
+    translationEnginesToUse.push(...settingsTranslationEnginesFiltered);
+  }
 
-module.exports = { getTranslationEnginesToUse, DEFAULT_ENGINES }
+  if (translationEnginesToUse.length === 0) {
+    translationEnginesToUse.push(...DEFAULT_ENGINES);
+  }
+
+  return translationEnginesToUse;
+};
+
+module.exports = { getTranslationEnginesToUse, DEFAULT_ENGINES };
