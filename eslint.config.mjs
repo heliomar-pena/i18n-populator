@@ -13,5 +13,5 @@ export default [
     },
   },
   pluginJs.configs.recommended,
-  eslintConfigPrettier
+  eslintConfigPrettier,
 ];
