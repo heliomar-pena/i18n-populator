@@ -1,6 +1,6 @@
 const {
   supportedLanguages,
-  getLanguagesCodesWithNames, 
+  getLanguagesCodesWithNames,
   validateLanguageIsSupportedByEngine,
   validateLanguageRequested,
   getLanguageCodeByEngine,
@@ -53,7 +53,7 @@ describe("validateLanguageIsSupportedByEngine", () => {
 
     const result = validateLanguageIsSupportedByEngine(
       requestedLanguage,
-      engine
+      engine,
     );
 
     expect(result).toBe(true);
@@ -66,7 +66,7 @@ describe("validateLanguageIsSupportedByEngine", () => {
     expect(() => {
       validateLanguageIsSupportedByEngine(requestedLanguage, engine);
     }).toThrowError(
-      `Language ${requestedLanguage} is not supported by google.`
+      `Language ${requestedLanguage} is not supported by google.`,
     );
   });
 });
@@ -88,7 +88,7 @@ describe("getLanguageCodeByEngine", () => {
     expect(() => {
       getLanguageCodeByEngine(requestedLanguage, engine);
     }).toThrowError(
-      `Language ${requestedLanguage} is not supported by google.`
+      `Language ${requestedLanguage} is not supported by google.`,
     );
   });
 });
@@ -112,8 +112,8 @@ describe("validateLanguageRequested", () => {
       `${
         error.message
       }.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(
-        supportedLanguages
-      ).join("\n")}`
+        supportedLanguages,
+      ).join("\n")}`,
     );
   });
 
@@ -127,8 +127,8 @@ describe("validateLanguageRequested", () => {
       `${
         error.message
       }.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(
-        supportedLanguages
-      ).join("\n")}`
+        supportedLanguages,
+      ).join("\n")}`,
     );
   });
 });

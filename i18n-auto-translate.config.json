@@ -1,42 +1,26 @@
 {
-    "basePath": "test-configs/translations",
-    "translationEngines": [
-        "google",
-        "bing",
-        "libreTranslate"
-    ],
-    "languages": [
-        {
-            "name": "en",
-            "files": [
-                "en.json"
-            ]
-        },
-        {
-            "name": "de",
-            "files": [
-                "de.json"
-            ]
-        },
-        {
-            "name": "ja",
-            "files": [
-                "jp.json"
-            ]
-        },
-        {
-            "name": "es",
-            "files": [
-                "es.json",
-                "cl.json",
-                "ec.json"
-            ]
-        },
-        {
-            "name": "no",
-            "files": [
-                "no.json"
-            ]
-        }
-    ]
+  "basePath": "test-configs/translations",
+  "translationEngines": ["google", "bing", "libreTranslate"],
+  "languages": [
+    {
+      "name": "en",
+      "files": ["en.json"]
+    },
+    {
+      "name": "de",
+      "files": ["de.json"]
+    },
+    {
+      "name": "ja",
+      "files": ["jp.json"]
+    },
+    {
+      "name": "es",
+      "files": ["es.json", "cl.json", "ec.json"]
+    },
+    {
+      "name": "no",
+      "files": ["no.json"]
+    }
+  ]
 }
