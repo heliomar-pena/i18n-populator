@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { Command, Argument } = require('commander');
+const { Command } = require('commander');
 const program = new Command();
 const { configPath } = require('./utils/getConfigPath');
 const { translateController } = require('./controllers/translateController');
