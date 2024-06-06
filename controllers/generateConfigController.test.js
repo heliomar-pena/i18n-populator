@@ -62,7 +62,7 @@ describe("_promptTranslationEngines", () => {
 
     expect(confirmUserAction).toHaveBeenCalledTimes(3);
 
-    for (validEngine of validEngines) {
+    for (const validEngine of validEngines) {
       expect(confirmUserAction).toHaveBeenCalledWith(
         `Do you want to use ${validEngine} as translation engine? (y/n): `
       );
@@ -79,7 +79,7 @@ describe("_promptTranslationEngines", () => {
 
     expect(confirmUserAction).toHaveBeenCalledTimes(3);
 
-    for (validEngine of validEngines) {
+    for (const validEngine of validEngines) {
       expect(confirmUserAction).toHaveBeenCalledWith(
         `Do you want to use ${validEngine} as translation engine? (y/n): `
       );

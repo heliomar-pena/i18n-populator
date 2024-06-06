@@ -12,7 +12,7 @@ const _promptTranslationEngines = () => {
     "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file."
   );
 
-  for (translationEngine of validEngines) {
+  for (const translationEngine of validEngines) {
     const shouldUseEngine = confirmUserAction(
       `Do you want to use ${translationEngine} as translation engine? (y/n): `
     );
@@ -102,8 +102,6 @@ const _promptLanguages = (filesNames) => {
   );
 
   promptUserInput("Press enter to continue...\n");
-
-  let i = 0;
 
   for (const fileName of filesNames) {
     if (fileName.includes(".json")) {

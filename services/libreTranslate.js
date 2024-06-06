@@ -6,7 +6,7 @@ const mirrors = [
 ]
 
 const libreTranslate = async (text, {from, to}) => {
-    for await (url of mirrors) {
+    for await (const url of mirrors) {
         try {
             const res = await fetch(url, {
                 method: "POST",
