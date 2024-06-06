@@ -1,8 +1,8 @@
-# i18n translate generator
+# i18n populator
 
 Generate translations for all your i18n jsons with only one terminal command.
 
-![i18n translations (1)](https://github.com/victor-heliomar/i18n-translation-generator/assets/66505715/2566afc9-7120-466c-b9e5-4301e32bd64d)
+![i18n translations (1)](https://github.com/victor-heliomar/i18n-populator/assets/66505715/2566afc9-7120-466c-b9e5-4301e32bd64d)
 
 This project uses [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate), [Google Translate API](https://github.com/vitalets/google-translate-api) and [Bing Translate API](https://github.com/plainheart/bing-translate-api) to generate the translations. In a future I'll include the option to use an Google API Key / Bing Api Key so you could use it with your own account.
 
@@ -55,7 +55,7 @@ Init command will start a wizard to help you to create the configuration file fo
 npx i18n-populator init
 ```
 
-Anyway, if you want to create the configuration file manually, you can create a i18n-auto-translate.config.json on the root of your project and continue reading the next section.
+Anyway, if you want to create the configuration file manually, you can create a i18n-populator.config.json on the root of your project and continue reading the next section.
 
 ### Configuration file
 
@@ -81,7 +81,7 @@ Anyway, if you want to create the configuration file manually, you can create a 
 
 ```
 
-Also you can check an example on [configuration file](./i18n-auto-translate.config.json)
+Also you can check an example on [configuration file](./i18n-populator.config.json)
 
 2. In order to translate, you need to run the `translate` command, write the phrase you want to translate and select the source language that it is wrote in, and at the end add a name for your new translation, this will be used on your json files as property name.
 
@@ -99,7 +99,7 @@ npx i18n-populator translate "Hola mundo" "es" "greetings"
 
 You only need to specify in what language is wrote the text that you're passing through command, since all the languages that you want to translate are specified on the configuration file.
 
-Also, additionally you can specify the path of the configuration file, by default it will search for the file called `i18n-auto-translate.config.json` on the root of your project, but you can specify another path with the `-s` or `--settings-file` flag.
+Also, additionally you can specify the path of the configuration file, by default it will search for the file called `i18n-populator.config.json` on the root of your project, but you can specify another path with the `-s` or `--settings-file` flag.
 
 For example
 
@@ -228,7 +228,7 @@ The configuration file is an json file which allow you to modify certain aspects
 
 | Command | Description | Arguments | Options | Example |
 | --- | --- | --- | --- | --- |
-| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`.`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. `--settings-file, -s`: Custom path for the settings file. Default is "i18n-auto-translate.config.json" | `npx i18n-auto-translate translate "my text" "en" "myText"` |
-| `help` | Show the help menu with all the available commands. | | | `npx i18n-auto-translate help` |
-| `languages` | Show the supported languages of all the engines or filter it by engines. | | `--by-engine, -be`: Filter the supported languages by engine. | `npx i18n-auto-translate languages` |
-| `init` | Start the configuration wizard to create the settings file | | | `npx i18n-auto-translate init` |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`.`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. `--settings-file, -s`: Custom path for the settings file. Default is "i18n-populator.config.json" | `npx i18n-populator translate "my text" "en" "myText"` |
+| `help` | Show the help menu with all the available commands. | | | `npx i18n-populator help` |
+| `languages` | Show the supported languages of all the engines or filter it by engines. | | `--by-engine, -be`: Filter the supported languages by engine. | `npx i18n-populator languages` |
+| `init` | Start the configuration wizard to create the settings file | | | `npx i18n-populator init` |

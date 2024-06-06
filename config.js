@@ -1,5 +1,5 @@
 const config = {
-    defaultConfigPath: 'i18n-auto-translate.config.json'
+    defaultConfigPath: 'i18n-populator.config.json'
 }
 
 module.exports = config

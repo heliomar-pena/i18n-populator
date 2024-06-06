@@ -1,0 +1,22 @@
+{
+    "basePath": "example",
+    "translationEngines": [
+        "google",
+        "bing",
+        "libreTranslate"
+    ],
+    "languages": [
+        {
+            "name": "en",
+            "files": [
+                "en.json"
+            ]
+        },
+        {
+            "name": "es",
+            "files": [
+                "es.json"
+            ]
+        }
+    ]
+}

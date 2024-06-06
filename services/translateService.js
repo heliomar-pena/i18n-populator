@@ -85,7 +85,7 @@ const setTranslateWithFallbackEngines = ({
       const enginesUsed = engines.join(", ");
 
       throw new Error(
-        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-translation-generator/issues/new`
+        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-populator/issues/new`
       );
     }
 
