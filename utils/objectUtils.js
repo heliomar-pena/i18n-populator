@@ -15,9 +15,11 @@ const hasProperty = (obj, path) => {
    */
   const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
 
-  const objHasProperty = pathArray?.reduce((prevObj, key) => prevObj && prevObj[key], obj) !== undefined;
+  const objHasProperty =
+    pathArray?.reduce((prevObj, key) => prevObj && prevObj[key], obj) !==
+    undefined;
 
   return objHasProperty;
-}
+};
 
 module.exports = { hasProperty };

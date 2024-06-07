@@ -20,7 +20,7 @@ const validEngines = Object.keys(translateEngines);
 const isEngineValid = (engine) => validEngines.includes(engine);
 
 module.exports = {
-    translateEngines,
-    validEngines,
-    isEngineValid,
-}
+  translateEngines,
+  validEngines,
+  isEngineValid,
+};
