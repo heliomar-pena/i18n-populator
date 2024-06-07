@@ -260,7 +260,7 @@ describe("generateConfigController", () => {
   });
 
   it("should overwrite the configuration file if it already exists and user confirms", async () => {
-    const configPath = parsePath("/i18n-auto-translate.config.json");
+    const configPath = parsePath("/i18n-populator.config.json");
     const basePath = "test-configs/translations";
     const pathFiles = ["english-file.json", "spanish-file.json"];
 
@@ -296,7 +296,7 @@ describe("generateConfigController", () => {
   });
 
   it("should cancel the wizard if the configuration file already exists and user does not confirm", async () => {
-    const configPath = parsePath("/i18n-auto-translate.config.json");
+    const configPath = parsePath("/i18n-populator.config.json");
 
     fs.existsSync.mockReturnValueOnce(true);
     confirmUserAction.mockReturnValueOnce(false);
@@ -319,7 +319,7 @@ describe("generateConfigController", () => {
   });
 
   it("should create a new configuration file if it does not exist", async () => {
-    const configPath = parsePath("/i18n-auto-translate.config.json");
+    const configPath = parsePath("/i18n-populator.config.json");
     const userSelectedBasePath = "test-configs/translations";
     const filesNames = ["english.json", "spanish.json"];
 
