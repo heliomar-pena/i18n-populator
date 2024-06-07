@@ -24,7 +24,8 @@ const translateController = async (
   validateSettingsFile(settingsFilePath);
   validateLanguageRequested(sourceLanguage, options.engine);
 
-  if (!text) throw new Error("No text to translate provided");
+  if (typeof text !== "string" || !text?.length)
+    throw new Error("No text to translate provided");
   if (!nameOfTranslation) throw new Error("No name of translation provided");
 
   const {

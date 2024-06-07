@@ -8,11 +8,12 @@ const { languagesController } = require("./controllers/languagesController");
 const {
   generateConfigController,
 } = require("./controllers/generateConfigController");
+const { version } = require("./package.json");
 
 program
   .name("i18n-populator")
   .description("CLI to translate JavaScript strings")
-  .version("1.0.0");
+  .version(version);
 
 program
   .command("translate")
