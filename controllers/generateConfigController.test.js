@@ -106,7 +106,7 @@ describe("_promptBasePath", () => {
 
     expect(promptUserInput).toHaveBeenCalledTimes(2);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": ',
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
     expect(confirmUserAction).toHaveBeenCalledTimes(1);
 
@@ -125,7 +125,7 @@ describe("_promptBasePath", () => {
 
     expect(promptUserInput).toHaveBeenCalledTimes(3);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": ',
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
     expect(promptUserInput).toHaveBeenCalledWith(
       "\nPress enter to continue...",
@@ -154,7 +154,7 @@ describe("_promptBasePath", () => {
 
     expect(promptUserInput).toHaveBeenCalledTimes(3);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": ',
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
 
     expect(listFilesOnDirectory).toHaveBeenCalledTimes(2);
@@ -180,7 +180,7 @@ describe("_promptBasePath", () => {
 
     expect(promptUserInput).toHaveBeenCalledTimes(4);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": ',
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
 
     expect(listFilesOnDirectory).toHaveBeenCalledTimes(3);

@@ -74,8 +74,8 @@ This is a list of ideas that which you can check if you wants collaborate on the
 3. Collaborate on side projects related to the project
 
 - We are currently working on some projects related to i18n translation generator in order to improve the way you create i18n translations the most possible. Projects in mind are:
-  1.  Landing Page to explain easily the idea to developers.
-  2.  Documentation Page in order to improve the doc of the project and make more easier the use of it.
-  3.  Visual Studio Code Extension in order to create a user interface for users that doesn't feel comfortable with CLI Commands.
+  1. Landing Page to explain easily the idea to developers.
+  2. Documentation Page in order to improve the doc of the project and make more easier the use of it.
+  3. Visual Studio Code Extension in order to create a user interface for users that doesn't feel comfortable with CLI Commands.
 
 Feel free to collaborate on any of them! We would appreciate any help!
