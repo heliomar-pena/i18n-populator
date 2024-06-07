@@ -94,7 +94,7 @@ const _promptLanguages = (filesNames) => {
     "We'll iterate over the files in the base path and you will be able to select the language name for each file.\n",
   );
   console.log(
-    "The language should be indicated in ISO 639-1 format. For example: 'English' -> 'en'. You can consult the file https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/ALL-LANGUAGES-CODES.json to get all the codes or check here: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\n",
+    "The language should be indicated in ISO 639-1 format. For example: 'English' -> 'en'. You can consult the file https://github.com/victor-heliomar/i18n-populator/blob/master/ALL-LANGUAGES-CODES.json to get all the codes or check here: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\n",
   );
   console.log("Leave it empty if you don't want to include that file.\n");
   console.log(
@@ -122,7 +122,7 @@ const _promptLanguages = (filesNames) => {
           console.log(
             `The language ${languageName} is not supported. Please use one of these: ${supportedLanguagesCodes.join(
               ", ",
-            )}. Detailed information on https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/ALL-LANGUAGES-CODES.json\n\n`,
+            )}. Detailed information on https://github.com/victor-heliomar/i18n-populator/blob/master/ALL-LANGUAGES-CODES.json\n\n`,
           );
           promptUserInput("Press enter to continue...\n");
         }
@@ -155,7 +155,7 @@ const _promptLanguages = (filesNames) => {
 };
 
 const generateConfigController = async () => {
-  const configPath = parsePath("/i18n-auto-translate.config.json");
+  const configPath = parsePath("/i18n-populator.config.json");
   const configExists = fs.existsSync(configPath);
 
   if (configExists) {
