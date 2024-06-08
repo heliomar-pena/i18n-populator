@@ -1,5 +1,6 @@
-const { autoComplete, confirmUserAction } = require("./promptUtils");
-const prompt = require("prompt-sync")();
+import { autoComplete, confirmUserAction } from './promptUtils';
+import promptFactory from 'prompt-sync';
+const prompt = promptFactory();
 
 describe("promptUtils", () => {
   describe("autoComplete", () => {

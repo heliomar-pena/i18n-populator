@@ -1,6 +1,6 @@
-const { parsePath } = require("./getConfigPath");
-const { getOrCreateJsonFile } = require("./getOrCreateJsonFile");
-const fs = require("fs");
+import { parsePath } from './getConfigPath';
+import { getOrCreateJsonFile } from './getOrCreateJsonFile';
+import fs from 'fs';
 
 describe("getOrCreateJsonFile", () => {
   let basePath, fileName, fileContent;

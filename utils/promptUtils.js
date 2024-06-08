@@ -2,7 +2,9 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-const prompt = require("prompt-sync")({
+import promptFactory from 'prompt-sync';
+
+const prompt = promptFactory({
   sigint: true,
 });
 
@@ -36,4 +38,4 @@ const promptUserInput = (message, autocomplete = []) => {
   });
 };
 
-module.exports = { autoComplete, confirmUserAction, promptUserInput };
+export default { autoComplete, confirmUserAction, promptUserInput };

@@ -1,10 +1,9 @@
-const {
-  validateAndPromptUserJSONFiles,
-} = require("../utils/validateAndPromptUserJSONFiles");
-const { getOrCreateJsonFile } = require("../utils/getOrCreateJsonFile");
-const { parsePath } = require("./getConfigPath");
-const prompt = require("prompt-sync")();
-const fs = require("fs");
+import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles';
+import { getOrCreateJsonFile } from '../utils/getOrCreateJsonFile';
+import { parsePath } from './getConfigPath';
+import promptFactory from 'prompt-sync';
+const prompt = promptFactory();
+import fs from 'fs';
 
 describe("validateAndPromptUserJSONFiles", () => {
   let filesMock, filesName, basePath, nameOfTranslation;

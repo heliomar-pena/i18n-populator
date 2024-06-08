@@ -1,12 +1,10 @@
-const {
-  supportedLanguages: allSupportedLanguages,
+import {
+  supportedLanguages as allSupportedLanguages,
   getLanguagesCodesWithNames,
   supportedLanguagesGroupedByEngine,
-} = require("../utils/supportedLanguagesUtils");
-const {
-  isEngineValid,
-  validEngines,
-} = require("../utils/translationEnginesUtils");
+} from '../utils/supportedLanguagesUtils';
+
+import { isEngineValid, validEngines } from '../utils/translationEnginesUtils';
 
 const languagesController = ({ byEngine: engine }) => {
   if (engine && !isEngineValid(engine))
@@ -26,4 +24,4 @@ const languagesController = ({ byEngine: engine }) => {
   );
 };
 
-module.exports = { languagesController };
+export default { languagesController };

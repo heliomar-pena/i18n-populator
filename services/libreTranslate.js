@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
 
 const mirrors = [
   "https://translate.terraprint.co/translate",
@@ -36,4 +36,4 @@ const translate = async (text, { from, to }) => {
   return result;
 };
 
-module.exports = { translate };
+export default { translate };

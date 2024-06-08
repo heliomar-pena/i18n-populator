@@ -1,14 +1,11 @@
 #!/usr/bin/env node
-
-const { Command } = require("commander");
+import { Command } from 'commander';
 const program = new Command();
-const { configPath } = require("./utils/getConfigPath");
-const { translateController } = require("./controllers/translateController");
-const { languagesController } = require("./controllers/languagesController");
-const {
-  generateConfigController,
-} = require("./controllers/generateConfigController");
-const { version } = require("./package.json");
+import { configPath } from './utils/getConfigPath';
+import { translateController } from './controllers/translateController';
+import { languagesController } from './controllers/languagesController';
+import { generateConfigController } from './controllers/generateConfigController';
+import { version } from './package.json';
 
 program
   .name("i18n-populator")

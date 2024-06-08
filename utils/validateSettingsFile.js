@@ -1,5 +1,5 @@
-const fs = require("fs");
-const { validEngines, isEngineValid } = require("../services/translateService");
+import fs from 'fs';
+import { validEngines, isEngineValid } from '../services/translateService';
 
 const validateSettingsFile = (settingsFilePath) => {
   const existsFile = fs.existsSync(settingsFilePath);
@@ -49,4 +49,4 @@ const validateSettingsFile = (settingsFilePath) => {
   return true;
 };
 
-module.exports = { validateSettingsFile };
+export default { validateSettingsFile };
