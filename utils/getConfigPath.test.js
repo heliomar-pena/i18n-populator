@@ -1,6 +1,6 @@
-import { configPath, parsePath } from './getConfigPath';
+import { configPath, parsePath } from './getConfigPath.js';
 import path from 'path';
-import { defaultConfigPath } from '../config';
+import { defaultConfigPath } from '../config.js';
 
 describe("getConfigPath", () => {
   it("should return the configPath", () => {

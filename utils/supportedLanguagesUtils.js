@@ -1,5 +1,7 @@
-import allLanguagesCodes from '../ALL-LANGUAGES-CODES.json';
-import { validEngines } from './translationEnginesUtils';
+import { importJSONFile } from './importJSONFile.js';
+import { validEngines } from './translationEnginesUtils.js';
+
+const allLanguagesCodes = await importJSONFile('../ALL-LANGUAGES-CODES.json', import.meta.url);
 
 /**
  * Object containing supported languages and their corresponding language codes.
@@ -134,7 +136,7 @@ const validateLanguageRequested = (requestedLanguage) => {
   }
 };
 
-export default {
+export {
   getLanguagesCodesWithNames,
   getLanguageCodeByEngine,
   validateLanguageIsSupportedByEngine,

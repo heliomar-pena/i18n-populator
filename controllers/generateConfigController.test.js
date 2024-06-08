@@ -1,5 +1,5 @@
-import { confirmUserAction, promptUserInput } from '../utils/promptUtils';
-import { validEngines } from '../utils/translationEnginesUtils';
+import { confirmUserAction, promptUserInput } from '../utils/promptUtils.js';
+import { validEngines } from '../utils/translationEnginesUtils.js';
 
 import {
   _promptBasePath,
@@ -8,8 +8,8 @@ import {
   generateConfigController,
 } from './generateConfigController';
 
-import { listFilesOnDirectory } from '../utils/listFiles';
-import { parsePath } from '../utils/getConfigPath';
+import { listFilesOnDirectory } from '../utils/listFiles.js';
+import { parsePath } from '../utils/getConfigPath.js';
 import fs from 'fs';
 
 jest.mock("../utils/promptUtils", () => ({

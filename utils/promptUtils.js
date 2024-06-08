@@ -38,4 +38,4 @@ const promptUserInput = (message, autocomplete = []) => {
   });
 };
 
-export default { autoComplete, confirmUserAction, promptUserInput };
+export { autoComplete, confirmUserAction, promptUserInput };

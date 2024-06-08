@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 const program = new Command();
-import { configPath } from './utils/getConfigPath';
-import { translateController } from './controllers/translateController';
-import { languagesController } from './controllers/languagesController';
-import { generateConfigController } from './controllers/generateConfigController';
-import { version } from './package.json';
+import { configPath } from './utils/getConfigPath.js';
+import { translateController } from './controllers/translateController.js';
+import { languagesController } from './controllers/languagesController.js';
+import { generateConfigController } from './controllers/generateConfigController.js';
+import { importJSONFile } from './utils/importJSONFile.js';
+
+const { version } = await importJSONFile('./package.json', import.meta.url);
+
+console.log({version})
 
 program
   .name("i18n-populator")

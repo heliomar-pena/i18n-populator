@@ -17,4 +17,4 @@ const listFilesOnDirectory = (directory) => {
   });
 };
 
-export default { listFilesOnDirectory };
+export { listFilesOnDirectory };
