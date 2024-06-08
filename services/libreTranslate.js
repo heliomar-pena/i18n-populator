@@ -36,4 +36,4 @@ const translate = async (text, { from, to }) => {
   return result;
 };
 
-export default { translate };
+export { translate };

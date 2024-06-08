@@ -6,4 +6,4 @@ const translate = async (text, { from, to }) => {
   return { text: translation };
 };
 
-export default { translate };
+export { translate };

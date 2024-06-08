@@ -2,9 +2,9 @@ import {
   supportedLanguages as allSupportedLanguages,
   getLanguagesCodesWithNames,
   supportedLanguagesGroupedByEngine,
-} from '../utils/supportedLanguagesUtils';
+} from '../utils/supportedLanguagesUtils.js';
 
-import { isEngineValid, validEngines } from '../utils/translationEnginesUtils';
+import { isEngineValid, validEngines } from '../utils/translationEnginesUtils.js';
 
 const languagesController = ({ byEngine: engine }) => {
   if (engine && !isEngineValid(engine))
@@ -24,4 +24,4 @@ const languagesController = ({ byEngine: engine }) => {
   );
 };
 
-export default { languagesController };
+export { languagesController };

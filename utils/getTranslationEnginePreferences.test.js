@@ -1,4 +1,4 @@
-import { getTranslationEnginesToUse, DEFAULT_ENGINES } from '../utils/getTranslationEnginePreferences';
+import { getTranslationEnginesToUse, DEFAULT_ENGINES } from '../utils/getTranslationEnginePreferences.js';
 
 describe("getTranslationEnginesToUse", () => {
   it("should return an array with the cliArgEngine if it is provided", () => {

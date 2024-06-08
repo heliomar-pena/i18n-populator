@@ -1,7 +1,7 @@
-import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles';
-import { getOrCreateJsonFile } from '../utils/getOrCreateJsonFile';
-import { parsePath } from './getConfigPath';
-import promptFactory from 'prompt-sync';
+import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles.js';
+import { getOrCreateJsonFile } from '../utils/getOrCreateJsonFile.js';
+import { parsePath } from './getConfigPath.js';
+import promptFactory from 'prompt-sync.js';
 const prompt = promptFactory();
 import fs from 'fs';
 
@@ -40,10 +40,10 @@ describe("validateAndPromptUserJSONFiles", () => {
     }
   });
 
-  it("should not include the json files that already have the property if the user doesn't confirm it", () => {
+  it("should not include the json files that already have the property if the user doesn't confirm it", async () => {
     prompt.mockImplementationOnce(() => "no");
 
-    const filesToEdit = validateAndPromptUserJSONFiles(
+    const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       filesName,
       nameOfTranslation,
@@ -59,10 +59,10 @@ describe("validateAndPromptUserJSONFiles", () => {
     ]);
   });
 
-  it("should include the json files that already have the property if the user confirm it", () => {
+  it("should include the json files that already have the property if the user confirm it", async () => {
     prompt.mockImplementationOnce(() => "yes");
 
-    const filesToEdit = validateAndPromptUserJSONFiles(
+    const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       filesName,
       nameOfTranslation,
@@ -72,16 +72,14 @@ describe("validateAndPromptUserJSONFiles", () => {
       parsedPath: parsePath(`${basePath}/${fileName}`),
     }));
 
-    console.log({ filesToEdit, expectedFiles, prompt });
-
     expect(prompt).toHaveBeenCalledTimes(1);
     expect(filesToEdit).toEqual(expectedFiles);
   });
 
-  it("should return an empty array if all the files already have the property and the user doesn't want overwrite them", () => {
+  it("should return an empty array if all the files already have the property and the user doesn't want overwrite them", async () => {
     prompt.mockImplementationOnce(() => "no");
 
-    const filesToEdit = validateAndPromptUserJSONFiles(
+    const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       [filesName[0]],
       nameOfTranslation,

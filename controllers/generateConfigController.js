@@ -1,9 +1,9 @@
 import fs from 'fs';
-import { validEngines } from '../utils/translationEnginesUtils';
-import { confirmUserAction, promptUserInput } from '../utils/promptUtils';
-import { parsePath } from '../utils/getConfigPath';
-import { listFilesOnDirectory } from '../utils/listFiles';
-import { supportedLanguagesCodes } from '../utils/supportedLanguagesUtils';
+import { validEngines } from '../utils/translationEnginesUtils.js';
+import { confirmUserAction, promptUserInput } from '../utils/promptUtils.js';
+import { parsePath } from '../utils/getConfigPath.js';
+import { listFilesOnDirectory } from '../utils/listFiles.js';
+import { supportedLanguagesCodes } from '../utils/supportedLanguagesUtils.js';
 
 const _promptTranslationEngines = () => {
   const translationEnginesToUse = [];
@@ -184,7 +184,7 @@ const generateConfigController = async () => {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };
 
-export default {
+export {
   _promptBasePath,
   _promptLanguages,
   _promptTranslationEngines,

@@ -22,4 +22,4 @@ const hasProperty = (obj, path) => {
   return objHasProperty;
 };
 
-export default { hasProperty };
+export { hasProperty };

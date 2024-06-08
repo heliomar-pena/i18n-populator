@@ -1,11 +1,12 @@
 import fs from 'fs';
-import { parsePath } from '../utils/getConfigPath';
-import { validateSettingsFile } from '../utils/validateSettingsFile';
+import { parsePath } from '../utils/getConfigPath.js';
+import { validateSettingsFile } from '../utils/validateSettingsFile.js';
 import { dset as setDeepValue } from 'dset';
-import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles';
-import { setTranslateWithFallbackEngines, isEngineValid } from '../services/translateService';
-import { validateLanguageRequested } from '../utils/supportedLanguagesUtils';
-import { validEngines } from '../utils/translationEnginesUtils';
+import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles.js';
+import { setTranslateWithFallbackEngines, isEngineValid } from '../services/translateService.js';
+import { validateLanguageRequested } from '../utils/supportedLanguagesUtils.js';
+import { validEngines } from '../utils/translationEnginesUtils.js';
+import { importJSONFile } from '../utils/importJSONFile.js';
 
 const translateController = async (
   text,
@@ -14,7 +15,7 @@ const translateController = async (
   options,
 ) => {
   const settingsFilePath = parsePath(options.settingsFile);
-  validateSettingsFile(settingsFilePath);
+  await validateSettingsFile(settingsFilePath);
   validateLanguageRequested(sourceLanguage, options.engine);
 
   if (typeof text !== "string" || !text?.length)
@@ -25,7 +26,9 @@ const translateController = async (
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = require(settingsFilePath);
+  } = await importJSONFile(settingsFilePath);
+
+  console.log({languages, basePath, settingsTranslationEngines})
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
@@ -38,7 +41,7 @@ const translateController = async (
   });
 
   for await (const language of languages) {
-    const filesToEdit = validateAndPromptUserJSONFiles(
+    const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       language.files,
       nameOfTranslation,
@@ -60,6 +63,6 @@ const translateController = async (
   }
 };
 
-export default {
+export {
   translateController,
 };
