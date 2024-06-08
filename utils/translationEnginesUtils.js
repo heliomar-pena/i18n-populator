@@ -1,8 +1,6 @@
-const {
-  translate: googleTranslate,
-} = require("@vitalets/google-translate-api");
-const { translate: bingTranslate } = require("../services/bingTranslate");
-const { translate: libreTranslate } = require("../services/libreTranslate");
+import { translate as googleTranslate } from '@vitalets/google-translate-api';
+import { translate as bingTranslate } from '../services/bingTranslate';
+import { translate as libreTranslate } from '../services/libreTranslate';
 
 const translateEngines = {
   google: googleTranslate,
@@ -19,7 +17,7 @@ const validEngines = Object.keys(translateEngines);
  */
 const isEngineValid = (engine) => validEngines.includes(engine);
 
-module.exports = {
+export default {
   translateEngines,
   validEngines,
   isEngineValid,

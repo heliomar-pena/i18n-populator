@@ -1,5 +1,5 @@
-const fs = require("fs");
-const { parsePath } = require("./getConfigPath");
+import fs from 'fs';
+import { parsePath } from './getConfigPath';
 
 const getOrCreateJsonFile = (basePath, fileName) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);
@@ -34,4 +34,4 @@ const getOrCreateJsonFile = (basePath, fileName) => {
   return { file, parsedPath };
 };
 
-module.exports = { getOrCreateJsonFile };
+export default { getOrCreateJsonFile };

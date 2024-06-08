@@ -1,9 +1,9 @@
-const fs = require("fs");
-const { validEngines } = require("../utils/translationEnginesUtils");
-const { confirmUserAction, promptUserInput } = require("../utils/promptUtils");
-const { parsePath } = require("../utils/getConfigPath");
-const { listFilesOnDirectory } = require("../utils/listFiles");
-const { supportedLanguagesCodes } = require("../utils/supportedLanguagesUtils");
+import fs from 'fs';
+import { validEngines } from '../utils/translationEnginesUtils';
+import { confirmUserAction, promptUserInput } from '../utils/promptUtils';
+import { parsePath } from '../utils/getConfigPath';
+import { listFilesOnDirectory } from '../utils/listFiles';
+import { supportedLanguagesCodes } from '../utils/supportedLanguagesUtils';
 
 const _promptTranslationEngines = () => {
   const translationEnginesToUse = [];
@@ -184,7 +184,7 @@ const generateConfigController = async () => {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };
 
-module.exports = {
+export default {
   _promptBasePath,
   _promptLanguages,
   _promptTranslationEngines,

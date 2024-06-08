@@ -1,6 +1,6 @@
-const { getOrCreateJsonFile } = require("./getOrCreateJsonFile");
-const { confirmUserAction } = require("./promptUtils");
-const { hasProperty } = require("./objectUtils");
+import { getOrCreateJsonFile } from './getOrCreateJsonFile';
+import { confirmUserAction } from './promptUtils';
+import { hasProperty } from './objectUtils';
 
 const validateAndPromptUserJSONFiles = (
   basePath,
@@ -28,4 +28,4 @@ const validateAndPromptUserJSONFiles = (
   return filesToEdit;
 };
 
-module.exports = { validateAndPromptUserJSONFiles };
+export default { validateAndPromptUserJSONFiles };

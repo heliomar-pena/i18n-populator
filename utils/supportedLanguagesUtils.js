@@ -1,5 +1,5 @@
-const allLanguagesCodes = require("../ALL-LANGUAGES-CODES.json");
-const { validEngines } = require("./translationEnginesUtils");
+import allLanguagesCodes from '../ALL-LANGUAGES-CODES.json';
+import { validEngines } from './translationEnginesUtils';
 
 /**
  * Object containing supported languages and their corresponding language codes.
@@ -134,7 +134,7 @@ const validateLanguageRequested = (requestedLanguage) => {
   }
 };
 
-module.exports = {
+export default {
   getLanguagesCodesWithNames,
   getLanguageCodeByEngine,
   validateLanguageIsSupportedByEngine,

@@ -1,18 +1,11 @@
-const fs = require("fs");
-const { parsePath } = require("../utils/getConfigPath");
-const { validateSettingsFile } = require("../utils/validateSettingsFile");
-const { dset: setDeepValue } = require("dset");
-const {
-  validateAndPromptUserJSONFiles,
-} = require("../utils/validateAndPromptUserJSONFiles");
-const {
-  setTranslateWithFallbackEngines,
-  isEngineValid,
-} = require("../services/translateService");
-const {
-  validateLanguageRequested,
-} = require("../utils/supportedLanguagesUtils");
-const { validEngines } = require("../utils/translationEnginesUtils");
+import fs from 'fs';
+import { parsePath } from '../utils/getConfigPath';
+import { validateSettingsFile } from '../utils/validateSettingsFile';
+import { dset as setDeepValue } from 'dset';
+import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles';
+import { setTranslateWithFallbackEngines, isEngineValid } from '../services/translateService';
+import { validateLanguageRequested } from '../utils/supportedLanguagesUtils';
+import { validEngines } from '../utils/translationEnginesUtils';
 
 const translateController = async (
   text,
@@ -67,6 +60,6 @@ const translateController = async (
   }
 };
 
-module.exports = {
+export default {
   translateController,
 };

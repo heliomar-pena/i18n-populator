@@ -34,4 +34,4 @@ const getTranslationEnginesToUse = ({
   return translationEnginesToUse;
 };
 
-module.exports = { getTranslationEnginesToUse, DEFAULT_ENGINES };
+export default { getTranslationEnginesToUse, DEFAULT_ENGINES };

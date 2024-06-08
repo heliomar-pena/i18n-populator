@@ -1,14 +1,16 @@
-const { confirmUserAction, promptUserInput } = require("../utils/promptUtils");
-const { validEngines } = require("../utils/translationEnginesUtils");
-const {
+import { confirmUserAction, promptUserInput } from '../utils/promptUtils';
+import { validEngines } from '../utils/translationEnginesUtils';
+
+import {
   _promptBasePath,
   _promptLanguages,
   _promptTranslationEngines,
   generateConfigController,
-} = require("./generateConfigController");
-const { listFilesOnDirectory } = require("../utils/listFiles");
-const { parsePath } = require("../utils/getConfigPath");
-const fs = require("fs");
+} from './generateConfigController';
+
+import { listFilesOnDirectory } from '../utils/listFiles';
+import { parsePath } from '../utils/getConfigPath';
+import fs from 'fs';
 
 jest.mock("../utils/promptUtils", () => ({
   confirmUserAction: jest.fn(() => true),
