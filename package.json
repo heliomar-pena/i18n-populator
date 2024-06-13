@@ -59,7 +59,7 @@
     "commander": "^8.3.0",
     "dset": "^3.1.2",
     "node-fetch": "^2.7.0",
-    "prompt-sync": "^4.2.0"
+    "prompt-sync-plus": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",

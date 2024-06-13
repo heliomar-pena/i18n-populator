@@ -2,7 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-import promptFactory from 'prompt-sync';
+import promptFactory from 'prompt-sync-plus';
 
 const prompt = promptFactory({
   sigint: true,
