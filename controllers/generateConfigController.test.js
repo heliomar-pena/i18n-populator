@@ -12,12 +12,14 @@ import { listFilesOnDirectory } from '../utils/listFiles.js';
 import { parsePath } from '../utils/getConfigPath.js';
 import fs from 'fs';
 
-jest.mock("../utils/promptUtils", () => ({
+import { jest } from '@jest/globals';
+
+jest.mock("./utils/promptUtils.js", () => ({
   confirmUserAction: jest.fn(() => true),
   promptUserInput: jest.fn(),
 }));
 
-jest.mock("../utils/listFiles", () => ({
+jest.mock("./utils/listFiles.js", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
 }));
 

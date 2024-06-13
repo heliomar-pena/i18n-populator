@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 jest.mock("@vitalets/google-translate-api", () => ({
   translate: jest.fn((text, { from, to }) => ({
     text: `${text} translated from ${from} to ${to}`,
@@ -5,7 +7,7 @@ jest.mock("@vitalets/google-translate-api", () => ({
 }));
 
 jest.mock(
-  "prompt-sync",
+  "prompt-sync-plus",
   () => {
     const mPrompt = jest.fn(() => "yes");
     return jest.fn(() => mPrompt);

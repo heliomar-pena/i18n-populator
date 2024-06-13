@@ -1,7 +1,9 @@
-import { translate as googleTranslate } from '@vitalets/google-translate-api.js';
+import { translate as googleTranslate } from '@vitalets/google-translate-api';
 import { translate as libreTranslate } from './libreTranslate.js';
-import { translate as bingTranslate } from 'bing-translate-api.js';
+import { translate as bingTranslate } from 'bing-translate-api';
 import { translate, validEngines } from './translateService.js';
+
+import { jest } from '@jest/globals';
 
 describe("translate", () => {
   let text, from, to;

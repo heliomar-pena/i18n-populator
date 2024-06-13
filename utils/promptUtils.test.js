@@ -1,5 +1,5 @@
 import { autoComplete, confirmUserAction } from './promptUtils.js';
-import promptFactory from 'prompt-sync.js';
+import promptFactory from 'prompt-sync-plus';
 const prompt = promptFactory();
 
 describe("promptUtils", () => {
