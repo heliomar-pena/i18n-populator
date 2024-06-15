@@ -2,11 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-import promptFactory from 'prompt-sync-plus';
-
-const prompt = promptFactory({
-  sigint: true,
-});
+import prompt from "./promptUser";
 
 /**
  * Get an array of commands to autocomplete the user prompt input
@@ -27,7 +23,7 @@ const confirmUserAction = (message) => {
     autocomplete: autoComplete(["y", "n", "yes", "no"]),
   });
 
-  const userConfirmed = ["y", "yes"].includes(userAnswer.toLowerCase());
+  const userConfirmed = ["y", "yes"].includes(userAnswer?.toLowerCase());
 
   return userConfirmed;
 };
