@@ -1,12 +1,12 @@
 import { jest } from '@jest/globals';
 
-jest.mock("@vitalets/google-translate-api", () => ({
+jest.unstable_mockModule("@vitalets/google-translate-api", () => ({
   translate: jest.fn((text, { from, to }) => ({
     text: `${text} translated from ${from} to ${to}`,
   })),
 }));
 
-jest.mock(
+jest.unstable_mockModule(
   "prompt-sync-plus",
   () => {
     const mPrompt = jest.fn(() => "yes");
@@ -15,13 +15,13 @@ jest.mock(
   { virtual: true },
 );
 
-jest.mock("bing-translate-api", () => ({
+jest.unstable_mockModule("bing-translate-api", () => ({
   translate: jest.fn((text, from, to) => ({
     translation: `${text} translated from ${from} to ${to} using bing`,
   })),
 }));
 
-jest.mock("./services/libreTranslate", () => ({
+jest.unstable_mockModule("./services/libreTranslate", () => ({
   translate: jest.fn((text, { from, to }) => ({
     text: `${text} translated from ${from} to ${to} using libreTranslate`,
   })),
