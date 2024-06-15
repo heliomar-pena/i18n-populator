@@ -1,32 +1,36 @@
-import { confirmUserAction, promptUserInput } from '../utils/promptUtils.js';
 import { validEngines } from '../utils/translationEnginesUtils.js';
 
-import {
-  _promptBasePath,
-  _promptLanguages,
-  _promptTranslationEngines,
-  generateConfigController,
-} from './generateConfigController';
-
-import { listFilesOnDirectory } from '../utils/listFiles.js';
 import { parsePath } from '../utils/getConfigPath.js';
-import fs from 'fs';
 
 import { jest } from '@jest/globals';
 
-jest.mock("./utils/promptUtils.js", () => ({
+jest.unstable_mockModule("./utils/promptUtils.js", () => ({
   confirmUserAction: jest.fn(() => true),
   promptUserInput: jest.fn(),
 }));
 
-jest.mock("./utils/listFiles.js", () => ({
+jest.unstable_mockModule("./utils/listFiles.js", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
 }));
 
-jest.mock("fs", () => ({
+jest.unstable_mockModule("fs", () => ({
   existsSync: jest.fn(() => false),
   writeFileSync: jest.fn(),
 }));
+
+jest.unstable_mockModule(
+  "prompt-sync-plus",
+  () => {
+    const mPrompt = jest.fn(() => "yes");
+    return jest.fn(() => mPrompt);
+  },
+  { virtual: true },
+);
+
+const { confirmUserAction, promptUserInput } = await import('../utils/promptUtils.js');
+const { listFilesOnDirectory } = await import('../utils/listFiles.js')
+const { _promptBasePath, _promptLanguages, _promptTranslationEngines, generateConfigController } = await import('./generateConfigController.js');
+const fs = await import('fs');
 
 const mockPromptBasePath = ({ basePath, pathFiles }) => {
   promptUserInput.mockReturnValueOnce(basePath);

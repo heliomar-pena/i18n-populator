@@ -1,5 +1,19 @@
-import { autoComplete, confirmUserAction } from './promptUtils.js';
-import promptFactory from 'prompt-sync-plus';
+import { jest } from '@jest/globals';
+
+jest.unstable_mockModule(
+  "prompt-sync-plus",
+  () => {
+    const mPrompt = jest.fn(() => "yes");
+    return jest.fn(() => mPrompt);
+  },
+  { virtual: true },
+);
+
+const { autoComplete, confirmUserAction } = await import("./promptUtils.js");
+const promptFactory = (await import("prompt-sync-plus")).default;
+
+console.log({ promptFactory });
+
 const prompt = promptFactory();
 
 describe("promptUtils", () => {
