@@ -1,20 +1,22 @@
-import { getOrCreateJsonFile } from './getOrCreateJsonFile.js';
-import { confirmUserAction } from './promptUtils.js';
-import { hasProperty } from './objectUtils.js';
+import { getOrCreateJsonFile } from "./getOrCreateJsonFile.js";
+import { confirmUserAction } from "./promptUtils.js";
+import { hasProperty } from "./objectUtils.js";
 
 const validateAndPromptUserJSONFiles = async (
   basePath,
   fileNames,
   nameOfTranslation,
 ) => {
-  const jsonFiles = await Promise.all(fileNames.map(async (fileName) => {
-    const fileData = await getOrCreateJsonFile(basePath, fileName);
+  const jsonFiles = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const fileData = await getOrCreateJsonFile(basePath, fileName);
 
-    return {
-      ...fileData,
-      fileName,
-    }
-  }));
+      return {
+        ...fileData,
+        fileName,
+      };
+    }),
+  );
 
   const filesToEdit = [];
 

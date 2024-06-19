@@ -1,6 +1,10 @@
-import { getLanguageCodeByEngine } from '../utils/supportedLanguagesUtils.js';
-import { getTranslationEnginesToUse } from '../utils/getTranslationEnginePreferences.js';
-import { validEngines, translateEngines, isEngineValid } from '../utils/translationEnginesUtils.js';
+import { getLanguageCodeByEngine } from "../utils/supportedLanguagesUtils.js";
+import { getTranslationEnginesToUse } from "../utils/getTranslationEnginePreferences.js";
+import {
+  validEngines,
+  translateEngines,
+  isEngineValid,
+} from "../utils/translationEnginesUtils.js";
 
 /**
  * Translates the given text from one language to another using the specified translation engine.

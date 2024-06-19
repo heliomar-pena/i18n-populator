@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { parsePath } from './getConfigPath.js';
-import { importJSONFile } from './importJSONFile.js';
+import fs from "fs";
+import { parsePath } from "./getConfigPath.js";
+import { importJSONFile } from "./importJSONFile.js";
 
 const getOrCreateJsonFile = async (basePath, fileName) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);

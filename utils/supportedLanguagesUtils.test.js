@@ -4,7 +4,7 @@ import {
   validateLanguageIsSupportedByEngine,
   validateLanguageRequested,
   getLanguageCodeByEngine,
-} from './supportedLanguagesUtils.js';
+} from "./supportedLanguagesUtils.js";
 
 describe("getLanguagesCodesWithNames", () => {
   it("should return an array of formatted language strings", () => {

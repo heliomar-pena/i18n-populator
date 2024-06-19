@@ -1,12 +1,15 @@
-import fs from 'fs';
-import { parsePath } from '../utils/getConfigPath.js';
-import { validateSettingsFile } from '../utils/validateSettingsFile.js';
-import { dset as setDeepValue } from 'dset';
-import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles.js';
-import { setTranslateWithFallbackEngines, isEngineValid } from '../services/translateService.js';
-import { validateLanguageRequested } from '../utils/supportedLanguagesUtils.js';
-import { validEngines } from '../utils/translationEnginesUtils.js';
-import { importJSONFile } from '../utils/importJSONFile.js';
+import fs from "fs";
+import { parsePath } from "../utils/getConfigPath.js";
+import { validateSettingsFile } from "../utils/validateSettingsFile.js";
+import { dset as setDeepValue } from "dset";
+import { validateAndPromptUserJSONFiles } from "../utils/validateAndPromptUserJSONFiles.js";
+import {
+  setTranslateWithFallbackEngines,
+  isEngineValid,
+} from "../services/translateService.js";
+import { validateLanguageRequested } from "../utils/supportedLanguagesUtils.js";
+import { validEngines } from "../utils/translationEnginesUtils.js";
+import { importJSONFile } from "../utils/importJSONFile.js";
 
 const translateController = async (
   text,
@@ -27,8 +30,6 @@ const translateController = async (
     basePath,
     translationEngines: settingsTranslationEngines,
   } = await importJSONFile(settingsFilePath);
-
-  console.log({languages, basePath, settingsTranslationEngines})
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
@@ -63,6 +64,4 @@ const translateController = async (
   }
 };
 
-export {
-  translateController,
-};
+export { translateController };

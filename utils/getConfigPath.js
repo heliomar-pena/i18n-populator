@@ -1,5 +1,5 @@
-import config from '../config.js';
-import path from 'path';
+import config from "../config.js";
+import path from "path";
 
 const { defaultConfigPath } = config;
 

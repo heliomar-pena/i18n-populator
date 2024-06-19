@@ -1,6 +1,6 @@
-import { translate as googleTranslate } from '@vitalets/google-translate-api';
-import { translate as bingTranslate } from '../services/bingTranslate.js';
-import { translate as libreTranslate } from '../services/libreTranslate.js';
+import { translate as googleTranslate } from "@vitalets/google-translate-api";
+import { translate as bingTranslate } from "../services/bingTranslate.js";
+import { translate as libreTranslate } from "../services/libreTranslate.js";
 
 const translateEngines = {
   google: googleTranslate,
@@ -17,8 +17,4 @@ const validEngines = Object.keys(translateEngines);
  */
 const isEngineValid = (engine) => validEngines.includes(engine);
 
-export {
-  translateEngines,
-  validEngines,
-  isEngineValid,
-};
+export { translateEngines, validEngines, isEngineValid };

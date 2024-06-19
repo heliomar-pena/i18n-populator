@@ -1,5 +1,5 @@
-import { readFile } from 'fs/promises';
-import path from 'path';
+import { readFile } from "fs/promises";
+import path from "path";
 
 /**
  * Imports a JSON file from the specified path and returns the parsed JSON data.
@@ -9,15 +9,16 @@ import path from 'path';
  * @returns {Promise<Object>} - A promise that resolves to the parsed JSON data.
  */
 async function importJSONFile(filePath, url) {
-  if (!filePath) throw new Error('No file path provided');
-  
+  if (!filePath) throw new Error("No file path provided");
+
   let finalPath = "";
 
-  if (typeof url === "string" && url.length > 0) finalPath = url.split('/').slice(0, -1).join('/').replace('file://', '');
+  if (typeof url === "string" && url.length > 0)
+    finalPath = url.split("/").slice(0, -1).join("/").replace("file://", "");
 
   finalPath = path.join(finalPath, filePath);
 
-  const data = await readFile(finalPath, 'utf8');
+  const data = await readFile(finalPath, "utf8");
 
   return JSON.parse(data);
 }
