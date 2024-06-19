@@ -1,11 +1,11 @@
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
-import { validateAndPromptUserJSONFiles } from '../utils/validateAndPromptUserJSONFiles.js';
-import { getOrCreateJsonFile } from '../utils/getOrCreateJsonFile.js';
-import { parsePath } from './getConfigPath.js';
-import promptFactory from 'prompt-sync-plus';
+import { validateAndPromptUserJSONFiles } from "../utils/validateAndPromptUserJSONFiles.js";
+import { getOrCreateJsonFile } from "../utils/getOrCreateJsonFile.js";
+import { parsePath } from "./getConfigPath.js";
+import promptFactory from "prompt-sync-plus";
 const prompt = promptFactory();
-import fs from 'fs';
+import fs from "fs";
 
 /**
  * TODO: rewrite to use mocked fs instead of creating files on disk

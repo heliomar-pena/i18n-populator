@@ -14,9 +14,7 @@ const config = {
     "**/coverage/**",
     "**/node_modules/**",
   ],
-  collectCoverageFrom: [
-    "**/*.js",
-  ],
+  collectCoverageFrom: ["**/*.js"],
   coverageProvider: "v8",
   setupFiles: ["./jest.setup.mjs"],
   transform: {},

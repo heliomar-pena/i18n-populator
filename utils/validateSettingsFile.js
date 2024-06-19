@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { validEngines, isEngineValid } from '../services/translateService.js';
-import { importJSONFile } from './importJSONFile.js';
+import fs from "fs";
+import { validEngines, isEngineValid } from "../services/translateService.js";
+import { importJSONFile } from "./importJSONFile.js";
 
 const validateSettingsFile = async (settingsFilePath) => {
   const existsFile = fs.existsSync(settingsFilePath);
@@ -11,7 +11,7 @@ const validateSettingsFile = async (settingsFilePath) => {
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await importJSONFile(settingsFilePath, '');
+  } = await importJSONFile(settingsFilePath, "");
 
   if (!languages?.length || !basePath?.length)
     throw new Error(

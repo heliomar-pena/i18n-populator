@@ -1,6 +1,6 @@
-import { parsePath } from './getConfigPath.js';
-import { getOrCreateJsonFile } from './getOrCreateJsonFile.js';
-import fs from 'fs';
+import { parsePath } from "./getConfigPath.js";
+import { getOrCreateJsonFile } from "./getOrCreateJsonFile.js";
+import fs from "fs";
 
 describe("getOrCreateJsonFile", () => {
   let basePath, fileName, fileContent;

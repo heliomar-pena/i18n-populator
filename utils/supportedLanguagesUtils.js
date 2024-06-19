@@ -1,7 +1,10 @@
-import { importJSONFile } from './importJSONFile.js';
-import { validEngines } from './translationEnginesUtils.js';
+import { importJSONFile } from "./importJSONFile.js";
+import { validEngines } from "./translationEnginesUtils.js";
 
-const allLanguagesCodes = await importJSONFile('../ALL-LANGUAGES-CODES.json', import.meta.url);
+const allLanguagesCodes = await importJSONFile(
+  "../ALL-LANGUAGES-CODES.json",
+  import.meta.url,
+);
 
 /**
  * Object containing supported languages and their corresponding language codes.

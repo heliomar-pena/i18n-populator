@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
 const mirrors = [
   "https://translate.terraprint.co/translate",

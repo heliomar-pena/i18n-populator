@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from "fs";
 
 /**
  * Retrieves a list of files in the specified directory.

@@ -1,11 +1,5 @@
-import { jest } from '@jest/globals';
-
-jest.unstable_mockModule("./utils/promptUser.js", () => {
-  return { default: jest.fn(() => "yes") };
-});
-
-const prompt = (await import("./promptUser.js")).default;
-const { autoComplete, confirmUserAction } = await import("./promptUtils.js");
+import prompt from "./promptUser.js";
+import { autoComplete, confirmUserAction } from "./promptUtils.js";
 
 describe("promptUtils", () => {
   describe("autoComplete", () => {
