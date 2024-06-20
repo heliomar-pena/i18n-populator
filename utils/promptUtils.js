@@ -2,6 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
+import { AutocompleteBehavior } from "prompt-sync-plus";
 import prompt from "./promptUser.js";
 
 /**
@@ -30,7 +31,12 @@ const confirmUserAction = (message) => {
 
 const promptUserInput = (message, autocomplete = []) => {
   return prompt(message, {
-    autocomplete: autoComplete(autocomplete),
+    autocomplete: {
+      searchFn: autoComplete(autocomplete),
+      behavior: AutocompleteBehavior.SUGGEST,
+      suggestColCount: 3,
+      sticky: true,
+    },
   });
 };
 
