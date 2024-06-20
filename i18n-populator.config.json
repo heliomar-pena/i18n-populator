@@ -1,6 +1,6 @@
 {
   "basePath": "example",
-  "translationEngines": ["google", "bing"],
+  "translationEngines": ["google", "bing", "libreTranslate"],
   "languages": [
     {
       "name": "en",
