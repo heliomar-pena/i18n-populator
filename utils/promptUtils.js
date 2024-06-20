@@ -2,7 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-import prompt from "./promptUser";
+import prompt from "./promptUser.js";
 
 /**
  * Get an array of commands to autocomplete the user prompt input
