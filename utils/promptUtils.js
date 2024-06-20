@@ -33,8 +33,9 @@ const promptUserInput = (message, autocomplete = []) => {
   return prompt(message, {
     autocomplete: {
       searchFn: autoComplete(autocomplete),
-      behavior: AutocompleteBehavior.SUGGEST,
+      behavior: AutocompleteBehavior.HYBRID,
       suggestColCount: 3,
+      fill: true,
       sticky: true,
     },
   });
