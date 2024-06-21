@@ -8,6 +8,7 @@ import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils.js";
 const _promptTranslationEngines = () => {
   const translationEnginesToUse = [];
 
+  console.clear();
   console.log(
     "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file.",
   );
