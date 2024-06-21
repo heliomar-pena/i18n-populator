@@ -1,12 +1,10 @@
-const { getLanguageCodeByEngine } = require("../utils/supportedLanguagesUtils");
-const {
-  getTranslationEnginesToUse,
-} = require("../utils/getTranslationEnginePreferences");
-const {
+import { getLanguageCodeByEngine } from "../utils/supportedLanguagesUtils.js";
+import { getTranslationEnginesToUse } from "../utils/getTranslationEnginePreferences.js";
+import {
   validEngines,
   translateEngines,
   isEngineValid,
-} = require("../utils/translationEnginesUtils");
+} from "../utils/translationEnginesUtils.js";
 
 /**
  * Translates the given text from one language to another using the specified translation engine.
@@ -101,7 +99,7 @@ const setTranslateWithFallbackEngines = ({
   return { engines, translate: translateWithFallbackEngines };
 };
 
-module.exports = {
+export {
   translate,
   validEngines,
   setTranslateWithFallbackEngines,

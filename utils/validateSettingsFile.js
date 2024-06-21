@@ -1,7 +1,8 @@
-const fs = require("fs");
-const { validEngines, isEngineValid } = require("../services/translateService");
+import fs from "fs";
+import { validEngines, isEngineValid } from "../services/translateService.js";
+import { importJSONFile } from "./importJSONFile.js";
 
-const validateSettingsFile = (settingsFilePath) => {
+const validateSettingsFile = async (settingsFilePath) => {
   const existsFile = fs.existsSync(settingsFilePath);
   if (!settingsFilePath || !existsFile)
     throw new Error(`No settings file found on file path ${settingsFilePath}`);
@@ -10,7 +11,7 @@ const validateSettingsFile = (settingsFilePath) => {
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = require(settingsFilePath);
+  } = await importJSONFile(settingsFilePath, "");
 
   if (!languages?.length || !basePath?.length)
     throw new Error(
@@ -49,4 +50,4 @@ const validateSettingsFile = (settingsFilePath) => {
   return true;
 };
 
-module.exports = { validateSettingsFile };
+export default validateSettingsFile;

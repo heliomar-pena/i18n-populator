@@ -1,12 +1,13 @@
-const fs = require("fs");
-const { parsePath } = require("./getConfigPath");
+import fs from "fs";
+import { parsePath } from "./getConfigPath.js";
+import { importJSONFile } from "./importJSONFile.js";
 
-const getOrCreateJsonFile = (basePath, fileName) => {
+const getOrCreateJsonFile = async (basePath, fileName) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);
 
   if (fs.existsSync(parsedPath)) {
     try {
-      const file = require(parsedPath);
+      const file = await importJSONFile(parsedPath);
       return { file, parsedPath };
     } catch (error) {
       console.error(`Error reading file ${parsedPath}.`);
@@ -34,4 +35,4 @@ const getOrCreateJsonFile = (basePath, fileName) => {
   return { file, parsedPath };
 };
 
-module.exports = { getOrCreateJsonFile };
+export { getOrCreateJsonFile };

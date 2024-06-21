@@ -1,5 +1,10 @@
-const allLanguagesCodes = require("../ALL-LANGUAGES-CODES.json");
-const { validEngines } = require("./translationEnginesUtils");
+import { importJSONFile } from "./importJSONFile.js";
+import { validEngines } from "./translationEnginesUtils.js";
+
+const allLanguagesCodes = await importJSONFile(
+  "../ALL-LANGUAGES-CODES.json",
+  import.meta.url,
+);
 
 /**
  * Object containing supported languages and their corresponding language codes.
@@ -134,7 +139,7 @@ const validateLanguageRequested = (requestedLanguage) => {
   }
 };
 
-module.exports = {
+export {
   getLanguagesCodesWithNames,
   getLanguageCodeByEngine,
   validateLanguageIsSupportedByEngine,

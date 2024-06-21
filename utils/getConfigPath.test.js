@@ -1,6 +1,8 @@
-const { configPath, parsePath } = require("./getConfigPath");
-const path = require("path");
-const { defaultConfigPath } = require("../config");
+import { configPath, parsePath } from "./getConfigPath.js";
+import path from "path";
+import config from "../config.js";
+
+const { defaultConfigPath } = config;
 
 describe("getConfigPath", () => {
   it("should return the configPath", () => {

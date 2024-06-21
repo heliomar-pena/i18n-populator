@@ -1,4 +1,4 @@
-const { hasProperty } = require("./objectUtils");
+import { hasProperty } from "./objectUtils.js";
 
 describe("Object utils tests", () => {
   describe("hasProperty", () => {

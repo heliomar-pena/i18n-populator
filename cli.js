@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-
-const { Command } = require("commander");
+import { Command } from "commander";
 const program = new Command();
-const { configPath } = require("./utils/getConfigPath");
-const { translateController } = require("./controllers/translateController");
-const { languagesController } = require("./controllers/languagesController");
-const {
-  generateConfigController,
-} = require("./controllers/generateConfigController");
-const { version } = require("./package.json");
+import { configPath } from "./utils/getConfigPath.js";
+import translateController from "./controllers/translateController.js";
+import languagesController from "./controllers/languagesController.js";
+import { generateConfigController } from "./controllers/generateConfigController.js";
+import { importJSONFile } from "./utils/importJSONFile.js";
+
+const { version } = await importJSONFile("./package.json", import.meta.url);
 
 program
   .name("i18n-populator")
