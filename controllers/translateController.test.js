@@ -1,5 +1,5 @@
 import { translate } from "@vitalets/google-translate-api";
-import { translateController } from "./translateController.js";
+import translateController from "./translateController.js";
 import { configPath, parsePath } from "../utils/getConfigPath.js";
 import { getOrCreateJsonFile } from "../utils/getOrCreateJsonFile.js";
 import promptFactory from "prompt-sync-plus";

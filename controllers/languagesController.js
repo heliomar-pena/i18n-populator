@@ -27,4 +27,4 @@ const languagesController = ({ byEngine: engine }) => {
   );
 };
 
-export { languagesController };
+export default languagesController;

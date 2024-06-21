@@ -12,8 +12,10 @@ jest.unstable_mockModule("./utils/listFiles.js", () => ({
 }));
 
 jest.unstable_mockModule("fs", () => ({
-  existsSync: jest.fn(() => false),
-  writeFileSync: jest.fn(),
+  default: {
+    existsSync: jest.fn(() => false),
+    writeFileSync: jest.fn(),
+  },
 }));
 
 const { confirmUserAction, promptUserInput } = await import(
@@ -26,7 +28,7 @@ const {
   _promptTranslationEngines,
   generateConfigController,
 } = await import("./generateConfigController.js");
-const fs = await import("fs");
+const fs = (await import("fs")).default;
 
 const mockPromptBasePath = ({ basePath, pathFiles }) => {
   promptUserInput.mockReturnValueOnce(basePath);
