@@ -1,13 +1,14 @@
-const fs = require("fs");
-const { validEngines } = require("../utils/translationEnginesUtils");
-const { confirmUserAction, promptUserInput } = require("../utils/promptUtils");
-const { parsePath } = require("../utils/getConfigPath");
-const { listFilesOnDirectory } = require("../utils/listFiles");
-const { supportedLanguagesCodes } = require("../utils/supportedLanguagesUtils");
+import fs from "fs";
+import { validEngines } from "../utils/translationEnginesUtils.js";
+import { confirmUserAction, promptUserInput } from "../utils/promptUtils.js";
+import { parsePath } from "../utils/getConfigPath.js";
+import { listFilesOnDirectory } from "../utils/listFiles.js";
+import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils.js";
 
 const _promptTranslationEngines = () => {
   const translationEnginesToUse = [];
 
+  console.clear();
   console.log(
     "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file.",
   );
@@ -184,7 +185,7 @@ const generateConfigController = async () => {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };
 
-module.exports = {
+export {
   _promptBasePath,
   _promptLanguages,
   _promptTranslationEngines,

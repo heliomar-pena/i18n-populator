@@ -3,10 +3,11 @@
   "version": "1.0.44",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
@@ -58,10 +59,11 @@
     "commander": "^8.3.0",
     "dset": "^3.1.2",
     "node-fetch": "^2.7.0",
-    "prompt-sync": "^4.2.0"
+    "prompt-sync-plus": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",
+    "@jest/globals": "^29.7.0",
     "eslint": "^9.4.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.3.0",

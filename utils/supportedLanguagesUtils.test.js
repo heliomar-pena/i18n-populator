@@ -1,10 +1,10 @@
-const {
+import {
   supportedLanguages,
   getLanguagesCodesWithNames,
   validateLanguageIsSupportedByEngine,
   validateLanguageRequested,
   getLanguageCodeByEngine,
-} = require("./supportedLanguagesUtils");
+} from "./supportedLanguagesUtils.js";
 
 describe("getLanguagesCodesWithNames", () => {
   it("should return an array of formatted language strings", () => {

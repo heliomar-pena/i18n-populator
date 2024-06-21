@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 /**
  * Retrieves a list of files in the specified directory.
@@ -17,4 +17,4 @@ const listFilesOnDirectory = (directory) => {
   });
 };
 
-module.exports = { listFilesOnDirectory };
+export { listFilesOnDirectory };

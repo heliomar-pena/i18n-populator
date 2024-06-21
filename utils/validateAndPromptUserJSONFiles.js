@@ -1,16 +1,23 @@
-const { getOrCreateJsonFile } = require("./getOrCreateJsonFile");
-const { confirmUserAction } = require("./promptUtils");
-const { hasProperty } = require("./objectUtils");
+import { getOrCreateJsonFile } from "./getOrCreateJsonFile.js";
+import { confirmUserAction } from "./promptUtils.js";
+import { hasProperty } from "./objectUtils.js";
 
-const validateAndPromptUserJSONFiles = (
+const validateAndPromptUserJSONFiles = async (
   basePath,
   fileNames,
   nameOfTranslation,
 ) => {
-  const jsonFiles = fileNames.map((fileName) => ({
-    ...getOrCreateJsonFile(basePath, fileName),
-    fileName,
-  }));
+  const jsonFiles = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const fileData = await getOrCreateJsonFile(basePath, fileName);
+
+      return {
+        ...fileData,
+        fileName,
+      };
+    }),
+  );
+
   const filesToEdit = [];
 
   jsonFiles.forEach(({ file, parsedPath, fileName }) => {
@@ -28,4 +35,4 @@ const validateAndPromptUserJSONFiles = (
   return filesToEdit;
 };
 
-module.exports = { validateAndPromptUserJSONFiles };
+export { validateAndPromptUserJSONFiles };

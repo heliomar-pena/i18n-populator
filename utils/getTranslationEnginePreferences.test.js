@@ -1,7 +1,7 @@
-const {
+import {
   getTranslationEnginesToUse,
   DEFAULT_ENGINES,
-} = require("../utils/getTranslationEnginePreferences");
+} from "../utils/getTranslationEnginePreferences.js";
 
 describe("getTranslationEnginesToUse", () => {
   it("should return an array with the cliArgEngine if it is provided", () => {

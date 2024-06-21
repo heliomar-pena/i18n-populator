@@ -1,6 +1,6 @@
-const { parsePath } = require("./getConfigPath");
-const { getOrCreateJsonFile } = require("./getOrCreateJsonFile");
-const fs = require("fs");
+import { parsePath } from "./getConfigPath.js";
+import { getOrCreateJsonFile } from "./getOrCreateJsonFile.js";
+import fs from "fs";
 
 describe("getOrCreateJsonFile", () => {
   let basePath, fileName, fileContent;
@@ -14,21 +14,21 @@ describe("getOrCreateJsonFile", () => {
     fs.rmSync("test-configs", { recursive: true });
   });
 
-  it("should create a new file and return the file and the parsedPath if file doesn't exists", () => {
-    const { file, parsedPath } = getOrCreateJsonFile(basePath, fileName);
+  it("should create a new file and return the file and the parsedPath if file doesn't exists", async () => {
+    const { file, parsedPath } = await getOrCreateJsonFile(basePath, fileName);
     expect(file).toEqual({});
     expect(parsedPath).toEqual(parsePath(`${basePath}/${fileName}`));
     expect(fs.existsSync(parsedPath)).toBe(true);
   });
 
-  it("should return the file and the parsedPath if file exists", () => {
+  it("should return the file and the parsedPath if file exists", async () => {
     fs.mkdirSync(basePath, { recursive: true });
     fs.writeFileSync(
       `${basePath}/${fileName}`,
       JSON.stringify(fileContent, null, 2),
     );
 
-    const { file, parsedPath } = getOrCreateJsonFile(basePath, fileName);
+    const { file, parsedPath } = await getOrCreateJsonFile(basePath, fileName);
     expect(file).toEqual(fileContent);
     expect(parsedPath).toEqual(parsePath(`${basePath}/${fileName}`));
   });
