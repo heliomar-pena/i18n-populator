@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import fs from "fs";
 import { validEngines } from "../utils/translationEnginesUtils.js";
 import { confirmUserAction, promptUserInput } from "../utils/promptUtils.js";
 import { parsePath } from "../utils/getConfigPath.js";

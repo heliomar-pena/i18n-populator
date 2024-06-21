@@ -50,4 +50,4 @@ const validateSettingsFile = async (settingsFilePath) => {
   return true;
 };
 
-export { validateSettingsFile };
+export default validateSettingsFile;

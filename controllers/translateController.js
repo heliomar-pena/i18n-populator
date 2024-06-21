@@ -1,6 +1,6 @@
 import fs from "fs";
 import { parsePath } from "../utils/getConfigPath.js";
-import { validateSettingsFile } from "../utils/validateSettingsFile.js";
+import validateSettingsFile from "../utils/validateSettingsFile.js";
 import { dset as setDeepValue } from "dset";
 import { validateAndPromptUserJSONFiles } from "../utils/validateAndPromptUserJSONFiles.js";
 import {
@@ -64,4 +64,4 @@ const translateController = async (
   }
 };
 
-export { translateController };
+export default translateController;
