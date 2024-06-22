@@ -1,26 +1,40 @@
 import { translate } from "@vitalets/google-translate-api";
-import translateController from "./translateController.js";
 import { configPath, parsePath } from "../utils/getConfigPath.js";
-import { getOrCreateJsonFile } from "../utils/getOrCreateJsonFile.js";
-import promptFactory from "prompt-sync-plus";
-const prompt = promptFactory();
-import fs from "fs";
+import prompt from "../utils/promptUser.js";
 import { validEngines } from "../services/translateService.js";
-import {
-  getLanguagesCodesWithNames,
-  supportedLanguages,
-} from "../utils/supportedLanguagesUtils.js";
-import { importJSONFile } from "../utils/importJSONFile.js";
+import fs from "fs";
 
-const config = await importJSONFile(parsePath(configPath));
+import { jest } from "@jest/globals";
 
-/**
- * TODO: Update tests to use a mocked version of fs instead of creating files on the disk and reading them.
- * So tests could work fine on jest using modules (for the error:
- * ReferenceError: You are trying to `import` a file after the Jest environment has been torn down. From controllers/translateController.test.js.)
- * And we can avoid random failing tests on CI/CD pipelines.
- */
-describe.skip("TranslateController", () => {
+const config = {
+  languages: [
+    {
+      name: "en",
+      files: ["en.json"],
+    },
+    {
+      name: "es",
+      files: ["es.json"],
+    },
+  ],
+  basePath: "test",
+  translationEngines: ["google", "bing", "libreTranslate"],
+};
+
+jest.unstable_mockModule("./utils/importJSONFile.js", () => ({
+  importJSONFile: jest.fn(async () => config),
+}));
+
+const { importJSONFile } = await import("../utils/importJSONFile.js");
+const { getOrCreateJsonFile } = await import("../utils/getOrCreateJsonFile.js");
+const { getLanguagesCodesWithNames, supportedLanguages } = await import(
+  "../utils/supportedLanguagesUtils.js"
+);
+const translateController = (
+  await import("../controllers/translateController.js")
+).default;
+
+describe("TranslateController", () => {
   let text, sourceLanguage, nameOfTranslation;
   beforeEach(() => {
     jest.clearAllMocks();
@@ -29,15 +43,7 @@ describe.skip("TranslateController", () => {
     sourceLanguage = "en";
     nameOfTranslation = "helloWorld";
 
-    if (fs.existsSync("test-configs")) {
-      fs.rmSync("test-configs", { recursive: true });
-    }
-  });
-
-  afterEach(() => {
-    if (fs.existsSync("test-configs")) {
-      fs.rmSync("test-configs", { recursive: true });
-    }
+    fs.existsSync.mockImplementation(() => true);
   });
 
   it("It's calling translate function for each language on config path except for the source language", async () => {
@@ -58,6 +64,8 @@ describe.skip("TranslateController", () => {
   });
 
   it("It's throwing an error if no config file is found", async () => {
+    fs.existsSync.mockImplementationOnce(() => false);
+
     await expect(
       translateController(text, sourceLanguage, nameOfTranslation, {
         settingsFile: "non-existent-file",
@@ -65,54 +73,20 @@ describe.skip("TranslateController", () => {
     ).rejects.toThrow("No settings file found");
   });
 
-  it("It's handling properly custom config files", async () => {
-    const customConfig = {
-      basePath: "test-configs/translations",
-      languages: [
-        {
-          name: "es",
-          files: ["es.json"],
-        },
-        {
-          name: "fr",
-          files: ["fr.json"],
-        },
-      ],
-    };
+  it("It's calling translate function for each language on config path", async () => {
+    const { languages } = config;
 
-    await getOrCreateJsonFile(
-      "test-configs",
-      "custom-config.json",
-      customConfig,
-    );
-
-    fs.writeFileSync(
-      "test-configs/custom-config.json",
-      JSON.stringify(customConfig, null, 2),
-    );
-
-    await translateController(text, sourceLanguage, nameOfTranslation, {
-      settingsFile: "test-configs/custom-config.json",
+    await translateController(text, "fr", nameOfTranslation, {
+      settingsFile: configPath,
     });
 
-    expect(translate).toHaveBeenCalledTimes(2);
+    expect(translate).toHaveBeenCalledTimes(languages.length);
   });
 
   it("It's throwing an error if no languages are found on config file", async () => {
-    const noLanguagesConfig = {
+    importJSONFile.mockImplementationOnce(async () => ({
       basePath: "test-configs/translations",
-    };
-
-    await getOrCreateJsonFile(
-      "test-configs",
-      "no-languages.json",
-      noLanguagesConfig,
-    );
-
-    fs.writeFileSync(
-      "test-configs/no-languages.json",
-      JSON.stringify(noLanguagesConfig, null, 2),
-    );
+    }));
 
     await expect(
       translateController(text, sourceLanguage, nameOfTranslation, {
@@ -135,15 +109,8 @@ describe.skip("TranslateController", () => {
       ],
     };
 
-    await getOrCreateJsonFile(
-      "test-configs",
-      "invalid-translation-engine.json",
-      invalidTranslationEngineConfig,
-    );
-
-    fs.writeFileSync(
-      "test-configs/invalid-translation-engine.json",
-      JSON.stringify(invalidTranslationEngineConfig, null, 2),
+    importJSONFile.mockImplementationOnce(
+      async () => invalidTranslationEngineConfig,
     );
 
     await expect(
@@ -411,16 +378,7 @@ describe.skip("TranslateController", () => {
       ],
     };
 
-    await getOrCreateJsonFile(
-      "test-configs",
-      "test-config-without-name.json",
-      testConfig,
-    );
-
-    fs.writeFileSync(
-      "test-configs/test-config-without-name.json",
-      JSON.stringify(testConfig, null, 2),
-    );
+    importJSONFile.mockImplementationOnce(async () => testConfig);
 
     await expect(
       translateController(text, sourceLanguage, nameOfTranslation, {
@@ -439,16 +397,7 @@ describe.skip("TranslateController", () => {
       ],
     };
 
-    await getOrCreateJsonFile(
-      "test-configs",
-      "test-config-without-files.json",
-      testConfig,
-    );
-
-    fs.writeFileSync(
-      "test-configs/test-config-without-files.json",
-      JSON.stringify(testConfig, null, 2),
-    );
+    importJSONFile.mockImplementationOnce(async () => testConfig);
 
     await expect(
       translateController(text, sourceLanguage, nameOfTranslation, {
@@ -459,7 +408,7 @@ describe.skip("TranslateController", () => {
     );
   });
 
-  it("It's throwing an error if files empties are provided on files array", async () => {
+  it("It's throwing an error if empty files are provided on files array", async () => {
     const testConfig = {
       basePath: "test-configs/translations",
       languages: [
@@ -470,16 +419,7 @@ describe.skip("TranslateController", () => {
       ],
     };
 
-    await getOrCreateJsonFile(
-      "test-configs",
-      "test-config-with-empty-files.json",
-      testConfig,
-    );
-
-    fs.writeFileSync(
-      "test-configs/test-config-with-empty-files.json",
-      JSON.stringify(testConfig, null, 2),
-    );
+    importJSONFile.mockImplementationOnce(async () => testConfig);
 
     await expect(
       translateController(text, sourceLanguage, nameOfTranslation, {
@@ -501,24 +441,15 @@ describe.skip("TranslateController", () => {
       ],
     };
 
-    await getOrCreateJsonFile("test-configs", "test-config.json", testConfig);
+    const file = {
+      [nameOfTranslation]: text,
+    };
 
-    fs.writeFileSync(
-      "test-configs/test-config.json",
-      JSON.stringify(testConfig, null, 2),
-    );
+    importJSONFile.mockImplementation(async (path) => {
+      if (path.includes("test-configs/test-config.json")) return testConfig;
 
-    const { file } = await getOrCreateJsonFile(
-      testConfig.basePath,
-      testConfig.languages[0].files[0],
-    );
-
-    file[nameOfTranslation] = text;
-
-    fs.writeFileSync(
-      `${testConfig.basePath}/${testConfig.languages[0].files[0]}`,
-      JSON.stringify(file, null, 2),
-    );
+      return file;
+    });
 
     await translateController(text, sourceLanguage, nameOfTranslation, {
       settingsFile: "test-configs/test-config.json",
@@ -538,24 +469,15 @@ describe.skip("TranslateController", () => {
       ],
     };
 
-    await getOrCreateJsonFile("test-configs", "test-config.json", testConfig);
+    const file = {
+      [nameOfTranslation]: text,
+    };
 
-    fs.writeFileSync(
-      "test-configs/test-config.json",
-      JSON.stringify(testConfig, null, 2),
-    );
+    importJSONFile.mockImplementation(async (path) => {
+      if (path.includes("test-configs/test-config.json")) return testConfig;
 
-    const { file } = await getOrCreateJsonFile(
-      testConfig.basePath,
-      testConfig.languages[0].files[0],
-    );
-
-    file[nameOfTranslation] = text;
-
-    fs.writeFileSync(
-      `${testConfig.basePath}/${testConfig.languages[0].files[0]}`,
-      JSON.stringify(file, null, 2),
-    );
+      return file;
+    });
 
     prompt.mockImplementationOnce(() => "no");
 
@@ -563,27 +485,34 @@ describe.skip("TranslateController", () => {
       settingsFile: "test-configs/test-config.json",
     });
 
-    const { file: esFile } = await getOrCreateJsonFile(
-      testConfig.basePath,
-      testConfig.languages[0].files[0],
-    );
-    const { file: esMxFile } = await getOrCreateJsonFile(
-      testConfig.basePath,
-      testConfig.languages[0].files[1],
-    );
-    const { file: esEsFile } = await getOrCreateJsonFile(
-      testConfig.basePath,
-      testConfig.languages[0].files[2],
-    );
-
-    expect(esFile[nameOfTranslation]).toBe(text);
-    expect(esMxFile[nameOfTranslation]).toBe(
-      `${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`,
-    );
-    expect(esEsFile[nameOfTranslation]).toBe(
-      `${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`,
+    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+      1,
+      parsePath(`${testConfig.basePath}/${testConfig.languages[0].files[1]}`),
+      JSON.stringify(
+        {
+          [nameOfTranslation]: `${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`,
+        },
+        null,
+        2,
+      ),
     );
 
-    expect(prompt).toHaveBeenCalledTimes(1);
+    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+      2,
+      parsePath(`${testConfig.basePath}/${testConfig.languages[0].files[2]}`),
+      JSON.stringify(
+        {
+          [nameOfTranslation]: `${text} translated from ${sourceLanguage} to ${testConfig.languages[0].name}`,
+        },
+        null,
+        2,
+      ),
+    );
+
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
+
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
+
+    expect(prompt).toHaveBeenCalledTimes(3);
   });
 });
