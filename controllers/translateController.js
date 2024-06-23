@@ -11,12 +11,12 @@ import { validateLanguageRequested } from "../utils/supportedLanguagesUtils.js";
 import { validEngines } from "../utils/translationEnginesUtils.js";
 import { importJSONFile } from "../utils/importJSONFile.js";
 
-const translateController = async (
+const translateController = async ({
   text,
-  sourceLanguage,
-  nameOfTranslation,
-  options,
-) => {
+  from: sourceLanguage,
+  name: nameOfTranslation,
+  ...options
+}) => {
   const settingsFilePath = parsePath(options.settingsFile);
   await validateSettingsFile(settingsFilePath);
   validateLanguageRequested(sourceLanguage, options.engine);
