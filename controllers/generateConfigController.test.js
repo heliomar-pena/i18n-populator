@@ -11,13 +11,6 @@ jest.unstable_mockModule("./utils/listFiles.js", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
 }));
 
-jest.unstable_mockModule("fs", () => ({
-  default: {
-    existsSync: jest.fn(() => false),
-    writeFileSync: jest.fn(),
-  },
-}));
-
 const { confirmUserAction, promptUserInput } = await import(
   "../utils/promptUtils.js"
 );
