@@ -24,11 +24,11 @@ program
   .option("-n, --name <string>", "Name of the translation")
   .option(
     "-e, --engine <string>",
-    "Engine to use for the translation. In case you don't define it will be use by default all the translation engines that are free and doesn't requires API Key.",
+    "[OPTIONAL]. Engine to use for the translation. In case you don't define it will be use by default all the translation engines that are free and doesn't requires API Key.",
   )
   .option(
     "-s, --settings-file <string>",
-    "Path to the settings file",
+    "[OPTIONAL]. Path to the settings file. If not provided, it will look on the current directory for a file named i18n-populator.config.json",
     configPath,
   )
   .action(translateController);
