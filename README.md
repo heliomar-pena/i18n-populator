@@ -9,7 +9,7 @@ This project uses [LibreTranslate](https://github.com/LibreTranslate/LibreTransl
 > DISCLAIMER! To be 100% legal please use LibreTranslate engine or use the official Bing or Google Translate API.
 
 ```sh
-npx i18n-populator translate "Hello world" "en" "greetings" --engine "bing"
+npx i18n-populator translate --text "Hello world" --from "en" --name "greetings" --engine "bing"
 
 ```
 
@@ -87,14 +87,14 @@ Also you can check an example on [configuration file](./i18n-populator.config.js
 2. In order to translate, you need to run the `translate` command, write the phrase you want to translate and select the source language that it is wrote in, and at the end add a name for your new translation, this will be used on your json files as property name.
 
 ```sh
-npx i18n-populator translate "Hello world" "en" "greetings"
+npx i18n-populator translate --text "Hello world" --from "en" --name "greetings"
 
 ```
 
 Another example in spanish
 
 ```sh
-npx i18n-populator translate "Hola mundo" "es" "greetings"
+npx i18n-populator translate --text "Hola mundo" --from "es" --name "greetings"
 
 ```
 
@@ -105,13 +105,13 @@ Also, additionally you can specify the path of the configuration file, by defaul
 For example
 
 ```sh
-npx i18n-populator translate "Hello world" "en" "greetings" -s "example/custom-setting.config.json"
+npx i18n-populator translate --text "Hello world" --from "en" --name "greetings" --settings-file "example/custom-setting.config.json"
 
 ```
 
 ### Choosing translation engine
 
-Currently there are two translation engines available, Google Translate and Bing Translate. There are two ways to configure the engine(s) that you want to use. The first one is specifying the engines on the configuration file, and the second one is specifying the engine that you want to use on the command.
+Currently there are three translation engines available, Google Translate, Bing Translate and LibreTranslate. There are two ways to configure the engine(s) that you want to use. The first one is specifying the engines on the configuration file, and the second one is specifying the engine that you want to use on the command.
 
 #### How it works
 
@@ -157,7 +157,7 @@ If you don't specify any engine, the program will try to get your preferences fr
 For example:
 
 ```sh
-npx i18n-populator translate "Welcome to the jungle" "en" "welcomeMessage" -e "bing"
+npx i18n-populator translate --text "Welcome to the jungle" --from "en" --name "welcomeMessage" --engine "bing"
 
 ```
 
@@ -166,7 +166,7 @@ npx i18n-populator translate "Welcome to the jungle" "en" "welcomeMessage" -e "b
 You can nest translations by using the `.` character on the property name parameter, for example:
 
 ```sh
-npx i18n-populator translate "Account settings" "en" "accountSettings.title"
+npx i18n-populator translate --text "Account settings" --from "en" --name "accountSettings.title"
 
 ```
 
@@ -181,7 +181,7 @@ npx i18n-populator translate "Account settings" "en" "accountSettings.title"
 You can continue nesting translations as much as you want.
 
 ```sh
-npx i18n-populator translate "Email" "en" "accountSettings.email"
+npx i18n-populator translate --text "Email" --from "en" --name "accountSettings.email"
 
 ```
 
@@ -195,7 +195,7 @@ npx i18n-populator translate "Email" "en" "accountSettings.email"
 ```
 
 ```sh
-npx i18n-populator translate "Are you sure you want to change your email?" "en" "accountSettings.modal.edit.title"
+npx i18n-populator translate --text "Are you sure you want to change your email?" --from "en" --name "accountSettings.modal.edit.title"
 
 ```
 
@@ -213,7 +213,7 @@ npx i18n-populator translate "Are you sure you want to change your email?" "en" 
 }
 ```
 
-## Configuration file
+## Parts of configuration file
 
 The configuration file is an json file which allow you to modify certain aspects of the project, like the languages that you want to translate, the path of the translations files, etc. Here is a list of the properties that you can modify on the configuration file.
 
@@ -225,9 +225,9 @@ The configuration file is an json file which allow you to modify certain aspects
 
 ## Commands
 
-| Command     | Description                                                                 | Arguments                                                                                                                                                                                                                               | Options                                                                                                                                                        | Example                                                |
-| ----------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| `translate` | Translate a text to all the languages that you're handling on your project. | `text`: The word or sentence that you want to translate. `sourceLanguage`: The language of the text that you wrote on `text`.`propertyName`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. `--settings-file, -s`: Custom path for the settings file. Default is "i18n-populator.config.json" | `npx i18n-populator translate "my text" "en" "myText"` |
-| `help`      | Show the help menu with all the available commands.                         |                                                                                                                                                                                                                                         |                                                                                                                                                                | `npx i18n-populator help`                              |
-| `languages` | Show the supported languages of all the engines or filter it by engines.    |                                                                                                                                                                                                                                         | `--by-engine, -be`: Filter the supported languages by engine.                                                                                                  | `npx i18n-populator languages`                         |
-| `init`      | Start the configuration wizard to create the settings file                  |                                                                                                                                                                                                                                         |                                                                                                                                                                | `npx i18n-populator init`                              |
+| Command     | Description                                                                 | Arguments                                                                                                                                                                                                                               | Options                                                                                                                                                        | Example                                                                             |
+| ----------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `translate` | Translate a text to all the languages that you're handling on your project. | `--text, -t`: The word or sentence that you want to translate. `--from, -f`: The language of the text that you wrote on `text`.`--name, -n`: The property name that you want to be used to include your new translation on your project | `--engine, -e`: The translation engine that you want to use. `--settings-file, -s`: Custom path for the settings file. Default is "i18n-populator.config.json" | `npx i18n-populator translate --text "Hello world!" --from "en" --name "greetings"` |
+| `help`      | Show the help menu with all the available commands.                         |                                                                                                                                                                                                                                         |                                                                                                                                                                | `npx i18n-populator help`                                                           |
+| `languages` | Show the supported languages of all the engines or filter it by engines.    |                                                                                                                                                                                                                                         | `--by-engine, -be`: Filter the supported languages by engine.                                                                                                  | `npx i18n-populator languages`                                                      |
+| `init`      | Start the configuration wizard to create the settings file                  |                                                                                                                                                                                                                                         |                                                                                                                                                                | `npx i18n-populator init`                                                           |
