@@ -19,16 +19,16 @@ program
   .description(
     "Translate a text and put the result on the files in the output directory",
   )
-  .argument("<text>", "Text to translate")
-  .argument("<source-language>", "Source language of the string")
-  .argument("<name-of-translation>", "Name of your translation")
+  .option("-t, --text <string>", "Text to translate")
+  .option("-f, --from <string>", "Source language of the string")
+  .option("-n, --name <string>", "Name of the translation")
   .option(
     "-e, --engine <string>",
-    "Engine to use for the translation. In case you don't define it will be use by default all the translation engines that are free and doesn't requires API Key.",
+    "[OPTIONAL]. Engine to use for the translation. In case you don't define it will be use by default all the translation engines that are free and doesn't requires API Key.",
   )
   .option(
     "-s, --settings-file <string>",
-    "Path to the settings file",
+    "[OPTIONAL]. Path to the settings file. If not provided, it will look on the current directory for a file named i18n-populator.config.json",
     configPath,
   )
   .action(translateController);
