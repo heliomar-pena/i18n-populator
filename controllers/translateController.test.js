@@ -49,7 +49,10 @@ describe("TranslateController", () => {
   it("It's calling translate function for each language on config path except for the source language", async () => {
     const { languages } = config;
 
-    await translateController(text, sourceLanguage, nameOfTranslation, {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: nameOfTranslation,
       settingsFile: configPath,
     });
 
@@ -67,7 +70,10 @@ describe("TranslateController", () => {
     fs.existsSync.mockImplementationOnce(() => false);
 
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: "non-existent-file",
       }),
     ).rejects.toThrow("No settings file found");
@@ -76,7 +82,10 @@ describe("TranslateController", () => {
   it("It's calling translate function for each language on config path", async () => {
     const { languages } = config;
 
-    await translateController(text, "fr", nameOfTranslation, {
+    await translateController({
+      text,
+      from: "fr",
+      name: nameOfTranslation,
       settingsFile: configPath,
     });
 
@@ -89,7 +98,10 @@ describe("TranslateController", () => {
     }));
 
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: "test-configs/no-languages.json",
       }),
     ).rejects.toThrow(
@@ -114,7 +126,10 @@ describe("TranslateController", () => {
     );
 
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: "test-configs/invalid-translation-engine.json",
       }),
     ).rejects.toThrow(
@@ -124,7 +139,9 @@ describe("TranslateController", () => {
 
   it("It's throwing an error if text is not provided", async () => {
     await expect(
-      translateController(undefined, sourceLanguage, nameOfTranslation, {
+      translateController({
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: configPath,
       }),
     ).rejects.toThrow("No text to translate provided");
@@ -133,7 +150,9 @@ describe("TranslateController", () => {
   it("It's throwing an error if source language is not provided", async () => {
     const error = new Error("No language provided");
     await expect(
-      translateController(text, undefined, nameOfTranslation, {
+      translateController({
+        text,
+        name: nameOfTranslation,
         settingsFile: configPath,
       }),
     ).rejects.toThrow(
@@ -141,11 +160,14 @@ describe("TranslateController", () => {
     );
   });
 
-  it("It's throwing an error if source language is not supported", async () => {
+  it("It's throwing an error if source language is invalid", async () => {
     const sourceLanguage = "invalid-language";
     const error = new Error(`Language ${sourceLanguage} is not supported`);
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: configPath,
       }),
     ).rejects.toThrow(
@@ -155,7 +177,9 @@ describe("TranslateController", () => {
 
   it("It's throwing an error if name of translation is not provided", async () => {
     await expect(
-      translateController(text, sourceLanguage, undefined, {
+      translateController({
+        text,
+        from: sourceLanguage,
         settingsFile: configPath,
       }),
     ).rejects.toThrow("No name of translation provided");
@@ -179,7 +203,10 @@ describe("TranslateController", () => {
       JSON.stringify(testConfig, null, 2),
     );
 
-    await translateController(text, sourceLanguage, nameOfTranslation, {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: nameOfTranslation,
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -217,7 +244,10 @@ describe("TranslateController", () => {
       JSON.stringify(testConfig, null, 2),
     );
 
-    await translateController(text, sourceLanguage, "nested.helloWorld", {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: "nested.helloWorld",
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -255,12 +285,12 @@ describe("TranslateController", () => {
       JSON.stringify(testConfig, null, 2),
     );
 
-    await translateController(
+    await translateController({
       text,
-      sourceLanguage,
-      "nested.deeply.object.to.test.helloWorld",
-      { settingsFile: "test-configs/test-config.json" },
-    );
+      from: sourceLanguage,
+      name: "nested.deeply.object.to.test.helloWorld",
+      settingsFile: "test-configs/test-config.json",
+    });
 
     expect(
       fs.existsSync(
@@ -296,7 +326,10 @@ describe("TranslateController", () => {
       JSON.stringify(testConfig, null, 2),
     );
 
-    await translateController(text, sourceLanguage, nameOfTranslation, {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: nameOfTranslation,
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -306,7 +339,10 @@ describe("TranslateController", () => {
       ),
     ).toBe(true);
 
-    await translateController(text, sourceLanguage, "helloWorld2", {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: "helloWorld2",
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -341,7 +377,10 @@ describe("TranslateController", () => {
       JSON.stringify(testConfig, null, 2),
     );
 
-    await translateController(text, sourceLanguage, nameOfTranslation, {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: "nested.helloWorld",
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -351,7 +390,10 @@ describe("TranslateController", () => {
       ),
     ).toBe(true);
 
-    await translateController(text, sourceLanguage, "nested.helloWorld", {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: "nested.helloWorld2",
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -381,7 +423,10 @@ describe("TranslateController", () => {
     importJSONFile.mockImplementationOnce(async () => testConfig);
 
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: "test-configs/test-config-without-name.json",
       }),
     ).rejects.toThrow("No name found for language on index 0");
@@ -400,7 +445,10 @@ describe("TranslateController", () => {
     importJSONFile.mockImplementationOnce(async () => testConfig);
 
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: "test-configs/test-config-without-files.json",
       }),
     ).rejects.toThrow(
@@ -422,7 +470,10 @@ describe("TranslateController", () => {
     importJSONFile.mockImplementationOnce(async () => testConfig);
 
     await expect(
-      translateController(text, sourceLanguage, nameOfTranslation, {
+      translateController({
+        text,
+        from: sourceLanguage,
+        name: nameOfTranslation,
         settingsFile: "test-configs/test-config-with-empty-files.json",
       }),
     ).rejects.toThrow(
@@ -451,7 +502,10 @@ describe("TranslateController", () => {
       return file;
     });
 
-    await translateController(text, sourceLanguage, nameOfTranslation, {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: nameOfTranslation,
       settingsFile: "test-configs/test-config.json",
     });
 
@@ -481,7 +535,10 @@ describe("TranslateController", () => {
 
     prompt.mockImplementationOnce(() => "no");
 
-    await translateController(text, sourceLanguage, nameOfTranslation, {
+    await translateController({
+      text,
+      from: sourceLanguage,
+      name: nameOfTranslation,
       settingsFile: "test-configs/test-config.json",
     });
 
