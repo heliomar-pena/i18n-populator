@@ -34,10 +34,10 @@ program
   )
   .option(
     "-e, --engine <string>",
-    `[OPTIONAL]. The engine that you want to use to translate the text. Available options: ${validEngines.join(", ")}
-    If you specify a engine on the command, it will put it on the first position of the array of engines.
-    If for any reason the engine you selected is not available at that moment, then it will use the engines that you have defined on the configuration file in the priority order that you selected.
-    If you don't specify any engine, the script will try to get your preferences from your configuration file, and if you don't have any configuration file, it will use by default all the translation engine that are free and doesn't need API Key.`,
+    `[OPTIONAL]. The engine that you want to use to translate the text. Available options: ${validEngines.join(", ")}` +
+      "\nIf you specify a engine on the command, it will put it on the first position of the array of engines." +
+      "\nIf for any reason the engine you selected is not available at that moment, then it will use the engines that you have defined on the configuration file in the priority order that you selected." +
+      "\nIf you don't specify any engine, the script will try to get your preferences from your configuration file, and if you don't have any configuration file, it will use by default all the translation engine that are free and doesn't need API Key.",
   )
   .option(
     "-s, --settings-file <string>",
