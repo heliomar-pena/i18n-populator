@@ -32,6 +32,7 @@
     "utils/validateAndPromptUserJSONFiles.js",
     "utils/validateSettingsFile.js",
     "utils/listFiles.js",
+    "utils/importJSONFile.js",
     "controllers/translateController.js",
     "controllers/languagesController.js",
     "controllers/generateConfigController.js",
