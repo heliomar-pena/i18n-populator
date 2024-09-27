@@ -1,8 +1,10 @@
-const {
-  getLanguageCodeByEngine,
-} = require("../utils/supportedLanguagesUtils");
-const { getTranslationEnginesToUse } = require("../utils/getTranslationEnginePreferences");
-const { validEngines, translateEngines, isEngineValid } = require("../utils/translationEnginesUtils");
+import { getLanguageCodeByEngine } from "../utils/supportedLanguagesUtils.js";
+import { getTranslationEnginesToUse } from "../utils/getTranslationEnginePreferences.js";
+import {
+  validEngines,
+  translateEngines,
+  isEngineValid,
+} from "../utils/translationEnginesUtils.js";
 
 /**
  * Translates the given text from one language to another using the specified translation engine.
@@ -16,7 +18,7 @@ const { validEngines, translateEngines, isEngineValid } = require("../utils/tran
 const translate = async (text, from, to, engine = "google") => {
   if (!isEngineValid(engine))
     throw new Error(
-      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
+      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );
 
   if (from === to) return { text };
@@ -54,7 +56,7 @@ const setTranslateWithFallbackEngines = ({
 
     // Avoid trying to use engines that have failed in the past to save time and network requests
     const enginesFiltered = engines.filter(
-      (engine) => !enginesFailed.includes(engine)
+      (engine) => !enginesFailed.includes(engine),
     );
 
     for await (const engine of enginesFiltered) {
@@ -66,12 +68,14 @@ const setTranslateWithFallbackEngines = ({
         await translate(text, fromLanguageCode, toLanguageCode, engine)
           .then(({ text }) => {
             result = text;
-            console.log(`Translated successfully with ${engine} engine. Result: ${text}`)
+            console.log(
+              `Translated successfully with ${engine} engine. Result: ${text}`,
+            );
           })
           .catch(() => {
             enginesFailed.push(engine);
             throw new Error(
-              `Error translating with ${engine} engine. Trying next engine...`
+              `Error translating with ${engine} engine. Trying next engine...`,
             );
           });
 
@@ -85,7 +89,7 @@ const setTranslateWithFallbackEngines = ({
       const enginesUsed = engines.join(", ");
 
       throw new Error(
-        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-translation-generator/issues/new`
+        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-populator/issues/new`,
       );
     }
 
@@ -95,7 +99,7 @@ const setTranslateWithFallbackEngines = ({
   return { engines, translate: translateWithFallbackEngines };
 };
 
-module.exports = {
+export {
   translate,
   validEngines,
   setTranslateWithFallbackEngines,

@@ -1,10 +1,12 @@
-const { defaultConfigPath } = require('../config');
+import config from "../config.js";
+import path from "path";
 
-const path = require('path');
-const configPath = defaultConfigPath; 
+const { defaultConfigPath } = config;
+
+const configPath = defaultConfigPath;
 
 const parsePath = (customPath) => {
-    return path.join(process.cwd(), customPath)
+  return path.join(process.cwd(), customPath);
 };
 
-module.exports = { configPath, parsePath };
+export { configPath, parsePath };

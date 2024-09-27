@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from "fs";
 
 /**
  * Retrieves a list of files in the specified directory.
@@ -6,15 +6,15 @@ const fs = require('fs');
  * @returns {Promise<string[]>} - A promise that resolves to an array of file names in the directory.
  */
 const listFilesOnDirectory = (directory) => {
-    return new Promise((resolve, reject) => {
-        fs.readdir(directory, (err, files) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(files);
-        });
+  return new Promise((resolve, reject) => {
+    fs.readdir(directory, (err, files) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(files);
     });
+  });
 };
 
-module.exports = { listFilesOnDirectory }
+export { listFilesOnDirectory };

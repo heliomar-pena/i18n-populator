@@ -1,17 +1,28 @@
-const allLanguagesCodes = require('../ALL-LANGUAGES-CODES.json');
-const { validEngines } = require('./translationEnginesUtils');
+import { importJSONFile } from "./importJSONFile.js";
+import { validEngines } from "./translationEnginesUtils.js";
+
+const allLanguagesCodes = await importJSONFile(
+  "../ALL-LANGUAGES-CODES.json",
+  import.meta.url,
+);
 
 /**
  * Object containing supported languages and their corresponding language codes.
  * @type {Object}
  */
-const supportedLanguages = Object.keys(allLanguagesCodes).reduce((acc, language) => {
-    const isLanguageSupportedByAlmostOneEngine = Object.keys(allLanguagesCodes[language]).some(value => validEngines.includes(value));
+const supportedLanguages = Object.keys(allLanguagesCodes).reduce(
+  (acc, language) => {
+    const isLanguageSupportedByAlmostOneEngine = Object.keys(
+      allLanguagesCodes[language],
+    ).some((value) => validEngines.includes(value));
 
-    if (isLanguageSupportedByAlmostOneEngine) acc[language] = allLanguagesCodes[language];
+    if (isLanguageSupportedByAlmostOneEngine)
+      acc[language] = allLanguagesCodes[language];
 
     return acc;
-}, {});
+  },
+  {},
+);
 
 /**
  * An array containing all the supported languages without extra data as language name or supported engines. Only the language code.
@@ -24,15 +35,20 @@ const supportedLanguagesCodes = Object.keys(supportedLanguages);
  *
  * @type {Object.<string, string[]>}
  */
-const supportedLanguagesGroupedByEngine = Object.keys(supportedLanguages).reduce((acc, language) => {
-    Object.keys(supportedLanguages[language]).forEach(engine => {
-        const languageObject = supportedLanguages[language];
+const supportedLanguagesGroupedByEngine = Object.keys(
+  supportedLanguages,
+).reduce((acc, language) => {
+  Object.keys(supportedLanguages[language]).forEach((engine) => {
+    const languageObject = supportedLanguages[language];
 
-        if (!acc[engine]) acc[engine] = {};
-        acc[engine] = { ...acc[engine], [language]: { ...languageObject[engine], name: languageObject.name } };
-    });
+    if (!acc[engine]) acc[engine] = {};
+    acc[engine] = {
+      ...acc[engine],
+      [language]: { ...languageObject[engine], name: languageObject.name },
+    };
+  });
 
-    return acc;
+  return acc;
 }, {});
 
 /**
@@ -51,7 +67,8 @@ const supportedLanguagesByBing = supportedLanguagesGroupedByEngine.bing;
  * The supported languages by LibreTranslate.
  * @type {Array<string>}
  */
-const supportedLanguagesByLibreTranslate = supportedLanguagesGroupedByEngine.libreTranslate;
+const supportedLanguagesByLibreTranslate =
+  supportedLanguagesGroupedByEngine.libreTranslate;
 
 /**
  * Validates if a language is supported by a specific engine.
@@ -62,12 +79,16 @@ const supportedLanguagesByLibreTranslate = supportedLanguagesGroupedByEngine.lib
  * @returns {boolean} Returns true if the language is supported by the engine.
  */
 const validateLanguageIsSupportedByEngine = (requestedLanguage, engine) => {
-    const isLanguageSupportedByEngine = supportedLanguagesGroupedByEngine[engine][requestedLanguage] !== undefined;
+  const isLanguageSupportedByEngine =
+    supportedLanguagesGroupedByEngine[engine][requestedLanguage] !== undefined;
 
-    if (!isLanguageSupportedByEngine) throw new Error(`Language ${requestedLanguage} is not supported by ${engine}.`);
+  if (!isLanguageSupportedByEngine)
+    throw new Error(
+      `Language ${requestedLanguage} is not supported by ${engine}.`,
+    );
 
-    return true;
-}
+  return true;
+};
 
 /**
  * Retrieves the language code for a given language and engine.
@@ -77,10 +98,10 @@ const validateLanguageIsSupportedByEngine = (requestedLanguage, engine) => {
  * @returns {string} The language code.
  */
 const getLanguageCodeByEngine = (requestedLanguage, engine) => {
-    validateLanguageIsSupportedByEngine(requestedLanguage, engine);
+  validateLanguageIsSupportedByEngine(requestedLanguage, engine);
 
-    return allLanguagesCodes[requestedLanguage][engine];
-}
+  return allLanguagesCodes[requestedLanguage][engine];
+};
 
 /**
  * Returns an array of language codes with their corresponding names.
@@ -88,41 +109,45 @@ const getLanguageCodeByEngine = (requestedLanguage, engine) => {
  * @returns {Array} - An array of strings in the format "languageCode -> languageName".
  */
 const getLanguagesCodesWithNames = (languages) => {
-    return Object.entries(languages).map(([language, data]) => {
-        return `${language} -> ${data?.name || "Unknown"}`
-    })
-}
+  return Object.entries(languages).map(([language, data]) => {
+    return `${language} -> ${data?.name || "Unknown"}`;
+  });
+};
 
 /**
  * Validates the requested language.
- * 
+ *
  * @param {string} requestedLanguage - The language to be validated.
  * @returns {boolean} - Returns true if the language is valid.
  * @throws {Error} - Throws an error if the language is not provided, not supported, or not supported by any engine.
  */
 const validateLanguageRequested = (requestedLanguage) => {
-    try {
-        if (!requestedLanguage) throw new Error('No language provided');
-        
-        const isLanguageSupported = supportedLanguages[requestedLanguage] !== undefined;
-        
-        if (!isLanguageSupported) throw new Error(`Language ${requestedLanguage} is not supported`);
+  try {
+    if (!requestedLanguage) throw new Error("No language provided");
 
-        return true;
-    } catch (error) {
-        throw new Error(`${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join('\n')}`)
-    }
-}
+    const isLanguageSupported =
+      supportedLanguages[requestedLanguage] !== undefined;
 
-module.exports = {
-    getLanguagesCodesWithNames,
-    getLanguageCodeByEngine,
-    validateLanguageIsSupportedByEngine,
-    validateLanguageRequested,
-    supportedLanguages,
-    supportedLanguagesByBing,
-    supportedLanguagesByGoogle,
-    supportedLanguagesByLibreTranslate,
-    supportedLanguagesGroupedByEngine,
-    supportedLanguagesCodes    
-}
+    if (!isLanguageSupported)
+      throw new Error(`Language ${requestedLanguage} is not supported`);
+
+    return true;
+  } catch (error) {
+    throw new Error(
+      `${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
+    );
+  }
+};
+
+export {
+  getLanguagesCodesWithNames,
+  getLanguageCodeByEngine,
+  validateLanguageIsSupportedByEngine,
+  validateLanguageRequested,
+  supportedLanguages,
+  supportedLanguagesByBing,
+  supportedLanguagesByGoogle,
+  supportedLanguagesByLibreTranslate,
+  supportedLanguagesGroupedByEngine,
+  supportedLanguagesCodes,
+};

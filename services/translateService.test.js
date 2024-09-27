@@ -1,9 +1,9 @@
-const {
-  translate: googleTranslate,
-} = require("@vitalets/google-translate-api");
-const { translate: libreTranslate } = require("./libreTranslate");
-const { translate: bingTranslate } = require("bing-translate-api");
-const { translate, validEngines } = require("./translateService");
+import { translate as googleTranslate } from "@vitalets/google-translate-api";
+import { translate as libreTranslate } from "./libreTranslate.js";
+import { translate as bingTranslate } from "bing-translate-api";
+import { translate, validEngines } from "./translateService.js";
+
+import { jest } from "@jest/globals";
 
 describe("translate", () => {
   let text, from, to;
@@ -28,7 +28,7 @@ describe("translate", () => {
 
     expect(bingTranslate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
-      `Hello world! translated from ${from} to ${to} using ${engine}`
+      `Hello world! translated from ${from} to ${to} using ${engine}`,
     );
   });
 
@@ -38,7 +38,7 @@ describe("translate", () => {
 
     expect(libreTranslate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
-      `Hello world! translated from ${from} to ${to} using ${engine}`
+      `Hello world! translated from ${from} to ${to} using ${engine}`,
     );
   });
 
@@ -53,7 +53,7 @@ describe("translate", () => {
   it("should throw an error if an invalid engine is provided", async () => {
     const engine = "invalid";
     await expect(translate(text, from, to, engine)).rejects.toThrow(
-      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
+      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );
   });
 });
