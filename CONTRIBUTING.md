@@ -21,7 +21,7 @@ There are a lot of things that you could do to collaborate on open sources proje
 
 #### Create a new issue
 
-If you spot any problem while using the project, see any error on the doc, or just wants to suggest changes to improve the project you can [create a new issue](https://github.com/victor-heliomar/i18n-translation-generator/issues/new/choose). Please make sure of check first that the issue doesn't exists already exists on the [issues list](https://github.com/victor-heliomar/i18n-translation-generator/issues).
+If you spot any problem while using the project, see any error on the doc, or just wants to suggest changes to improve the project you can [create a new issue](https://github.com/victor-heliomar/i18n-populator/issues/new/choose). Please make sure of check first that the issue doesn't exists already exists on the [issues list](https://github.com/victor-heliomar/i18n-populator/issues).
 
 #### Solve an issue
 
@@ -29,7 +29,7 @@ Scan through our existing issues to find one that interests you. If you find an 
 
 #### Help to solve the community doubts
 
-If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-translation-generator/blob/dev/CODE_OF_CONDUCT.md).
+If there is any doubt on any issue and you think you can help to solve it, then feel free to help to clear the doubts through the comments box of the issue selected, always following our [CODE OF CONDUCTS](https://github.com/victor-heliomar/i18n-populator/blob/dev/CODE_OF_CONDUCT.md).
 
 ### Making changes
 
@@ -74,8 +74,8 @@ This is a list of ideas that which you can check if you wants collaborate on the
 3. Collaborate on side projects related to the project
 
 - We are currently working on some projects related to i18n translation generator in order to improve the way you create i18n translations the most possible. Projects in mind are:
-   1. Landing Page to explain easily the idea to developers.
-   2. Documentation Page in order to improve the doc of the project and make more easier the use of it.
-   3. Visual Studio Code Extension in order to create a user interface for users that doesn't feel comfortable with CLI Commands.
+  1. Landing Page to explain easily the idea to developers.
+  2. Documentation Page in order to improve the doc of the project and make more easier the use of it.
+  3. Visual Studio Code Extension in order to create a user interface for users that doesn't feel comfortable with CLI Commands.
 
 Feel free to collaborate on any of them! We would appreciate any help!

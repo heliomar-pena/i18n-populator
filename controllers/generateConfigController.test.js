@@ -1,70 +1,69 @@
-const { confirmUserAction, promptUserInput } = require("../utils/promptUtils");
-const { validEngines } = require("../utils/translationEnginesUtils");
-const { _promptBasePath, _promptLanguages, _promptTranslationEngines, generateConfigController } = require("./generateConfigController");
-const { listFilesOnDirectory } = require("../utils/listFiles");
-const { parsePath } = require("../utils/getConfigPath");
-const fs = require("fs");
+import { validEngines } from "../utils/translationEnginesUtils.js";
+import { parsePath } from "../utils/getConfigPath.js";
+import { jest } from "@jest/globals";
 
-jest.mock("../utils/promptUtils", () => ({
+jest.unstable_mockModule("./utils/promptUtils.js", () => ({
   confirmUserAction: jest.fn(() => true),
   promptUserInput: jest.fn(),
 }));
 
-jest.mock("../utils/listFiles", () => ({
+jest.unstable_mockModule("./utils/listFiles.js", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
-}))
-
-jest.mock("fs", () => ({
-  existsSync: jest.fn(() => false),
-  writeFileSync: jest.fn(),
 }));
 
+const { confirmUserAction, promptUserInput } = await import(
+  "../utils/promptUtils.js"
+);
+const { listFilesOnDirectory } = await import("../utils/listFiles.js");
+const {
+  _promptBasePath,
+  _promptLanguages,
+  _promptTranslationEngines,
+  generateConfigController,
+} = await import("./generateConfigController.js");
+const fs = (await import("fs")).default;
+
 const mockPromptBasePath = ({ basePath, pathFiles }) => {
-  promptUserInput
-    .mockReturnValueOnce(basePath);
-  
-  confirmUserAction
-    .mockReturnValueOnce(true);
+  promptUserInput.mockReturnValueOnce(basePath);
+
+  confirmUserAction.mockReturnValueOnce(true);
 
   listFilesOnDirectory.mockResolvedValueOnce(pathFiles);
-}
+};
 
 const mockPromptLanguages = (languages = []) => {
-  promptUserInput
-    .mockReturnValueOnce("");
+  promptUserInput.mockReturnValueOnce("");
 
   for (const language of languages) {
-    promptUserInput
-      .mockReturnValueOnce(language);
+    promptUserInput.mockReturnValueOnce(language);
   }
-}
+};
 
 const mockPromptTranslationEngines = (engines = []) => {
   const enginesToPrompt = [...validEngines];
 
   for (const engine of enginesToPrompt) {
-    confirmUserAction 
-      .mockReturnValueOnce(engines.includes(engine));
+    confirmUserAction.mockReturnValueOnce(engines.includes(engine));
   }
-}
-  
+};
+
 describe("_promptTranslationEngines", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
-  })
+  });
 
   it("should return an array of translation engines to use", () => {
     const enginesToUse = ["google", "libreTranslate"];
-    mockPromptTranslationEngines(enginesToUse)
+    mockPromptTranslationEngines(enginesToUse);
 
     const result = _promptTranslationEngines(validEngines);
 
     expect(confirmUserAction).toHaveBeenCalledTimes(3);
 
-    for (validEngine of validEngines) {
+    for (const validEngine of validEngines) {
       expect(confirmUserAction).toHaveBeenCalledWith(
-        `Do you want to use ${validEngine} as translation engine? (y/n): `
+        `Do you want to use ${validEngine} as translation engine? (y/n): `,
       );
     }
 
@@ -79,9 +78,9 @@ describe("_promptTranslationEngines", () => {
 
     expect(confirmUserAction).toHaveBeenCalledTimes(3);
 
-    for (validEngine of validEngines) {
+    for (const validEngine of validEngines) {
       expect(confirmUserAction).toHaveBeenCalledWith(
-        `Do you want to use ${validEngine} as translation engine? (y/n): `
+        `Do you want to use ${validEngine} as translation engine? (y/n): `,
       );
     }
 
@@ -100,14 +99,14 @@ describe("_promptBasePath", () => {
   it("should return the base path and path files when confirmed", async () => {
     const basePath = "test-configs/translations";
 
-    mockPromptBasePath({ basePath, pathFiles })
+    mockPromptBasePath({ basePath, pathFiles });
 
     const result = await _promptBasePath();
 
     expect(promptUserInput).toHaveBeenCalledTimes(2);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": '
-      );
+      'Base path for the translations files: e.g. "src/localizations": ',
+    );
     expect(confirmUserAction).toHaveBeenCalledTimes(1);
 
     expect(listFilesOnDirectory).toHaveBeenCalledTimes(1);
@@ -119,31 +118,32 @@ describe("_promptBasePath", () => {
   it("should continue prompting if base path is not provided", async () => {
     promptUserInput.mockReturnValueOnce("");
 
-    mockPromptBasePath({ basePath: "test-configs/translations", pathFiles })
+    mockPromptBasePath({ basePath: "test-configs/translations", pathFiles });
 
     const result = await _promptBasePath();
 
     expect(promptUserInput).toHaveBeenCalledTimes(3);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": '
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
     expect(promptUserInput).toHaveBeenCalledWith(
-      '\nPress enter to continue...'
+      "\nPress enter to continue...",
     );
 
     expect(listFilesOnDirectory).toHaveBeenCalledTimes(1);
 
-    expect(result).toEqual({ basePath: "test-configs/translations", pathFiles });
+    expect(result).toEqual({
+      basePath: "test-configs/translations",
+      pathFiles,
+    });
   });
 
   it("should continue prompting if files in path are empty", async () => {
     const basePath = "src/localizations";
 
-    promptUserInput
-      .mockReturnValueOnce(basePath);
-    
-    confirmUserAction
-      .mockReturnValueOnce(false); // Path is empty. Are you sure you want to use this path?
+    promptUserInput.mockReturnValueOnce(basePath);
+
+    confirmUserAction.mockReturnValueOnce(false); // Path is empty. Are you sure you want to use this path?
 
     listFilesOnDirectory.mockResolvedValueOnce([]);
 
@@ -153,7 +153,7 @@ describe("_promptBasePath", () => {
 
     expect(promptUserInput).toHaveBeenCalledTimes(3);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": '
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
 
     expect(listFilesOnDirectory).toHaveBeenCalledTimes(2);
@@ -165,25 +165,21 @@ describe("_promptBasePath", () => {
   it("should continue prompting if user does not confirm the path", async () => {
     const basePath = "src/localizations";
 
-    promptUserInput
-      .mockReturnValueOnce(basePath)
-      .mockReturnValueOnce(basePath); // Please insert the path you want to use
+    promptUserInput.mockReturnValueOnce(basePath).mockReturnValueOnce(basePath); // Please insert the path you want to use
 
-    confirmUserAction
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false); // Please confirm that the path that you want to use is: ...
-      
+    confirmUserAction.mockReturnValueOnce(false).mockReturnValueOnce(false); // Please confirm that the path that you want to use is: ...
+
     listFilesOnDirectory
       .mockResolvedValueOnce(pathFiles)
       .mockResolvedValueOnce(pathFiles); // List files on directory is always returned well
-      
+
     mockPromptBasePath({ basePath, pathFiles });
 
     const result = await _promptBasePath();
 
     expect(promptUserInput).toHaveBeenCalledTimes(4);
     expect(promptUserInput).toHaveBeenCalledWith(
-      'Base path for the translations files: e.g. "src/localizations.": '
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
 
     expect(listFilesOnDirectory).toHaveBeenCalledTimes(3);
@@ -201,7 +197,7 @@ describe("_promptLanguages", () => {
 
   it("should prompt for language names and return an array of languages", () => {
     const filesNames = ["english-file.json", "spanish-file.json"];
-    const languages = ["en", "es"]
+    const languages = ["en", "es"];
 
     mockPromptLanguages(languages);
 
@@ -221,28 +217,24 @@ describe("_promptLanguages", () => {
     const result = _promptLanguages(filesNames);
 
     expect(promptUserInput).toHaveBeenCalledTimes(3);
-    expect(result).toEqual([
-      { name: "fr", files: ["french-file.json"] },
-    ]);
+    expect(result).toEqual([{ name: "fr", files: ["french-file.json"] }]);
   });
 
   it("should skip file if user don't input any language name", () => {
     const filesNames = ["english-file.json", "spanish-file.json"];
-    const languages = ["", "es"]
-    
+    const languages = ["", "es"];
+
     mockPromptLanguages(languages);
 
     const result = _promptLanguages(filesNames);
 
     expect(promptUserInput).toHaveBeenCalledTimes(4);
-    expect(result).toEqual([
-      { name: "es", files: ["spanish-file.json"] },
-    ]);
-  })
+    expect(result).toEqual([{ name: "es", files: ["spanish-file.json"] }]);
+  });
 
   it("should repeat prompt if user input an invalid language name", () => {
     const filesNames = ["english-file.json", "spanish-file.json"];
-    const languages = ["invalid", "", "en", "es"]
+    const languages = ["invalid", "", "en", "es"];
 
     mockPromptLanguages(languages);
 
@@ -253,7 +245,7 @@ describe("_promptLanguages", () => {
       { name: "en", files: ["english-file.json"] },
       { name: "es", files: ["spanish-file.json"] },
     ]);
-  })
+  });
 });
 
 describe("generateConfigController", () => {
@@ -261,21 +253,21 @@ describe("generateConfigController", () => {
     jest.clearAllMocks();
     jest.resetModules();
 
-    jest.spyOn(process, 'exit').mockImplementation(((code) => { 
+    jest.spyOn(process, "exit").mockImplementation((code) => {
       throw new Error(`Process.exit(${code})`); // Forces the code to throw instead of exit
-    }));
-  });  
+    });
+  });
 
   it("should overwrite the configuration file if it already exists and user confirms", async () => {
-    const configPath = parsePath("/i18n-auto-translate.config.json");
-    const basePath = "test-configs/translations"
+    const configPath = parsePath("/i18n-populator.config.json");
+    const basePath = "test-configs/translations";
     const pathFiles = ["english-file.json", "spanish-file.json"];
 
     fs.existsSync.mockReturnValueOnce(true);
-    
+
     confirmUserAction.mockReturnValueOnce(true);
 
-    mockPromptBasePath({ basePath, pathFiles })
+    mockPromptBasePath({ basePath, pathFiles });
     promptUserInput.mockReturnValueOnce("");
     mockPromptLanguages(["en", "es"]);
     mockPromptTranslationEngines(["google", "bing"]);
@@ -283,7 +275,7 @@ describe("generateConfigController", () => {
     await generateConfigController();
 
     expect(confirmUserAction).toHaveBeenCalledWith(
-      `The configuration file already exists. Do you want to overwrite it? (y/n): `
+      `The configuration file already exists. Do you want to overwrite it? (y/n): `,
     );
     expect(fs.writeFileSync).toHaveBeenCalledWith(
       configPath,
@@ -297,13 +289,13 @@ describe("generateConfigController", () => {
           ],
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   });
 
   it("should cancel the wizard if the configuration file already exists and user does not confirm", async () => {
-    const configPath = parsePath("/i18n-auto-translate.config.json");
+    const configPath = parsePath("/i18n-populator.config.json");
 
     fs.existsSync.mockReturnValueOnce(true);
     confirmUserAction.mockReturnValueOnce(false);
@@ -312,7 +304,7 @@ describe("generateConfigController", () => {
       await generateConfigController();
 
       expect(true).toBe(false); // If the code reaches this point, the test should fail since process is not exited
-    } catch (err) { 
+    } catch (err) {
       expect(err.message).toBe("Process.exit(0)");
       expect(process.exit).toHaveBeenCalledTimes(1);
       expect(process.exit).toHaveBeenCalledWith(0);
@@ -320,28 +312,28 @@ describe("generateConfigController", () => {
       expect(fs.existsSync).toHaveBeenCalledWith(configPath);
       expect(confirmUserAction).toHaveBeenCalledTimes(1);
       expect(confirmUserAction).toHaveBeenCalledWith(
-      `The configuration file already exists. Do you want to overwrite it? (y/n): `
+        `The configuration file already exists. Do you want to overwrite it? (y/n): `,
       );
     }
   });
 
   it("should create a new configuration file if it does not exist", async () => {
-    const configPath = parsePath("/i18n-auto-translate.config.json");
+    const configPath = parsePath("/i18n-populator.config.json");
     const userSelectedBasePath = "test-configs/translations";
     const filesNames = ["english.json", "spanish.json"];
 
     fs.existsSync.mockReturnValueOnce(false);
-    
+
     mockPromptBasePath({
       basePath: userSelectedBasePath,
       pathFiles: filesNames,
     });
-    
+
     promptUserInput.mockReturnValueOnce("");
-    
-    mockPromptLanguages(["en", "es"])
-    
-    mockPromptTranslationEngines(["google", "bing"])
+
+    mockPromptLanguages(["en", "es"]);
+
+    mockPromptTranslationEngines(["google", "bing"]);
 
     await generateConfigController();
 
@@ -360,8 +352,8 @@ describe("generateConfigController", () => {
           ],
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   });
 });

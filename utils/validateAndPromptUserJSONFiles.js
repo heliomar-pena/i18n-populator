@@ -1,20 +1,38 @@
-const { getOrCreateJsonFile } = require('./getOrCreateJsonFile');
-const { confirmUserAction } = require('./promptUtils');
-const { hasProperty } = require('./objectUtils');
+import { getOrCreateJsonFile } from "./getOrCreateJsonFile.js";
+import { confirmUserAction } from "./promptUtils.js";
+import { hasProperty } from "./objectUtils.js";
 
-const validateAndPromptUserJSONFiles = (basePath, fileNames, nameOfTranslation) => {
-    const jsonFiles = fileNames.map((fileName) => ({ ...getOrCreateJsonFile(basePath, fileName), fileName }));
-    const filesToEdit = [];
+const validateAndPromptUserJSONFiles = async (
+  basePath,
+  fileNames,
+  nameOfTranslation,
+) => {
+  const jsonFiles = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const fileData = await getOrCreateJsonFile(basePath, fileName);
 
-    jsonFiles.forEach(({ file, parsedPath, fileName }) => {
-        let shouldOverwrite = true;
-        const hasPropertyInFile = hasProperty(file, nameOfTranslation);
+      return {
+        ...fileData,
+        fileName,
+      };
+    }),
+  );
 
-        if (hasPropertyInFile) shouldOverwrite = confirmUserAction(`The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `);
-        if (!hasPropertyInFile || shouldOverwrite) filesToEdit.push({ file, parsedPath });
-    });
+  const filesToEdit = [];
 
-    return filesToEdit;
+  jsonFiles.forEach(({ file, parsedPath, fileName }) => {
+    let shouldOverwrite = true;
+    const hasPropertyInFile = hasProperty(file, nameOfTranslation);
+
+    if (hasPropertyInFile)
+      shouldOverwrite = confirmUserAction(
+        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `,
+      );
+    if (!hasPropertyInFile || shouldOverwrite)
+      filesToEdit.push({ file, parsedPath });
+  });
+
+  return filesToEdit;
 };
 
-module.exports = { validateAndPromptUserJSONFiles };
+export { validateAndPromptUserJSONFiles };
