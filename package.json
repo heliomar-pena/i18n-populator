@@ -1,6 +1,6 @@
 {
   "name": "i18n-populator",
-  "version": "1.1.0",
+  "version": "1.1.01",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
   "main": "index.js",
   "type": "module",
@@ -32,6 +32,8 @@
     "utils/validateAndPromptUserJSONFiles.js",
     "utils/validateSettingsFile.js",
     "utils/listFiles.js",
+    "utils/importJSONFile.js",
+    "utils/promptUser.js",
     "controllers/translateController.js",
     "controllers/languagesController.js",
     "controllers/generateConfigController.js",
