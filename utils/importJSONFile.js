@@ -1,4 +1,4 @@
-import { readFile } from "fs/promises";
+import { readFile, access } from "fs/promises";
 import path from "path";
 
 /**
@@ -14,13 +14,16 @@ async function importJSONFile(filePath, url) {
   let finalPath = "";
 
   if (typeof url === "string" && url.length > 0)
-    finalPath = url.split("/").slice(0, -1).join("/").replace("file://", "");
+    finalPath = url.split("/").slice(0, -1).join("/").replace(/^file:\/\/\/?/, '');
 
   finalPath = path.join(finalPath, filePath);
 
-  const data = await readFile(finalPath, "utf8");
-
-  return JSON.parse(data);
+  try {
+    const data = await readFile(finalPath, "utf8");
+    return JSON.parse(data);
+  } catch (err) {
+    throw new Error(`File not found: ${finalPath}`);
+  }
 }
 
 export { importJSONFile };
