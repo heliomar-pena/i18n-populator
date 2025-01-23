@@ -26,8 +26,6 @@ async function importJSONFile(filePath, url) {
     const data = await readFile(finalPath, "utf8");
     return JSON.parse(data);
   } catch (err) {
-    console.log({ platform })
-    console.log({ err })
     throw new Error(`File not found: ${finalPath}`);
   }
 }
