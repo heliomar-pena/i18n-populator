@@ -2,8 +2,7 @@ import { translate } from "@vitalets/google-translate-api";
 import { configPath, parsePath } from "../utils/getConfigPath.js";
 import prompt from "../utils/promptUser.js";
 import { validEngines } from "../services/translateService.js";
-import pathModule from "path";
-import os from "os";
+import { convertPathToUnixStyle } from "../utils/convertPathToUnixStyle.js";
 import fs from "fs";
 
 import { jest } from "@jest/globals";
@@ -38,7 +37,6 @@ const translateController = (
 
 describe("TranslateController", () => {
   let text, sourceLanguage, nameOfTranslation;
-  const platform = os.platform();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -501,10 +499,7 @@ describe("TranslateController", () => {
     };
 
     importJSONFile.mockImplementation(async (filePath) => {
-      const normalizedPath =
-        platform === "win32"
-          ? pathModule.normalize(filePath).replace(/\\/g, "/")
-          : filePath;
+      const normalizedPath = convertPathToUnixStyle(filePath);
       const targetPath = "test-configs/test-config.json";
       if (normalizedPath.includes(targetPath)) return testConfig;
 
@@ -537,10 +532,7 @@ describe("TranslateController", () => {
     };
 
     importJSONFile.mockImplementation(async (filePath) => {
-      const normalizedPath =
-        platform === "win32"
-          ? pathModule.normalize(filePath).replace(/\\/g, "/")
-          : filePath;
+      const normalizedPath = convertPathToUnixStyle(filePath);
       const targetPath = "test-configs/test-config.json";
       if (normalizedPath.includes(targetPath)) return testConfig;
 
