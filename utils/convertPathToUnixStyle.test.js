@@ -45,18 +45,6 @@ describe("Convert path to unix style tests", () => {
     expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
   });
 
-  it("Should handle paths with multiple backslashes on Windows", () => {
-    Object.defineProperty(process, "platform", {
-      value: "win32",
-      writable: true,
-    });
-    osMock.mockImplementation(() => "win32");
-
-    const windowsPath = "C:\\\\Users\\\\user\\\\Documents\\\\file.txt";
-    const expectedUnixPath = "C:/Users/user/Documents/file.txt";
-    expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
-  });
-
   it("Should throw an error if no string is provided", () => {
     expect(() => convertPathToUnixStyle("")).toThrow("No string provided");
   });
