@@ -1,7 +1,15 @@
+import os from "os";
+import { jest } from "@jest/globals";
 import { convertPathToUnixStyle } from "./convertPathToUnixStyle.js";
 
 describe("Convert path to unix style tests", () => {
+  const osMock = jest.spyOn(os, "platform");
   let originalPlatform;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetModules();
+  });
 
   beforeAll(() => {
     originalPlatform = process.platform;
@@ -19,6 +27,7 @@ describe("Convert path to unix style tests", () => {
     Object.defineProperty(process, "platform", {
       value: "linux",
     });
+    osMock.mockImplementation(() => "linux");
 
     const filePath = "/home/user/Documents/file.txt";
     expect(convertPathToUnixStyle(filePath)).toBe(filePath);
@@ -29,6 +38,7 @@ describe("Convert path to unix style tests", () => {
     Object.defineProperty(process, "platform", {
       value: "win32",
     });
+    osMock.mockImplementation(() => "win32");
 
     const windowsPath = "C:\\Users\\user\\Documents\\file.txt";
     const expectedUnixPath = "C:/Users/user/Documents/file.txt";
@@ -38,7 +48,10 @@ describe("Convert path to unix style tests", () => {
   it("Should handle paths with multiple backslashes on Windows", () => {
     Object.defineProperty(process, "platform", {
       value: "win32",
+      writable: true,
     });
+    osMock.mockImplementation(() => "win32");
+
     const windowsPath = "C:\\\\Users\\\\user\\\\Documents\\\\file.txt";
     const expectedUnixPath = "C:/Users/user/Documents/file.txt";
     expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
