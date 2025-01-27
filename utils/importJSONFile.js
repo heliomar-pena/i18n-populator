@@ -1,6 +1,6 @@
 import { readFile } from "fs/promises";
-import os from "os";
 import path from "path";
+import { normalizeFilePath } from "./normalizeFilePath";
 
 /**
  * Imports a JSON file from the specified path and returns the parsed JSON data.
@@ -12,18 +12,10 @@ import path from "path";
 async function importJSONFile(filePath, url) {
   if (!filePath) throw new Error("No file path provided");
 
-  const platform = os.platform();
   let finalPath = "";
 
   if (typeof url === "string" && url.length > 0)
-    finalPath =
-      platform === "win32"
-        ? url
-            .split("/")
-            .slice(0, -1)
-            .join("/")
-            .replace(/^file:\/\/\/?/, "")
-        : url.split("/").slice(0, -1).join("/").replace("file://", "");
+    finalPath = normalizeFilePath(url);
 
   finalPath = path.join(finalPath, filePath);
 
