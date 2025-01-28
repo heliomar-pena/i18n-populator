@@ -21,7 +21,7 @@ function convertPathToUnixStyle(filePathString) {
 
   const normalizedPath =
     process.platform === "win32"
-      ? pathModule.normalize(filePathString).replace(/\\/g, "/")
+      ? pathModule.posix.join(...filePathString.split('\\'))
       : filePathString;
 
   return normalizedPath;
