@@ -15,43 +15,65 @@ describe("Convert path to unix style tests", () => {
     originalPlatform = process.platform;
   });
 
-  afterAll(() => {
+  afterEach(() => {
     // Restore original platform
     Object.defineProperty(process, "platform", {
       value: originalPlatform,
     });
   });
 
-  it("Should return the same path on Unix-like systems", () => {
-    // Simulate Unix environment
-    Object.defineProperty(process, "platform", {
-      value: "linux",
+  describe("Given a Windows Environment", () => {
+
+    beforeEach(() => {
+      // Simulate Windows environment
+      Object.defineProperty(process, "platform", {
+        value: "win32",
+      });
+      osMock.mockImplementation(() => "win32");
     });
-    osMock.mockImplementation(() => "linux");
 
-    const filePath = "/home/user/Documents/file.txt";
-    expect(convertPathToUnixStyle(filePath)).toBe(filePath);
-  });
+    describe("When String is provided", () => {
 
-  it("Should convert Windows paths to Unix style on Windows", () => {
-    // Simulate Windows environment
-    Object.defineProperty(process, "platform", {
-      value: "win32",
+      it("Should convert Windows paths to Unix style on Windows", () => {
+        const windowsPath = "C:\\Users\\user\\Documents\\file.txt";
+        const expectedUnixPath = "C:/Users/user/Documents/file.txt";
+        expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
+      });
+    })
+
+  })
+
+  describe("Given a Unix-like system", () => {
+    beforeEach(() => {
+      // Simulate Unix environment
+      Object.defineProperty(process, "platform", {
+        value: "linux",
+      });
+      osMock.mockImplementation(() => "linux");
     });
-    osMock.mockImplementation(() => "win32");
 
-    const windowsPath = "C:\\Users\\user\\Documents\\file.txt";
-    const expectedUnixPath = "C:/Users/user/Documents/file.txt";
-    expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
-  });
+    describe("When File Path is provided", () => {
+      it("Should return the same path on Unix-like systems", () => {
+        const filePath = "/home/user/Documents/file.txt";
+        expect(convertPathToUnixStyle(filePath)).toBe(filePath);
+      });
+    })
+  })
 
-  it("Should throw an error if no string is provided", () => {
-    expect(() => convertPathToUnixStyle("")).toThrow("No string provided");
-  });
+  describe("Given any system", () => {
 
-  it("Should handle undefined input", () => {
-    expect(() => convertPathToUnixStyle(undefined)).toThrow(
-      "No string provided",
-    );
+    describe("When File Path is not valid", () => {
+
+      it('Should throw "No string provided" Error', () => {
+        expect(() => convertPathToUnixStyle("")).toThrow(
+          "No string provided"
+        );
+
+        expect(() => convertPathToUnixStyle(undefined)).toThrow(
+          "No string provided"
+        );
+
+      });
+    });
   });
 });
