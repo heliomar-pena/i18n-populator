@@ -1,6 +1,6 @@
 import { readFile } from "fs/promises";
 import path from "path";
-import { normalizeFilePath } from "./normalizeFilePath";
+import { normalizeFilePath } from "./normalizeFilePath.js";
 
 /**
  * Imports a JSON file from the specified path and returns the parsed JSON data.
