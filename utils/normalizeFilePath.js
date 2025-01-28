@@ -17,8 +17,8 @@
  * // Returns 'home/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs'
  */
 function normalizeFilePath(pathString) {
-  if (!pathString) throw new Error("No string provided");
-
+  if (typeof pathString !== "string" || pathString.length === 0) throw new Error("No string provided");
+  
   const finalPath =
     process.platform === "win32"
       ? pathString
