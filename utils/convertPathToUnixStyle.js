@@ -17,14 +17,13 @@ import pathModule from "path";
  * // Returns '/home/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs/test-config.json'
  */
 function convertPathToUnixStyle(filePathString) {
-  if (!filePathString) throw new Error("No string provided");
+  if (typeof filePathString !== "string" || filePathString.length === 0) throw new Error("No string provided");
 
-  const normalizedPath =
-    process.platform === "win32"
-      ? pathModule.posix.join(...filePathString.split('\\'))
-      : filePathString;
+  const isWindows = process.platform === "win32";
 
-  return normalizedPath;
+  if (isWindows) return pathModule.posix.join(...filePathString.split('\\'));
+
+  return filePathString;
 }
 
 export { convertPathToUnixStyle };
