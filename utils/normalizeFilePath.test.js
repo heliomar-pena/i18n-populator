@@ -22,7 +22,6 @@ describe("Normalize file path tests", () => {
     });
 
     describe("When file path is provided", () => {
-
       it("should normalize file path", () => {
         const filePath =
           "file:///C:/Users/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs/test-config.json";
@@ -30,8 +29,8 @@ describe("Normalize file path tests", () => {
           "C:/Users/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs";
         expect(normalizeFilePath(filePath)).toBe(expectedPath);
       });
-    })
-  })
+    });
+  });
 
   describe("Given a Unix-like system", () => {
     beforeEach(() => {
@@ -42,7 +41,6 @@ describe("Normalize file path tests", () => {
     });
 
     describe("When File Path is provided", () => {
-
       it("should normalize file path", () => {
         const filePath =
           "file://home/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs/test-config.json";
@@ -50,20 +48,20 @@ describe("Normalize file path tests", () => {
           "home/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs";
         expect(normalizeFilePath(filePath)).toBe(expectedPath);
       });
-    })
-  })
+    });
+  });
 
   describe("Given any system", () => {
-
     describe("When File Path is not valid", () => {
-
       it("should throw an error if no string is provided", () => {
         expect(() => normalizeFilePath("")).toThrow("No string provided");
       });
-    
+
       it("should handle undefined input gracefully", () => {
-        expect(() => normalizeFilePath(undefined)).toThrow("No string provided");
+        expect(() => normalizeFilePath(undefined)).toThrow(
+          "No string provided",
+        );
       });
-    })
-  })
+    });
+  });
 });

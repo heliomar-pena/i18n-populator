@@ -17,18 +17,14 @@
  * // Returns 'home/pepe/Documents/jobus/blazer/misc/i18n-populator/test-configs'
  */
 function normalizeFilePath(pathString) {
-  if (typeof pathString !== "string" || pathString.length === 0) throw new Error("No string provided");
-  
-  const finalPath =
-    process.platform === "win32"
-      ? pathString
-          .split("/")
-          .slice(0, -1)
-          .join("/")
-          .replace(/^file:\/\/\/?/, "")
-      : pathString.split("/").slice(0, -1).join("/").replace("file://", "");
+  if (typeof pathString !== "string" || pathString.length === 0)
+    throw new Error("No string provided");
 
-  return finalPath;
+  const path = pathString.split("/").slice(0, -1).join("/");
+
+  return process.platform === "win32"
+    ? path.replace(/^file:\/\/\/?/, "")
+    : path.replace("file://", "");
 }
 
 export { normalizeFilePath };
