@@ -39,6 +39,12 @@ describe("Convert path to unix style tests", () => {
         const expectedUnixPath = "C:/Users/user/Documents/file.txt";
         expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
       });
+
+      it("Should handle paths with multiple backslashes", () => {
+        const windowsPath = "C:\\\\Users\\\\user\\\\Documents\\\\file.txt";
+        const expectedUnixPath = "C:/Users/user/Documents/file.txt";
+        expect(convertPathToUnixStyle(windowsPath)).toBe(expectedUnixPath);
+      });
     })
 
   })
