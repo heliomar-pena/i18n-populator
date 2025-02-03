@@ -557,7 +557,7 @@ describe("TranslateController", () => {
         },
         null,
         2,
-      ),
+      ) + "\n",
     );
 
     expect(fs.writeFileSync).toHaveBeenNthCalledWith(
@@ -569,7 +569,7 @@ describe("TranslateController", () => {
         },
         null,
         2,
-      ),
+      ) + "\n",
     );
 
     expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
