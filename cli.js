@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import fs from "fs/promises";
 const program = new Command();
 import { configPath } from "./utils/getConfigPath.js";
 import translateController from "./controllers/translateController.js";
 import languagesController from "./controllers/languagesController.js";
 import { generateConfigController } from "./controllers/generateConfigController.js";
+import { getConfig } from "./utils/getConfig.js";
 import { importJSONFile } from "./utils/importJSONFile.js";
 import { validEngines } from "./utils/translationEnginesUtils.js";
 
@@ -61,5 +63,21 @@ program
   .command("init")
   .description("Start the configuration wizard to create the settings file")
   .action(generateConfigController);
+
+program
+  .command("add-mirror")
+  .description("Add a custom LibreTranslate mirror")
+  .argument("<url>", "The URL of the LibreTranslate mirror to add")
+  .action(async (url) => {
+    const config = await getConfig();
+    const mirrors = new Set(config.mirrors || []);
+    mirrors.add(url);
+
+    await fs.writeFile(
+      configPath,
+      JSON.stringify({ ...config, mirrors: [...mirrors] }, null, 2),
+    );
+    console.log(`Mirror added: ${url}`);
+  });
 
 program.parse();
