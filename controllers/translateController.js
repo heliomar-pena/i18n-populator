@@ -71,7 +71,7 @@ const translateController = async ({
     filesToEdit.forEach(({ file, parsedPath }) => {
       setDeepValue(file, nameOfTranslation, result);
 
-      fs.writeFileSync(parsedPath, JSON.stringify(file, null, 2));
+      fs.writeFileSync(parsedPath, JSON.stringify(file, null, 2) + "\n");
     });
   }
 };
