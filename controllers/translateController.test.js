@@ -2,6 +2,7 @@ import { translate } from "@vitalets/google-translate-api";
 import { configPath, parsePath } from "../utils/getConfigPath.js";
 import prompt from "../utils/promptUser.js";
 import { validEngines } from "../services/translateService.js";
+import { convertPathToUnixStyle } from "../utils/convertPathToUnixStyle.js";
 import fs from "fs";
 
 import { jest } from "@jest/globals";
@@ -36,6 +37,7 @@ const translateController = (
 
 describe("TranslateController", () => {
   let text, sourceLanguage, nameOfTranslation;
+
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
@@ -496,8 +498,10 @@ describe("TranslateController", () => {
       [nameOfTranslation]: text,
     };
 
-    importJSONFile.mockImplementation(async (path) => {
-      if (path.includes("test-configs/test-config.json")) return testConfig;
+    importJSONFile.mockImplementation(async (filePath) => {
+      const normalizedPath = convertPathToUnixStyle(filePath);
+      const targetPath = "test-configs/test-config.json";
+      if (normalizedPath.includes(targetPath)) return testConfig;
 
       return file;
     });
@@ -527,8 +531,10 @@ describe("TranslateController", () => {
       [nameOfTranslation]: text,
     };
 
-    importJSONFile.mockImplementation(async (path) => {
-      if (path.includes("test-configs/test-config.json")) return testConfig;
+    importJSONFile.mockImplementation(async (filePath) => {
+      const normalizedPath = convertPathToUnixStyle(filePath);
+      const targetPath = "test-configs/test-config.json";
+      if (normalizedPath.includes(targetPath)) return testConfig;
 
       return file;
     });
@@ -551,7 +557,7 @@ describe("TranslateController", () => {
         },
         null,
         2,
-      ),
+      ) + "\n",
     );
 
     expect(fs.writeFileSync).toHaveBeenNthCalledWith(
@@ -563,7 +569,7 @@ describe("TranslateController", () => {
         },
         null,
         2,
-      ),
+      ) + "\n",
     );
 
     expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
