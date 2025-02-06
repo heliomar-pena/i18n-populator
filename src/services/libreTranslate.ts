@@ -1,11 +1,15 @@
 import fetch from "node-fetch";
+import { TranslateOptions, TranslateText } from "./translate";
 
 const mirrors = [
   "https://translate.terraprint.co/translate",
   "https://trans.zillyhuhn.com/translate",
 ];
 
-const libreTranslate = async (text, { from, to }) => {
+const libreTranslate = async (
+  text: TranslateText,
+  { from, to }: TranslateOptions
+) => {
   for await (const url of mirrors) {
     try {
       const res = await fetch(url, {
@@ -22,7 +26,7 @@ const libreTranslate = async (text, { from, to }) => {
       return { text: res.translatedText };
     } catch (err) {
       console.log(
-        `Mirror failed: ${url} with the next error:\n\n> ${err.message}\n\nTrying with the next one...\n`,
+        `Mirror failed: ${url} with the next error:\n\n> ${err.message}\n\nTrying with the next one...\n`
       );
     }
   }

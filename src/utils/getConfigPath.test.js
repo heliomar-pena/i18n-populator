@@ -1,6 +1,6 @@
 import { configPath, parsePath } from "./getConfigPath.js";
 import path from "path";
-import config from "../src/config.js";
+import config from "../config.js";
 
 const { defaultConfigPath } = config;
 
