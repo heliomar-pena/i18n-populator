@@ -1,13 +1,11 @@
 import fetch from "node-fetch";
-import { getConfig } from "../utils/getConfig.js";
 
 const defaultMirrors = [
   "https://translate.terraprint.co/translate",
   "https://trans.zillyhuhn.com/translate",
 ];
 
-const libreTranslate = async (text, { from, to }) => {
-  const config = await getConfig();
+const libreTranslate = async (text, { from, to }, config) => {
   const customMirrors = config?.mirrors || [];
   const mirrors = [...customMirrors, ...defaultMirrors];
 
