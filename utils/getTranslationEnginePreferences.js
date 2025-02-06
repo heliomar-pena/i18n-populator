@@ -1,8 +1,11 @@
 /**
  * By default use Engines that doesn't require an API key
  */
-const DEFAULT_ENGINES = ["google", "bing", "libreTranslate"];
-
+const DEFAULT_ENGINES = [
+  { name: "google" },
+  { name: "bing" },
+  { name: "libreTranslate" },
+];
 /**
  * Returns an array of translation engines to use based on the provided settings and CLI arguments. If no one is provided then the default engines are returned.
  * @param {Object} options - The options object.
@@ -17,13 +20,14 @@ const getTranslationEnginesToUse = ({
   const translationEnginesToUse = [];
 
   if (cliArgEngine) {
-    translationEnginesToUse.push(cliArgEngine);
+    translationEnginesToUse.push({ name: cliArgEngine });
   }
 
   if (settingsTranslationEngines) {
     const settingsTranslationEnginesFiltered =
-      settingsTranslationEngines.filter((engine) => engine !== cliArgEngine);
-
+      settingsTranslationEngines.filter(
+        (engine) => engine.name !== cliArgEngine,
+      );
     translationEnginesToUse.push(...settingsTranslationEnginesFiltered);
   }
 

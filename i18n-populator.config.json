@@ -9,7 +9,7 @@
     },
     {
       "name": "libreTranslate",
-      "mirrors": ["mirror1", "mirror2", "mirror3"]
+      "mirrors": []
     }
   ],
   "languages": [

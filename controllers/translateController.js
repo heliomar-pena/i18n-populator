@@ -10,7 +10,6 @@ import {
 import { validateLanguageRequested } from "../utils/supportedLanguagesUtils.js";
 import { validEngines } from "../utils/translationEnginesUtils.js";
 import { importJSONFile } from "../utils/importJSONFile.js";
-import { getConfig } from "../utils/getConfig.js";
 
 /**
  * Translates a text to multiple languages and saves the translations in the JSON files
@@ -54,14 +53,11 @@ const translateController = async ({
     cliArgEngine: options.engine,
   });
 
-  const config = await getConfig();
-
   for await (const language of languages) {
     const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       language.files,
       nameOfTranslation,
-      config,
     );
 
     if (filesToEdit.length === 0) continue;

@@ -23,22 +23,22 @@ describe("translate", () => {
   });
 
   it("should translate text from English to Spanish using Bing Translate", async () => {
-    const engine = "bing";
+    const engine = { name: "bing" };
     const result = await translate(text, from, to, engine);
 
     expect(bingTranslate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
-      `Hello world! translated from ${from} to ${to} using ${engine}`,
+      `Hello world! translated from ${from} to ${to} using ${engine.name}`,
     );
   });
 
   it("should translate text from English to Spanish using LibreTranslate", async () => {
-    const engine = "libreTranslate";
+    const engine = { name: "libreTranslate" };
     const result = await translate(text, from, to, engine);
 
     expect(libreTranslate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
-      `Hello world! translated from ${from} to ${to} using ${engine}`,
+      `Hello world! translated from ${from} to ${to} using ${engine.name}`,
     );
   });
 
@@ -51,7 +51,7 @@ describe("translate", () => {
   });
 
   it("should throw an error if an invalid engine is provided", async () => {
-    const engine = "invalid";
+    const engine = { name: "invalid" };
     await expect(translate(text, from, to, engine)).rejects.toThrow(
       `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );
