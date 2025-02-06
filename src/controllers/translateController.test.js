@@ -32,7 +32,7 @@ const { getLanguagesCodesWithNames, supportedLanguages } = await import(
   "../utils/supportedLanguagesUtils.js"
 );
 const translateController = (
-  await import("../controllers/translateController.js")
+  await import("./translateController.js")
 ).default;
 
 describe("TranslateController", () => {

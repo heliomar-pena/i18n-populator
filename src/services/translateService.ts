@@ -5,6 +5,7 @@ import {
   translateEngines,
   isEngineValid,
 } from "../utils/translationEnginesUtils.js";
+import { TranslateOptions, TranslateText } from "./translate";
 
 /**
  * Translates the given text from one language to another using the specified translation engine.
@@ -15,7 +16,7 @@ import {
  * @returns {Promise<{text: string}>} - A Promise that resolves to an object containing the translated text.
  * @throws {Error} - If an invalid translation engine is specified.
  */
-const translate = async (text, from, to, engine = "google") => {
+const translate = async (text: TranslateText, from: TranslateText, to: TranslateText, engine = "google") => {
   if (!isEngineValid(engine))
     throw new Error(
       `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,

@@ -2,9 +2,9 @@
   "name": "i18n-populator",
   "version": "1.1.1",
   "description": "A small NodeJS tool that generates translations for i18n and put them on their appropriate files",
-  "main": "index.js",
   "type": "module",
   "scripts": {
+    "type-check": "tsc  --noEmit",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
@@ -12,35 +12,13 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "pkgroll"
   },
+  "bin": "./dist/cli.mjs",
   "engines": {
-    "node": ">=14.15.0"
+    "node": "23.6.0"
   },
-  "bin": "cli.js",
-  "files": [
-    "config.js",
-    "cli.js",
-    "ALL-LANGUAGES-CODES.json",
-    "utils/getConfigPath.js",
-    "utils/getOrCreateJsonFile.js",
-    "utils/getTranslationEnginePreferences.js",
-    "utils/objectUtils.js",
-    "utils/promptUtils.js",
-    "utils/supportedLanguagesUtils.js",
-    "utils/translationEnginesUtils.js",
-    "utils/validateAndPromptUserJSONFiles.js",
-    "utils/validateSettingsFile.js",
-    "utils/listFiles.js",
-    "utils/importJSONFile.js",
-    "utils/promptUser.js",
-    "controllers/translateController.js",
-    "controllers/languagesController.js",
-    "controllers/generateConfigController.js",
-    "services/bingTranslate.js",
-    "services/translateService.js",
-    "services/libreTranslate.js"
-  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -53,12 +31,13 @@
     "cli-tool",
     "development-tool"
   ],
-  "author": "victordev2002@gmail.com",
-  "license": "ISC",
+  "author": "penaheliomar@gmail.com",
+  "license": "MIT",
   "dependencies": {
+    "@inquirer/prompts": "^7.3.1",
     "@vitalets/google-translate-api": "^9.2.0",
     "bing-translate-api": "^2.9.1",
-    "commander": "^8.3.0",
+    "commander": "^13.1.0",
     "dset": "^3.1.2",
     "node-fetch": "^2.7.0",
     "prompt-sync-plus": "^1.0.2"
@@ -66,11 +45,15 @@
   "devDependencies": {
     "@eslint/js": "^9.4.0",
     "@jest/globals": "^29.7.0",
+    "@types/node": "^22.13.1",
     "eslint": "^9.4.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.3.0",
     "husky": "^9.0.11",
     "jest": "^29.6.4",
-    "prettier": "3.3.1"
+    "pkgroll": "^2.8.0",
+    "prettier": "3.3.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }

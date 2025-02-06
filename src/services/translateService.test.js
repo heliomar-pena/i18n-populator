@@ -1,5 +1,5 @@
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
-import { translate as libreTranslate } from "./libreTranslate.js";
+import { translate as libreTranslate } from "./libreTranslate.ts";
 import { translate as bingTranslate } from "bing-translate-api";
 import { translate, validEngines } from "./translateService.js";
 

@@ -1,3 +1,4 @@
 npm test
 npx lint-staged
 npm run prettier
+npm run type-check

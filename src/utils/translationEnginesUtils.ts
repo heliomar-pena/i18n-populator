@@ -1,14 +1,15 @@
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
-import { translate as bingTranslate } from "../services/bingTranslate.js";
-import { translate as libreTranslate } from "../services/libreTranslate.js";
+import { translate as bingTranslate } from "../services/bingTranslate";
+import { translate as libreTranslate } from "../services/libreTranslate";
+import { Engines } from "./translationEnginesUtils.d";
 
 const translateEngines = {
-  google: googleTranslate,
-  bing: bingTranslate,
-  libreTranslate,
+  [Engines.GOOGLE]: googleTranslate,
+  [Engines.BING]: bingTranslate,
+  [Engines.LIBRE_TRANSLATE]: libreTranslate,
 };
 
-const validEngines = Object.keys(translateEngines);
+const validEngines = Object.values(Engines);
 
 /**
  * Checks if the given translation engine is valid.

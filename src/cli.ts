@@ -7,8 +7,7 @@ import languagesController from "./controllers/languagesController.js";
 import { generateConfigController } from "./controllers/generateConfigController.js";
 import { importJSONFile } from "./utils/importJSONFile.js";
 import { validEngines } from "./utils/translationEnginesUtils.js";
-
-const { version } = await importJSONFile("./package.json", import.meta.url);
+import { version } from "../package.json";
 
 program
   .name("i18n-populator")
@@ -52,7 +51,7 @@ program
   .command("languages")
   .description("Show the languages supported in ISO-639-1 standard")
   .option(
-    "-be, --by-engine <string>",
+    "-e, --by-engine <string>",
     "Filter the language supported list by engine",
   )
   .action(languagesController);
