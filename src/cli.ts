@@ -5,7 +5,6 @@ import { configPath } from "./utils/getConfigPath.js";
 import translateController from "./controllers/translateController.js";
 import languagesController from "./controllers/languagesController.js";
 import { generateConfigController } from "./controllers/generateConfigController.js";
-import { importJSONFile } from "./utils/importJSONFile.js";
 import { validEngines } from "./utils/translationEnginesUtils.js";
 import { version } from "../package.json";
 

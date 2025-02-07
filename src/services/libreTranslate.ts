@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { TranslateOptions, TranslateText } from "./translate";
+import { TranslateOptions, TranslateResult, TranslateText } from "./translate";
 
 const mirrors = [
   "https://translate.terraprint.co/translate",
@@ -9,7 +9,7 @@ const mirrors = [
 const libreTranslate = async (
   text: TranslateText,
   { from, to }: TranslateOptions
-) => {
+): Promise<TranslateResult> => {
   for await (const url of mirrors) {
     try {
       const res = await fetch(url, {
