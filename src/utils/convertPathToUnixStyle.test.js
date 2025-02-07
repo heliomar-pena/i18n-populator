@@ -1,6 +1,6 @@
 import os from "os";
 import { jest } from "@jest/globals";
-import { convertPathToUnixStyle } from "./convertPathToUnixStyle.js";
+import { convertPathToUnixStyle } from "./convertPathToUnixStyle";
 
 describe("Convert path to unix style tests", () => {
   const osMock = jest.spyOn(os, "platform");

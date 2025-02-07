@@ -1,9 +1,9 @@
 import fs from "fs";
-import { validEngines } from "../utils/translationEnginesUtils.js";
-import { confirmUserAction, promptUserInput } from "../utils/promptUtils.js";
-import { parsePath } from "../utils/getConfigPath.js";
-import { listFilesOnDirectory } from "../utils/listFiles.js";
-import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils.js";
+import { validEngines } from "../utils/translationEnginesUtils";
+import { confirmUserAction, promptUserInput } from "../utils/promptUtils";
+import { parsePath } from "../utils/getConfigPath";
+import { listFilesOnDirectory } from "../utils/listFiles";
+import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils";
 
 const _promptTranslationEngines = () => {
   const translationEnginesToUse = [];

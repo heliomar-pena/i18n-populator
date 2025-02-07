@@ -1,4 +1,4 @@
-import { hasProperty } from "./objectUtils.js";
+import { hasProperty } from "./objectUtils";
 
 describe("Object utils tests", () => {
   describe("hasProperty", () => {

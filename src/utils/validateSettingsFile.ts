@@ -1,5 +1,5 @@
 import fs from "fs";
-import { validEngines, isEngineValid } from "../services/translateService.js";
+import { validEngines, isEngineValid } from "../services/translateService";
 
 /**
  * Checks if setting file is valid.

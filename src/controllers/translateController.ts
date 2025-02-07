@@ -1,16 +1,16 @@
 import fs from "fs";
-import { parsePath } from "../utils/getConfigPath.js";
-import validateSettingsFile from "../utils/validateSettingsFile.js";
+import { parsePath } from "../utils/getConfigPath";
+import validateSettingsFile from "../utils/validateSettingsFile";
 import { dset as setDeepValue } from "dset";
-import { validateAndPromptUserJSONFiles } from "../utils/validateAndPromptUserJSONFiles.js";
+import { validateAndPromptUserJSONFiles } from "../utils/validateAndPromptUserJSONFiles";
 import {
   setTranslateWithFallbackEngines,
   isEngineValid,
-} from "../services/translateService.js";
-import { validateLanguageRequested } from "../utils/supportedLanguagesUtils.js";
-import { validEngines } from "../utils/translationEnginesUtils.js";
+} from "../services/translateService";
+import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
+import { validEngines } from "../utils/translationEnginesUtils";
 import { TranslateController } from './translateController.d';
-import { Settings } from "../types/settings.js";
+import { Settings } from "../types/settings";
 
 /**
  * Translates a text to multiple languages and saves the translations in the JSON files

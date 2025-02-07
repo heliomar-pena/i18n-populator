@@ -1,10 +1,9 @@
 import { translate } from "@vitalets/google-translate-api";
-import { configPath, parsePath } from "../utils/getConfigPath.js";
-import prompt from "../utils/promptUser.js";
-import { validEngines } from "../services/translateService.js";
-import { convertPathToUnixStyle } from "../utils/convertPathToUnixStyle.js";
+import { configPath, parsePath } from "../utils/getConfigPath";
+import prompt from "../utils/promptUser";
+import { validEngines } from "../services/translateService";
+import { convertPathToUnixStyle } from "../utils/convertPathToUnixStyle";
 import fs from "fs";
-
 import { jest } from "@jest/globals";
 
 const config = {
@@ -22,7 +21,7 @@ const config = {
   translationEngines: ["google", "bing", "libreTranslate"],
 };
 
-jest.unstable_mockModule("./utils/importJSONFile.js", () => ({
+jest.mock("./utils/importJSONFile.js", () => ({
   importJSONFile: jest.fn(async () => config),
 }));
 

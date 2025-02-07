@@ -1,9 +1,10 @@
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
-import { translate as libreTranslate } from "./libreTranslate.ts";
+import { translate as libreTranslate } from "./libreTranslate";
 import { translate as bingTranslate } from "bing-translate-api";
-import { translate, validEngines } from "./translateService.js";
+import { translate, validEngines } from "./translateService";
 
-import { jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { Engines } from "../types/settings.d";
 
 describe("translate", () => {
   let text, from, to;
@@ -23,7 +24,7 @@ describe("translate", () => {
   });
 
   it("should translate text from English to Spanish using Bing Translate", async () => {
-    const engine = "bing";
+    const engine = Engines.BING;
     const result = await translate(text, from, to, engine);
 
     expect(bingTranslate).toHaveBeenCalledTimes(1);
@@ -33,7 +34,7 @@ describe("translate", () => {
   });
 
   it("should translate text from English to Spanish using LibreTranslate", async () => {
-    const engine = "libreTranslate";
+    const engine = Engines.LIBRE_TRANSLATE;
     const result = await translate(text, from, to, engine);
 
     expect(libreTranslate).toHaveBeenCalledTimes(1);
@@ -51,7 +52,7 @@ describe("translate", () => {
   });
 
   it("should throw an error if an invalid engine is provided", async () => {
-    const engine = "invalid";
+    const engine = "invalid" as Engines;
     await expect(translate(text, from, to, engine)).rejects.toThrow(
       `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );

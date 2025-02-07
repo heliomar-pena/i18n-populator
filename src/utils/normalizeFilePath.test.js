@@ -1,4 +1,4 @@
-import { normalizeFilePath } from "./normalizeFilePath.js";
+import { normalizeFilePath } from "./normalizeFilePath";
 
 describe("Normalize file path tests", () => {
   let originalPlatform;

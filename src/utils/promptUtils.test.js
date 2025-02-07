@@ -1,5 +1,5 @@
-import prompt from "./promptUser.js";
-import { autoComplete, confirmUserAction } from "./promptUtils.js";
+import prompt from "./promptUser";
+import { autoComplete, confirmUserAction } from "./promptUtils";
 
 describe("promptUtils", () => {
   describe("autoComplete", () => {
