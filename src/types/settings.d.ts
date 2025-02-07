@@ -11,7 +11,7 @@ export type Language = {
     files: string[],
 }
 
-export type Path = string[];
+export type Path = string;
 
 export type Languages = Language[];
 

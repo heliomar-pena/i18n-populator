@@ -1,7 +1,10 @@
+import { SetTranslateWithFallbackEngines } from "../services/translateService.d";
+import { Engines } from "../types/settings";
+
 /**
  * By default use Engines that doesn't require an API key
  */
-const DEFAULT_ENGINES = ["google", "bing", "libreTranslate"];
+const DEFAULT_ENGINES = [Engines.GOOGLE, Engines.BING, Engines.LIBRE_TRANSLATE];
 
 /**
  * Returns an array of translation engines to use based on the provided settings and CLI arguments. If no one is provided then the default engines are returned.
@@ -13,8 +16,8 @@ const DEFAULT_ENGINES = ["google", "bing", "libreTranslate"];
 const getTranslationEnginesToUse = ({
   settingsTranslationEngines,
   cliArgEngine,
-}) => {
-  const translationEnginesToUse = [];
+}: SetTranslateWithFallbackEngines): Engines[] => {
+  const translationEnginesToUse: Engines[] = [];
 
   if (cliArgEngine) {
     translationEnginesToUse.push(cliArgEngine);

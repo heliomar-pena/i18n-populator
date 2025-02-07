@@ -1,4 +1,4 @@
-import { TranslationEngines } from "../types/settings.d";
+import { Engines, TranslationEngines } from "../types/settings.d";
 import { TranslateResult, TranslateText } from "./translate.d";
 
 export type TranslateFn = (
@@ -12,7 +12,9 @@ export type SetTranslateWithFallbackEnginesReturn = {
   translate: TranslateFn;
 };
 
-export type SetTranslateWithFallbackEngines = (
+export type SetTranslateWithFallbackEngines = {
   settingsTranslationEngines: TranslationEngines,
-  cliArgEngine: string
-) => SetTranslateWithFallbackEnginesReturn;
+  cliArgEngine: Engines,
+}
+
+export type SetTranslateWithFallbackEnginesFn = (options: SetTranslateWithFallbackEngines) => SetTranslateWithFallbackEnginesReturn;

@@ -6,7 +6,7 @@ import {
   isEngineValid,
 } from "../utils/translationEnginesUtils.js";
 import { TranslateResult, TranslateText } from "./translate";
-import { SetTranslateWithFallbackEngines, TranslateFn } from './translateService.d';
+import { SetTranslateWithFallbackEngines, SetTranslateWithFallbackEnginesFn, SetTranslateWithFallbackEnginesReturn, TranslateFn } from './translateService.d';
 import { Engines } from "../types/settings.d";
 
 /**
@@ -36,11 +36,10 @@ const translate = async (
 
 /**
  * Sets the translation engine(s) to use and a function to translate with fallback engines.
- * @param {TranslationEngines} settingsTranslationEngines - An array of translation engines to use, in order of preference.
- * @param {string} cliArgEngine - The translation engine specified in the CLI arguments.
- * @returns {{engines: TranslationEngines, translateWithFallbackEngines: function}} - An object containing the translation engines to use and a function to translate with fallback engines.
+ * @param {SetTranslateWithFallbackEngines} options
+ * @returns {SetTranslateWithFallbackEnginesReturn} - An object containing the translation engines to use and a function to translate with fallback engines.
  */
-const setTranslateWithFallbackEngines: SetTranslateWithFallbackEngines = ({
+const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
   settingsTranslationEngines,
   cliArgEngine,
 }) => {
