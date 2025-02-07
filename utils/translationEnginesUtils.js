@@ -15,6 +15,9 @@ const validEngines = Object.keys(translateEngines);
  * @param {string} engine - The translation engine to check.
  * @returns {boolean} - True if the given translation engine is valid, false otherwise.
  */
-const isEngineValid = (engine) => validEngines.includes(engine);
+const isEngineValid = (engine) => {
+  const engineName = typeof engine === "object" ? engine.name : engine;
+  return validEngines.includes(engineName);
+};
 
 export { translateEngines, validEngines, isEngineValid };
