@@ -4,3 +4,5 @@ export type TranslateOptions = {
 }
 
 export type TranslateText = string
+
+export type TranslateResult = { text: string }

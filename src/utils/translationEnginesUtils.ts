@@ -1,7 +1,7 @@
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
 import { translate as bingTranslate } from "../services/bingTranslate";
 import { translate as libreTranslate } from "../services/libreTranslate";
-import { Engines } from "./translationEnginesUtils.d";
+import { Engines } from "../types/settings.d";
 
 const translateEngines = {
   [Engines.GOOGLE]: googleTranslate,
@@ -16,6 +16,6 @@ const validEngines = Object.values(Engines);
  * @param {string} engine - The translation engine to check.
  * @returns {boolean} - True if the given translation engine is valid, false otherwise.
  */
-const isEngineValid = (engine) => validEngines.includes(engine);
+const isEngineValid = (engine: Engines): Boolean => validEngines.includes(engine);
 
 export { translateEngines, validEngines, isEngineValid };

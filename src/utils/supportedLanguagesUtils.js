@@ -119,7 +119,7 @@ const getLanguagesCodesWithNames = (languages) => {
  *
  * @param {string} requestedLanguage - The language to be validated.
  * @returns {boolean} - Returns true if the language is valid.
- * @throws {Error} - Throws an error if the language is not provided, not supported, or not supported by any engine.
+ * @throws {Error} - Throws an error if the language is not provided or not supported 
  */
 const validateLanguageRequested = (requestedLanguage) => {
   try {

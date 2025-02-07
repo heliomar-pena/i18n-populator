@@ -9,29 +9,27 @@ import {
 } from "../services/translateService.js";
 import { validateLanguageRequested } from "../utils/supportedLanguagesUtils.js";
 import { validEngines } from "../utils/translationEnginesUtils.js";
-import { importJSONFile } from "../utils/importJSONFile.js";
+import { TranslateController } from './translateController.d';
+import { Settings } from "../types/settings.js";
 
 /**
  * Translates a text to multiple languages and saves the translations in the JSON files
  *
- * @param {Object} options
- * @param {string} options.text
- * @param {string} options.from
- * @param {string} options.name
- * @param {string} [options.settingsFile]
- * @param {string} [options.engine]
+ * @param {TranslateController} options
  * @returns {Promise<void>}
- * @throws {Error}
+ * @throws {Error} if not text for translate is provided
+ * @throws {Error} if not name for translate is provided
+ * @throws {Error} if Engine provided via CLI is invalid
  */
 const translateController = async ({
   text,
   from: sourceLanguage,
   name: nameOfTranslation,
   ...options
-}) => {
+}: TranslateController): Promise<void> => {
   const settingsFilePath = parsePath(options.settingsFile);
   await validateSettingsFile(settingsFilePath);
-  validateLanguageRequested(sourceLanguage, options.engine);
+  validateLanguageRequested(sourceLanguage);
 
   if (typeof text !== "string" || !text?.length)
     throw new Error("No text to translate provided");
@@ -41,7 +39,7 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await importJSONFile(settingsFilePath);
+  } = await import(settingsFilePath) as Settings;
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
