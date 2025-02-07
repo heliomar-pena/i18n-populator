@@ -1,13 +1,13 @@
-import { validEngines } from "../utils/translationEnginesUtils.js";
-import { parsePath } from "../utils/getConfigPath.js";
+import { validEngines } from "../utils/translationEnginesUtils";
+import { parsePath } from "../utils/getConfigPath";
 import { jest } from "@jest/globals";
 
-jest.unstable_mockModule("./utils/promptUtils.js", () => ({
+jest.mock("./utils/promptUtils.js", () => ({
   confirmUserAction: jest.fn(() => true),
   promptUserInput: jest.fn(),
 }));
 
-jest.unstable_mockModule("./utils/listFiles.js", () => ({
+jest.mock("./utils/listFiles.js", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
 }));
 

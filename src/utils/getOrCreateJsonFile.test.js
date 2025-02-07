@@ -1,9 +1,9 @@
-import { parsePath } from "./getConfigPath.js";
+import { parsePath } from "./getConfigPath";
 import fs from "fs";
 
 import { jest } from "@jest/globals";
 
-jest.unstable_mockModule("./utils/importJSONFile.js", () => ({
+jest.mock("./utils/importJSONFile.js", () => ({
   importJSONFile: jest.fn(() => ({
     languages: [
       {

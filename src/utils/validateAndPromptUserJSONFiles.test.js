@@ -1,9 +1,9 @@
 import { jest } from "@jest/globals";
-import { parsePath } from "./getConfigPath.js";
-import prompt from "./promptUser.js";
+import { parsePath } from "./getConfigPath";
+import prompt from "./promptUser";
 import fs from "fs";
 
-jest.unstable_mockModule("./utils/importJSONFile.js", () => ({
+jest.mock("./utils/importJSONFile.js", () => ({
   importJSONFile: jest.fn(async () => ({})),
 }));
 

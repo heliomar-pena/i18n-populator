@@ -1,5 +1,5 @@
 import { SetTranslateWithFallbackEngines } from "../services/translateService.d";
-import { Engines } from "../types/settings";
+import { Engines } from "../types/settings.d";
 
 /**
  * By default use Engines that doesn't require an API key

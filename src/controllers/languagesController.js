@@ -2,12 +2,12 @@ import {
   supportedLanguages as allSupportedLanguages,
   getLanguagesCodesWithNames,
   supportedLanguagesGroupedByEngine,
-} from "../utils/supportedLanguagesUtils.js";
+} from "../utils/supportedLanguagesUtils";
 
 import {
   isEngineValid,
   validEngines,
-} from "../utils/translationEnginesUtils.js";
+} from "../utils/translationEnginesUtils";
 
 const languagesController = ({ byEngine: engine }) => {
   if (engine && !isEngineValid(engine))

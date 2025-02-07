@@ -1,10 +1,10 @@
-import { getLanguageCodeByEngine } from "../utils/supportedLanguagesUtils.js";
-import { getTranslationEnginesToUse } from "../utils/getTranslationEnginePreferences.js";
+import { getLanguageCodeByEngine } from "../utils/supportedLanguagesUtils";
+import { getTranslationEnginesToUse } from "../utils/getTranslationEnginePreferences";
 import {
   validEngines,
   translateEngines,
   isEngineValid,
-} from "../utils/translationEnginesUtils.js";
+} from "../utils/translationEnginesUtils";
 import { TranslateResult, TranslateText } from "./translate";
 import { SetTranslateWithFallbackEngines, SetTranslateWithFallbackEnginesFn, SetTranslateWithFallbackEnginesReturn, TranslateFn } from './translateService.d';
 import { Engines } from "../types/settings.d";

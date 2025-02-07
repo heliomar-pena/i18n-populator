@@ -1,6 +1,6 @@
-import { getOrCreateJsonFile } from "./getOrCreateJsonFile.js";
-import { confirmUserAction } from "./promptUtils.js";
-import { hasProperty } from "./objectUtils.js";
+import { getOrCreateJsonFile } from "./getOrCreateJsonFile";
+import { confirmUserAction } from "./promptUtils";
+import { hasProperty } from "./objectUtils";
 import { ValidateAndPromptUserJSONFilesFn } from "./validateAndPromptUserJSONFiles.d";
 
 const validateAndPromptUserJSONFiles: ValidateAndPromptUserJSONFilesFn = async (

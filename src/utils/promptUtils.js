@@ -3,7 +3,7 @@
  * @module promptUtils
  */
 import { AutocompleteBehavior } from "prompt-sync-plus";
-import prompt from "./promptUser.js";
+import prompt from "./promptUser";
 
 /**
  * Get an array of commands to autocomplete the user prompt input

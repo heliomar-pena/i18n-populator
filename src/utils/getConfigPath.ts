@@ -1,4 +1,4 @@
-import config from "../config.js";
+import config from "../config";
 import path from "path";
 
 const { defaultConfigPath } = config;
