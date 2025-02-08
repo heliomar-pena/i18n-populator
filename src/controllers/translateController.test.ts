@@ -2,7 +2,6 @@ import { translate } from "@vitalets/google-translate-api";
 import { configPath, parsePath } from "../utils/getConfigPath";
 import prompt from "../utils/promptUser";
 import { validEngines } from "../services/translateService";
-import { convertPathToUnixStyle } from "../utils/convertPathToUnixStyle";
 import fs from "fs";
 import {
   afterEach,
