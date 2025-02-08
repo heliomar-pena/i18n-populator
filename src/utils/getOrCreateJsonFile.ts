@@ -1,13 +1,13 @@
 import fs from "fs";
 import { parsePath } from "./getConfigPath";
-import { importJSONFile } from "./importJSONFile";
 
 const getOrCreateJsonFile = async (basePath, fileName) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);
 
   if (fs.existsSync(parsedPath)) {
     try {
-      const file = await importJSONFile(parsedPath);
+      const file = await import(parsedPath);
+      console.log({ file });
       return { file, parsedPath };
     } catch (error) {
       console.error(`Error reading file ${parsedPath}.`);

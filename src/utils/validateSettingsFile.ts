@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { exists } from "fs";
 import { validEngines, isEngineValid } from "../services/translateService";
 
 /**

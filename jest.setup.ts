@@ -11,12 +11,10 @@ jest.mock("./src/utils/promptUser.js", () => {
 });
 
 jest.mock("fs", () => ({
-  default: {
-    existsSync: jest.fn(() => false),
-    writeFileSync: jest.fn(),
-    mkdirSync: jest.fn(),
-    rmSync: jest.fn(),
-  },
+  existsSync: jest.fn(() => false),
+  writeFileSync: jest.fn(),
+  mkdirSync: jest.fn(),
+  rmSync: jest.fn(),
 }));
 
 jest.mock("bing-translate-api", () => ({
@@ -33,8 +31,19 @@ jest.mock("./src/services/libreTranslate", () => ({
 
 jest.mock("./src/types/settings.d", () => ({
   Engines: {
-    GOOGLE: 'google',
-    BING: 'bing',
-    LIBRE_TRANSLATE: 'libreTranslate'
+    GOOGLE: "google",
+    BING: "bing",
+    LIBRE_TRANSLATE: "libreTranslate",
+  },
+}));
+
+jest.mock("prompt-sync-plus/dist/index.d", () => ({
+  AutocompleteBehavior: {
+    CYCLE: "cycle",
+    HYBRID: "hybrid",
+    SUGGEST: "suggest",
+  },
+  Key: {
+    TAB: 9
   }
-}))
+}));
