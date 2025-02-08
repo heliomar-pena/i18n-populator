@@ -1,41 +1,34 @@
 import { validEngines } from "../utils/translationEnginesUtils";
 import { parsePath } from "../utils/getConfigPath";
-import { jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { confirmUserAction, promptUserInput } from "../utils/promptUtils";
+import { listFilesOnDirectory } from "../utils/listFiles";
+import { _promptBasePath, _promptLanguages, _promptTranslationEngines, generateConfigController } from "./generateConfigController";
+import fs from 'fs';
 
-jest.mock("./utils/promptUtils.js", () => ({
+jest.mock("../utils/promptUtils", () => ({
   confirmUserAction: jest.fn(() => true),
   promptUserInput: jest.fn(),
 }));
 
-jest.mock("./utils/listFiles.js", () => ({
+jest.mock("../utils/listFiles", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
 }));
 
-const { confirmUserAction, promptUserInput } = await import(
-  "../utils/promptUtils.js"
-);
-const { listFilesOnDirectory } = await import("../utils/listFiles.js");
-const {
-  _promptBasePath,
-  _promptLanguages,
-  _promptTranslationEngines,
-  generateConfigController,
-} = await import("./generateConfigController.js");
-const fs = (await import("fs")).default;
 
-const mockPromptBasePath = ({ basePath, pathFiles }) => {
-  promptUserInput.mockReturnValueOnce(basePath);
+const mockPromptBasePath = ({ basePath, pathFiles }: { basePath: string, pathFiles: string[] }) => {
+  (promptUserInput as jest.Mock).mockReturnValueOnce(basePath);
 
-  confirmUserAction.mockReturnValueOnce(true);
+  (confirmUserAction as jest.Mock).mockReturnValueOnce(true);
 
-  listFilesOnDirectory.mockResolvedValueOnce(pathFiles);
+  (listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>).mockResolvedValueOnce(pathFiles);
 };
 
 const mockPromptLanguages = (languages = []) => {
-  promptUserInput.mockReturnValueOnce("");
+  (promptUserInput as jest.Mock).mockReturnValueOnce("");
 
   for (const language of languages) {
-    promptUserInput.mockReturnValueOnce(language);
+    (promptUserInput as jest.Mock).mockReturnValueOnce(language);
   }
 };
 
@@ -43,7 +36,7 @@ const mockPromptTranslationEngines = (engines = []) => {
   const enginesToPrompt = [...validEngines];
 
   for (const engine of enginesToPrompt) {
-    confirmUserAction.mockReturnValueOnce(engines.includes(engine));
+    (confirmUserAction as jest.Mock).mockReturnValueOnce(engines.includes(engine));
   }
 };
 
@@ -57,7 +50,7 @@ describe("_promptTranslationEngines", () => {
     const enginesToUse = ["google", "libreTranslate"];
     mockPromptTranslationEngines(enginesToUse);
 
-    const result = _promptTranslationEngines(validEngines);
+    const result = _promptTranslationEngines();
 
     expect(confirmUserAction).toHaveBeenCalledTimes(3);
 
@@ -74,7 +67,7 @@ describe("_promptTranslationEngines", () => {
     const expectedEnginesToUse = [];
     mockPromptTranslationEngines(expectedEnginesToUse);
 
-    const result = _promptTranslationEngines(validEngines);
+    const result = _promptTranslationEngines();
 
     expect(confirmUserAction).toHaveBeenCalledTimes(3);
 
@@ -116,7 +109,7 @@ describe("_promptBasePath", () => {
   });
 
   it("should continue prompting if base path is not provided", async () => {
-    promptUserInput.mockReturnValueOnce("");
+    (promptUserInput as jest.Mock).mockReturnValueOnce("");
 
     mockPromptBasePath({ basePath: "test-configs/translations", pathFiles });
 
@@ -141,11 +134,11 @@ describe("_promptBasePath", () => {
   it("should continue prompting if files in path are empty", async () => {
     const basePath = "src/localizations";
 
-    promptUserInput.mockReturnValueOnce(basePath);
+    (promptUserInput as jest.Mock).mockReturnValueOnce(basePath);
 
-    confirmUserAction.mockReturnValueOnce(false); // Path is empty. Are you sure you want to use this path?
+    (confirmUserAction as jest.Mock).mockReturnValueOnce(false); // Path is empty. Are you sure you want to use this path?
 
-    listFilesOnDirectory.mockResolvedValueOnce([]);
+    (listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>).mockResolvedValueOnce([]);
 
     mockPromptBasePath({ basePath, pathFiles });
 
@@ -165,11 +158,11 @@ describe("_promptBasePath", () => {
   it("should continue prompting if user does not confirm the path", async () => {
     const basePath = "src/localizations";
 
-    promptUserInput.mockReturnValueOnce(basePath).mockReturnValueOnce(basePath); // Please insert the path you want to use
+    (promptUserInput as jest.Mock).mockReturnValueOnce(basePath).mockReturnValueOnce(basePath); // Please insert the path you want to use
 
-    confirmUserAction.mockReturnValueOnce(false).mockReturnValueOnce(false); // Please confirm that the path that you want to use is: ...
+    (confirmUserAction as jest.Mock).mockReturnValueOnce(false).mockReturnValueOnce(false); // Please confirm that the path that you want to use is: ...
 
-    listFilesOnDirectory
+    (listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>)
       .mockResolvedValueOnce(pathFiles)
       .mockResolvedValueOnce(pathFiles); // List files on directory is always returned well
 
@@ -263,12 +256,12 @@ describe("generateConfigController", () => {
     const basePath = "test-configs/translations";
     const pathFiles = ["english-file.json", "spanish-file.json"];
 
-    fs.existsSync.mockReturnValueOnce(true);
+    (fs.existsSync as jest.Mock).mockReturnValueOnce(true);
 
-    confirmUserAction.mockReturnValueOnce(true);
+    (confirmUserAction as jest.Mock).mockReturnValueOnce(true);
 
     mockPromptBasePath({ basePath, pathFiles });
-    promptUserInput.mockReturnValueOnce("");
+    (promptUserInput as jest.Mock).mockReturnValueOnce("");
     mockPromptLanguages(["en", "es"]);
     mockPromptTranslationEngines(["google", "bing"]);
 
@@ -297,8 +290,8 @@ describe("generateConfigController", () => {
   it("should cancel the wizard if the configuration file already exists and user does not confirm", async () => {
     const configPath = parsePath("/i18n-populator.config.json");
 
-    fs.existsSync.mockReturnValueOnce(true);
-    confirmUserAction.mockReturnValueOnce(false);
+    (fs.existsSync as jest.Mock).mockReturnValueOnce(true);
+    (confirmUserAction as jest.Mock).mockReturnValueOnce(false);
 
     try {
       await generateConfigController();
@@ -322,14 +315,14 @@ describe("generateConfigController", () => {
     const userSelectedBasePath = "test-configs/translations";
     const filesNames = ["english.json", "spanish.json"];
 
-    fs.existsSync.mockReturnValueOnce(false);
+    (fs.existsSync as jest.Mock).mockReturnValueOnce(false);
 
     mockPromptBasePath({
       basePath: userSelectedBasePath,
       pathFiles: filesNames,
     });
 
-    promptUserInput.mockReturnValueOnce("");
+    (promptUserInput as jest.Mock).mockReturnValueOnce("");
 
     mockPromptLanguages(["en", "es"]);
 
