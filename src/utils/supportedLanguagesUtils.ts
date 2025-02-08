@@ -93,7 +93,7 @@ const getLanguageCodeByEngine: GetLanguageCodeByEngine = (requestedLanguage, eng
 
 /**
  * Returns an array of language codes with their corresponding names.
- * @param {Object} languages - An object containing language codes and their data.
+ * @param {AllLanguagesCodes} languages - An object containing language codes and their data.
  * @returns {string[]} - An array of strings in the format "languageCode -> languageName".
  */
 const getLanguagesCodesWithNames: GetLanguagesCodesWithNames = (languages) => {

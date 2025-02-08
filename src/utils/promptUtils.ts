@@ -2,7 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-import { AutocompleteBehavior } from "prompt-sync-plus";
+import { AutocompleteBehavior, Key } from "prompt-sync-plus/dist/index.d";
 import prompt from "./promptUser";
 
 /**
@@ -20,8 +20,19 @@ const autoComplete = (commands = []) => {
  * @returns {boolean} true if the user confirms the action, false otherwise
  */
 const confirmUserAction = (message) => {
-  const userAnswer = prompt(message, "no", {
-    autocomplete: autoComplete(["y", "n", "yes", "no"]),
+  const userAnswer = prompt(message, {
+    autocomplete: {
+      searchFn: autoComplete(["y", "n", "yes", "no"]),
+      behavior: AutocompleteBehavior.CYCLE,
+      fill: false,
+      sticky: false,
+      suggestColCount: 0,
+      triggerKey: Key.SIGINT
+    },
+    echo: "",
+    eot: false,
+    defaultResponse: "no",
+    sigint: false
   });
 
   const userConfirmed = ["y", "yes"].includes(userAnswer?.toLowerCase());
@@ -37,7 +48,12 @@ const promptUserInput = (message, autocomplete = []) => {
       suggestColCount: 3,
       fill: true,
       sticky: true,
+      triggerKey: Key.SIGINT
     },
+    echo: "",
+    eot: false,
+    defaultResponse: "",
+    sigint: false
   });
 };
 
