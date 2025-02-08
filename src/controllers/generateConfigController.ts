@@ -42,7 +42,7 @@ const _promptBasePath = async () => {
       continue;
     }
 
-    const filesInPath = await listFilesOnDirectory(parsePath(basePath)).catch(
+    const filesInPath = (await listFilesOnDirectory(parsePath(basePath)).catch(
       (err) => {
         console.error(err.message);
         console.log("\n-------------\n");
@@ -53,7 +53,7 @@ const _promptBasePath = async () => {
         console.clear();
         hasError = true;
       },
-    );
+    )) || [];
 
     if (hasError) continue;
 
