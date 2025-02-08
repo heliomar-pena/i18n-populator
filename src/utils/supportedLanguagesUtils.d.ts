@@ -1,17 +1,21 @@
 import { Engines, Language } from "../types/settings.d";
 
-export interface LanguageObject {
+export type LanguageObject = {
   name: string;
 }
 
+export type EnginesObject = {
+  [key in Engines]?: string;
+}
+
 export type AllLanguagesCodes = {
-  [key: string]: LanguageObject & {
-    [key in Engines]?: string;
-  };
+  [key: string]: LanguageObject & EnginesObject;
 };
 
 export type AllLanguagesGroupedByEngine = {
-  [key in Engines]?: LanguageObject;
+  [key in Engines]?: {
+    [key: string]: LanguageObject;
+  }
 };
 
 export type ValidateLanguageIsSupportedByEngine = (
