@@ -6,9 +6,7 @@ jest.mock("@vitalets/google-translate-api", () => ({
   })),
 }));
 
-jest.mock("./src/utils/promptUser.js", () => {
-  return { default: jest.fn(() => "yes") };
-});
+jest.mock("./src/utils/promptUser", () => jest.fn(() => "yes"));
 
 jest.mock("fs", () => ({
   existsSync: jest.fn(() => false),

@@ -1,6 +1,7 @@
 import { configPath, parsePath } from "./getConfigPath";
 import path from "path";
 import config from "../config";
+import { describe, expect, it } from "@jest/globals";
 
 const { defaultConfigPath } = config;
 

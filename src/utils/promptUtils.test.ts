@@ -1,3 +1,4 @@
+import { describe, expect, it, jest } from "@jest/globals";
 import prompt from "./promptUser";
 import { autoComplete, confirmUserAction } from "./promptUtils";
 
@@ -64,8 +65,12 @@ describe("confirmUserAction", () => {
 
     const result = confirmUserAction(message);
 
-    expect(prompt).toHaveBeenCalledWith(message, "no", {
-      autocomplete: expect.any(Function),
+    expect(prompt).toHaveBeenCalledWith(message, {
+      echo: expect.any(String),
+      eot: expect.any(Boolean),
+      sigint: expect.any(Boolean),
+      defaultResponse: "no",
+      autocomplete: expect.any(Object),
     });
     expect(result).toEqual(expected);
   });
@@ -74,12 +79,16 @@ describe("confirmUserAction", () => {
     const message = "Are you sure you want to proceed?";
     const expected = false;
 
-    prompt.mockImplementationOnce(() => "no");
+    (prompt as jest.Mock).mockImplementationOnce(() => "no");
 
     const result = confirmUserAction(message);
 
-    expect(prompt).toHaveBeenCalledWith(message, "no", {
-      autocomplete: expect.any(Function),
+    expect(prompt).toHaveBeenCalledWith(message, {
+      echo: expect.any(String),
+      eot: expect.any(Boolean),
+      sigint: expect.any(Boolean),
+      defaultResponse: "no",
+      autocomplete: expect.any(Object),
     });
     expect(result).toEqual(expected);
   });
@@ -88,12 +97,16 @@ describe("confirmUserAction", () => {
     const message = "Are you sure you want to proceed?";
     const expected = false;
 
-    prompt.mockImplementationOnce(() => "invalid option");
+    (prompt as jest.Mock).mockImplementationOnce(() => "invalid option");
 
     const result = confirmUserAction(message);
 
-    expect(prompt).toHaveBeenCalledWith(message, "no", {
-      autocomplete: expect.any(Function),
+    expect(prompt).toHaveBeenCalledWith(message, {
+      echo: expect.any(String),
+      eot: expect.any(Boolean),
+      sigint: expect.any(Boolean),
+      defaultResponse: "no",
+      autocomplete: expect.any(Object),
     });
     expect(result).toEqual(expected);
   });

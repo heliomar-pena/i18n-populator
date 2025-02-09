@@ -10,7 +10,7 @@ import prompt from "./promptUser";
  * @param {string[]} commands - Array of commands to auto complete
  * @returns {function(string): string[]} a function that receives a string and returns an array of commands that start with that string
  */
-const autoComplete = (commands = []) => {
+const autoComplete: (commands?: string[]) => (str?: string) => string[] = (commands = []) => {
   return (str) => commands.filter((command) => command.indexOf(str) === 0);
 };
 
