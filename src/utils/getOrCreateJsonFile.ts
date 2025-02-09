@@ -1,12 +1,28 @@
 import fs from "fs";
 import { parsePath } from "./getConfigPath";
 
-const getOrCreateJsonFile = async (basePath, fileName) => {
+const importJsonFile = <ReturnType>(
+  parsedFilePath: string,
+): Promise<ReturnType> => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(parsedFilePath, "utf8", (err, data) => {
+      try {
+        if (err) throw err;
+
+        resolve(JSON.parse(data));
+      } catch (err) {
+        reject(err);
+      }
+    });
+  });
+};
+
+const getOrCreateJsonFile = async <JsonType>(basePath, fileName) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);
 
   if (fs.existsSync(parsedPath)) {
     try {
-      const file = (await import(parsedPath)).default;
+      const file = await importJsonFile<JsonType>(parsedPath);
 
       return { file, parsedPath };
     } catch (error) {
@@ -35,4 +51,4 @@ const getOrCreateJsonFile = async (basePath, fileName) => {
   return { file, parsedPath };
 };
 
-export { getOrCreateJsonFile };
+export { getOrCreateJsonFile, importJsonFile };
