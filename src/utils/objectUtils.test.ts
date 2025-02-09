@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { hasProperty } from "./objectUtils";
 
 describe("Object utils tests", () => {

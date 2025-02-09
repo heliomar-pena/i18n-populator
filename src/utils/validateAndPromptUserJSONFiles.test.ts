@@ -3,21 +3,12 @@ import { parsePath } from "./getConfigPath";
 import prompt from "./promptUser";
 import fs from "fs";
 import { validateAndPromptUserJSONFiles } from "./validateAndPromptUserJSONFiles";
-import { importJSONFile } from "./importJSONFile.js";
-
-jest.mock("./importJSONFile", () => ({
-  importJSONFile: jest.fn(async () => ({})),
-}));
 
 const mockImportJSONFile = (filesMock, basePath) => {
   let filesMockWithParsedPath = {};
   Object.keys(filesMock).forEach((fileName) => {
     const parsedPath = parsePath(`${basePath}/${fileName}`);
     filesMockWithParsedPath[parsedPath] = filesMock[fileName];
-  });
-
-  (importJSONFile as jest.Mock).mockImplementation(async (path: string) => {
-    return filesMockWithParsedPath[path];
   });
 };
 
