@@ -42,6 +42,6 @@ jest.mock("prompt-sync-plus/dist/index.d", () => ({
     SUGGEST: "suggest",
   },
   Key: {
-    TAB: 9
-  }
+    TAB: 9,
+  },
 }));

@@ -3,7 +3,7 @@ import { TranslateOptions, TranslateResult, TranslateText } from "./translate";
 
 const translate = async (
   text: TranslateText,
-  { from, to }: TranslateOptions
+  { from, to }: TranslateOptions,
 ): Promise<TranslateResult> => {
   const { translation } = await bingTranslate(text, from, to);
 

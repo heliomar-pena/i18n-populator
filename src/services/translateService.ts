@@ -6,7 +6,12 @@ import {
   isEngineValid,
 } from "../utils/translationEnginesUtils";
 import { TranslateResult, TranslateText } from "./translate";
-import { SetTranslateWithFallbackEngines, SetTranslateWithFallbackEnginesFn, SetTranslateWithFallbackEnginesReturn, TranslateFn } from './translateService.d';
+import {
+  SetTranslateWithFallbackEngines,
+  SetTranslateWithFallbackEnginesFn,
+  SetTranslateWithFallbackEnginesReturn,
+  TranslateFn,
+} from "./translateService.d";
 import { Engines } from "../types/settings.d";
 
 /**
@@ -22,11 +27,11 @@ const translate = async (
   text: TranslateText,
   from: string,
   to: string,
-  engine: Engines = Engines.GOOGLE
+  engine: Engines = Engines.GOOGLE,
 ): Promise<TranslateResult> => {
   if (!isEngineValid(engine))
     throw new Error(
-      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
+      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );
 
   if (from === to) return { text };
@@ -62,7 +67,7 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
 
     // Avoid trying to use engines that have failed in the past to save time and network requests
     const enginesFiltered = engines.filter(
-      (engine) => !enginesFailed.includes(engine)
+      (engine) => !enginesFailed.includes(engine),
     );
 
     for await (const engine of enginesFiltered) {
@@ -75,13 +80,13 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
           .then(({ text }) => {
             result = text;
             console.log(
-              `Translated successfully with ${engine} engine. Result: ${text}`
+              `Translated successfully with ${engine} engine. Result: ${text}`,
             );
           })
           .catch(() => {
             enginesFailed.push(engine);
             throw new Error(
-              `Error translating with ${engine} engine. Trying next engine...`
+              `Error translating with ${engine} engine. Trying next engine...`,
             );
           });
 
@@ -95,7 +100,7 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
       const enginesUsed = engines.join(", ");
 
       throw new Error(
-        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-populator/issues/new`
+        `Error translating ${text} from ${from} to ${to} using ${enginesUsed}.\n\nPlease check that requested languages is supported using the command "languages" or check your internet connection and try again.\n\nFor more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-populator/issues/new`,
       );
     }
 

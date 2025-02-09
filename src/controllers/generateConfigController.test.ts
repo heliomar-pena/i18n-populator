@@ -3,8 +3,13 @@ import { parsePath } from "../utils/getConfigPath";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { confirmUserAction, promptUserInput } from "../utils/promptUtils";
 import { listFilesOnDirectory } from "../utils/listFiles";
-import { _promptBasePath, _promptLanguages, _promptTranslationEngines, generateConfigController } from "./generateConfigController";
-import fs from 'fs';
+import {
+  _promptBasePath,
+  _promptLanguages,
+  _promptTranslationEngines,
+  generateConfigController,
+} from "./generateConfigController";
+import fs from "fs";
 
 jest.mock("../utils/promptUtils", () => ({
   confirmUserAction: jest.fn(() => true),
@@ -15,13 +20,20 @@ jest.mock("../utils/listFiles", () => ({
   listFilesOnDirectory: jest.fn(async () => Promise.resolve([])),
 }));
 
-
-const mockPromptBasePath = ({ basePath, pathFiles }: { basePath: string, pathFiles: string[] }) => {
+const mockPromptBasePath = ({
+  basePath,
+  pathFiles,
+}: {
+  basePath: string;
+  pathFiles: string[];
+}) => {
   (promptUserInput as jest.Mock).mockReturnValueOnce(basePath);
 
   (confirmUserAction as jest.Mock).mockReturnValueOnce(true);
 
-  (listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>).mockResolvedValueOnce(pathFiles);
+  (
+    listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>
+  ).mockResolvedValueOnce(pathFiles);
 };
 
 const mockPromptLanguages = (languages = []) => {
@@ -36,7 +48,9 @@ const mockPromptTranslationEngines = (engines = []) => {
   const enginesToPrompt = [...validEngines];
 
   for (const engine of enginesToPrompt) {
-    (confirmUserAction as jest.Mock).mockReturnValueOnce(engines.includes(engine));
+    (confirmUserAction as jest.Mock).mockReturnValueOnce(
+      engines.includes(engine),
+    );
   }
 };
 
@@ -138,7 +152,9 @@ describe("_promptBasePath", () => {
 
     (confirmUserAction as jest.Mock).mockReturnValueOnce(false); // Path is empty. Are you sure you want to use this path?
 
-    (listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>).mockResolvedValueOnce([]);
+    (
+      listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>
+    ).mockResolvedValueOnce([]);
 
     mockPromptBasePath({ basePath, pathFiles });
 
@@ -158,9 +174,13 @@ describe("_promptBasePath", () => {
   it("should continue prompting if user does not confirm the path", async () => {
     const basePath = "src/localizations";
 
-    (promptUserInput as jest.Mock).mockReturnValueOnce(basePath).mockReturnValueOnce(basePath); // Please insert the path you want to use
+    (promptUserInput as jest.Mock)
+      .mockReturnValueOnce(basePath)
+      .mockReturnValueOnce(basePath); // Please insert the path you want to use
 
-    (confirmUserAction as jest.Mock).mockReturnValueOnce(false).mockReturnValueOnce(false); // Please confirm that the path that you want to use is: ...
+    (confirmUserAction as jest.Mock)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false); // Please confirm that the path that you want to use is: ...
 
     (listFilesOnDirectory as jest.Mock<typeof listFilesOnDirectory>)
       .mockResolvedValueOnce(pathFiles)

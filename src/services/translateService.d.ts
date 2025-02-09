@@ -4,7 +4,7 @@ import { TranslateResult, TranslateText } from "./translate.d";
 export type TranslateFn = (
   text: TranslateText,
   from: string,
-  to: string
+  to: string,
 ) => Promise<TranslateResult>;
 
 export type SetTranslateWithFallbackEnginesReturn = {
@@ -13,8 +13,10 @@ export type SetTranslateWithFallbackEnginesReturn = {
 };
 
 export type SetTranslateWithFallbackEngines = {
-  settingsTranslationEngines: TranslationEngines,
-  cliArgEngine: Engines,
-}
+  settingsTranslationEngines: TranslationEngines;
+  cliArgEngine: Engines;
+};
 
-export type SetTranslateWithFallbackEnginesFn = (options: SetTranslateWithFallbackEngines) => SetTranslateWithFallbackEnginesReturn;
+export type SetTranslateWithFallbackEnginesFn = (
+  options: SetTranslateWithFallbackEngines,
+) => SetTranslateWithFallbackEnginesReturn;

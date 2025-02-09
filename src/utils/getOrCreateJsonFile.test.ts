@@ -20,14 +20,14 @@ describe("getOrCreateJsonFile", () => {
 
       const { file, parsedPath } = await getOrCreateJsonFile(
         basePath,
-        fileName
+        fileName,
       );
       expect(file).toEqual({});
       expect(parsedPath).toEqual(parsePath(`${basePath}/${fileName}`));
       expect(fs.mkdirSync).toHaveBeenCalledWith(basePath, { recursive: true });
       expect(fs.writeFileSync).toHaveBeenCalledWith(
         parsedPath,
-        JSON.stringify(file, null, 2)
+        JSON.stringify(file, null, 2),
       );
     });
   });
@@ -39,7 +39,7 @@ describe("getOrCreateJsonFile", () => {
 
       const { file, parsedPath } = await getOrCreateJsonFile(
         basePath,
-        fileName
+        fileName,
       );
       expect(file).toEqual(fileContent);
       expect(parsedPath).toEqual(parsePath(`${basePath}/${fileName}`));

@@ -10,7 +10,9 @@ import prompt from "./promptUser";
  * @param {string[]} commands - Array of commands to auto complete
  * @returns {function(string): string[]} a function that receives a string and returns an array of commands that start with that string
  */
-const autoComplete: (commands?: string[]) => (str?: string) => string[] = (commands = []) => {
+const autoComplete: (commands?: string[]) => (str?: string) => string[] = (
+  commands = [],
+) => {
   return (str) => commands.filter((command) => command.indexOf(str) === 0);
 };
 
@@ -27,12 +29,12 @@ const confirmUserAction = (message) => {
       fill: false,
       sticky: false,
       suggestColCount: 0,
-      triggerKey: Key.SIGINT
+      triggerKey: Key.SIGINT,
     },
     echo: "",
     eot: false,
     defaultResponse: "no",
-    sigint: false
+    sigint: false,
   });
 
   const userConfirmed = ["y", "yes"].includes(userAnswer?.toLowerCase());
@@ -48,12 +50,12 @@ const promptUserInput = (message, autocomplete = []) => {
       suggestColCount: 3,
       fill: true,
       sticky: true,
-      triggerKey: Key.SIGINT
+      triggerKey: Key.SIGINT,
     },
     echo: "",
     eot: false,
     defaultResponse: "",
-    sigint: false
+    sigint: false,
   });
 };
 

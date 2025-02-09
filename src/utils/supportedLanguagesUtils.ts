@@ -1,14 +1,23 @@
 import { validEngines } from "./translationEnginesUtils";
 import { Engines } from "../types/settings.d";
-import { AllLanguagesCodes, AllLanguagesGroupedByEngine, GetLanguageCodeByEngine, GetLanguagesCodesWithNames, ValidateLanguageIsSupportedByEngine, ValidateLanguageRequested } from "./supportedLanguagesUtils.d";
+import {
+  AllLanguagesCodes,
+  AllLanguagesGroupedByEngine,
+  GetLanguageCodeByEngine,
+  GetLanguagesCodesWithNames,
+  ValidateLanguageIsSupportedByEngine,
+  ValidateLanguageRequested,
+} from "./supportedLanguagesUtils.d";
 import allLanguagesCodes from "../ALL-LANGUAGES-CODES.json";
 
 /**
  * Object containing supported languages and their corresponding language codes.
  */
-const supportedLanguages: AllLanguagesCodes = Object.keys(allLanguagesCodes).reduce((acc, language) => {
+const supportedLanguages: AllLanguagesCodes = Object.keys(
+  allLanguagesCodes,
+).reduce((acc, language) => {
   const isLanguageSupportedByAlmostOneEngine = Object.keys(
-    allLanguagesCodes[language]
+    allLanguagesCodes[language],
   ).some((value: Engines) => validEngines.includes(value));
 
   if (isLanguageSupportedByAlmostOneEngine)
@@ -23,21 +32,20 @@ const supportedLanguages: AllLanguagesCodes = Object.keys(allLanguagesCodes).red
  */
 const supportedLanguagesCodes: string[] = Object.keys(supportedLanguages);
 
-const supportedLanguagesGroupedByEngine: AllLanguagesGroupedByEngine = Object.keys(
-  supportedLanguages
-).reduce((acc, language) => {
-  Object.keys(supportedLanguages[language]).forEach((engine: Engines) => {
-    const languageObject = supportedLanguages[language];
+const supportedLanguagesGroupedByEngine: AllLanguagesGroupedByEngine =
+  Object.keys(supportedLanguages).reduce((acc, language) => {
+    Object.keys(supportedLanguages[language]).forEach((engine: Engines) => {
+      const languageObject = supportedLanguages[language];
 
-    if (!acc[engine]) acc[engine] = {};
-    acc[engine] = {
-      ...acc[engine],
-      [language]: { name: languageObject.name },
-    };
-  });
+      if (!acc[engine]) acc[engine] = {};
+      acc[engine] = {
+        ...acc[engine],
+        [language]: { name: languageObject.name },
+      };
+    });
 
-  return acc;
-}, {});
+    return acc;
+  }, {});
 
 /**
  * The supported languages by Google.
@@ -66,17 +74,19 @@ const supportedLanguagesByLibreTranslate =
  * @throws {Error} If the language is not supported by the engine.
  * @returns {boolean} Returns true if the language is supported by the engine.
  */
-const validateLanguageIsSupportedByEngine: ValidateLanguageIsSupportedByEngine = (requestedLanguage, engine) => {
-  const isLanguageSupportedByEngine =
-    supportedLanguagesGroupedByEngine[engine][requestedLanguage] !== undefined;
+const validateLanguageIsSupportedByEngine: ValidateLanguageIsSupportedByEngine =
+  (requestedLanguage, engine) => {
+    const isLanguageSupportedByEngine =
+      supportedLanguagesGroupedByEngine[engine][requestedLanguage] !==
+      undefined;
 
-  if (!isLanguageSupportedByEngine)
-    throw new Error(
-      `Language ${requestedLanguage} is not supported by ${engine}.`
-    );
+    if (!isLanguageSupportedByEngine)
+      throw new Error(
+        `Language ${requestedLanguage} is not supported by ${engine}.`,
+      );
 
-  return true;
-};
+    return true;
+  };
 
 /**
  * Retrieves the language code for a given language and engine.
@@ -85,7 +95,10 @@ const validateLanguageIsSupportedByEngine: ValidateLanguageIsSupportedByEngine =
  * @param {Engines} engine - The engine.
  * @returns {string} The language code.
  */
-const getLanguageCodeByEngine: GetLanguageCodeByEngine = (requestedLanguage, engine) => {
+const getLanguageCodeByEngine: GetLanguageCodeByEngine = (
+  requestedLanguage,
+  engine,
+) => {
   validateLanguageIsSupportedByEngine(requestedLanguage, engine);
 
   return allLanguagesCodes[requestedLanguage][engine];
@@ -109,7 +122,9 @@ const getLanguagesCodesWithNames: GetLanguagesCodesWithNames = (languages) => {
  * @returns {boolean} - Returns true if the language is valid.
  * @throws {Error} - Throws an error if the language is not provided or not supported
  */
-const validateLanguageRequested: ValidateLanguageRequested = (requestedLanguage) => {
+const validateLanguageRequested: ValidateLanguageRequested = (
+  requestedLanguage,
+) => {
   try {
     if (!requestedLanguage) throw new Error("No language provided");
 
@@ -122,7 +137,7 @@ const validateLanguageRequested: ValidateLanguageRequested = (requestedLanguage)
     return true;
   } catch (error) {
     throw new Error(
-      `${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
+      `${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
     );
   }
 };
