@@ -8,8 +8,7 @@ var googleTranslateApi = require('@vitalets/google-translate-api');
 var bingTranslateApi = require('bing-translate-api');
 var fetch = require('node-fetch');
 var dset = require('dset');
-var index = require('prompt-sync-plus/dist/index');
-var promptFactory = require('prompt-sync-plus');
+var prompts = require('@inquirer/prompts');
 
 const config = {
   defaultConfigPath: "i18n-populator.config.json"
@@ -1208,7 +1207,7 @@ const validateSettingsFile = async (settingsFilePath) => {
     languages,
     basePath,
     translationEngines: settingsTranslationEngines
-  } = await import(settingsFilePath);
+  } = await import(settingsFilePath, { assert: { type: 'json' } });
   if (!languages?.length || !basePath?.length)
     throw new Error(
       "No languages or basePath found, please check your settings file"
@@ -1243,8 +1242,7 @@ const getOrCreateJsonFile = async (basePath, fileName) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);
   if (fs.existsSync(parsedPath)) {
     try {
-      const file2 = await import(parsedPath);
-      console.log({ file: file2 });
+      const file2 = (await import(parsedPath, { assert: { type: 'json' } })).default;
       return { file: file2, parsedPath };
     } catch (error) {
       console.error(`Error reading file ${parsedPath}.`);
@@ -1266,59 +1264,20 @@ const getOrCreateJsonFile = async (basePath, fileName) => {
   return { file, parsedPath };
 };
 
-const prompt = promptFactory({
-  sigint: true,
-  autocomplete: {
-    behavior: promptFactory.AutocompleteBehavior.CYCLE,
-    fill: false,
-    searchFn: function(query) {
-      return [];
-    },
-    sticky: false,
-    suggestColCount: 0,
-    triggerKey: promptFactory.Key.SIGINT
-  },
-  echo: "",
-  eot: false,
-  defaultResponse: ""
-});
-
-const autoComplete = (commands = []) => {
-  return (str) => commands.filter((command) => command.indexOf(str) === 0);
+const confirmUserAction = async (message) => {
+  const userAnswer = await prompts.confirm({ message, default: false });
+  return userAnswer;
 };
-const confirmUserAction = (message) => {
-  const userAnswer = prompt(message, {
-    autocomplete: {
-      searchFn: autoComplete(["y", "n", "yes", "no"]),
-      behavior: index.AutocompleteBehavior.CYCLE,
-      fill: false,
-      sticky: false,
-      suggestColCount: 0,
-      triggerKey: index.Key.SIGINT
-    },
-    echo: "",
-    eot: false,
-    defaultResponse: "no",
-    sigint: false
-  });
-  const userConfirmed = ["y", "yes"].includes(userAnswer?.toLowerCase());
-  return userConfirmed;
+const promptUserInput = async (message) => {
+  const userAnswer = await prompts.input({ message });
+  return userAnswer;
 };
-const promptUserInput = (message, autocomplete = []) => {
-  return prompt(message, {
-    autocomplete: {
-      searchFn: autoComplete(autocomplete),
-      behavior: index.AutocompleteBehavior.HYBRID,
-      suggestColCount: 3,
-      fill: true,
-      sticky: true,
-      triggerKey: index.Key.SIGINT
-    },
-    echo: "",
-    eot: false,
-    defaultResponse: "",
-    sigint: false
+const promptUserOptions = async (message, choices) => {
+  const userAnswer = await prompts.select({
+    message,
+    choices
   });
+  return userAnswer;
 };
 
 const hasProperty = (obj, path) => {
@@ -1338,16 +1297,16 @@ const validateAndPromptUserJSONFiles = async (basePath, fileNames, nameOfTransla
     })
   );
   const filesToEdit = [];
-  jsonFiles.forEach(({ file, parsedPath, fileName }) => {
+  for await (const { file, parsedPath, fileName } of jsonFiles) {
     let shouldOverwrite = true;
     const hasPropertyInFile = hasProperty(file, nameOfTranslation);
     if (hasPropertyInFile)
-      shouldOverwrite = confirmUserAction(
-        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `
+      shouldOverwrite = await confirmUserAction(
+        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? `
       );
     if (!hasPropertyInFile || shouldOverwrite)
       filesToEdit.push({ file, parsedPath });
-  });
+  }
   return filesToEdit;
 };
 
@@ -1367,7 +1326,7 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines
-  } = await import(settingsFilePath);
+  } = await import(settingsFilePath, { assert: { type: 'json' } });
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
       `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
@@ -1407,14 +1366,14 @@ const listFilesOnDirectory = (directory) => {
   });
 };
 
-const _promptTranslationEngines = () => {
+const _promptTranslationEngines = async () => {
   const translationEnginesToUse = [];
   console.clear();
   console.log(
     "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file."
   );
-  for (const translationEngine of validEngines) {
-    const shouldUseEngine = confirmUserAction(
+  for await (const translationEngine of validEngines) {
+    const shouldUseEngine = await confirmUserAction(
       `Do you want to use ${translationEngine} as translation engine? (y/n): `
     );
     if (shouldUseEngine) {
@@ -1429,20 +1388,20 @@ const _promptBasePath = async () => {
   let basePath = "";
   do {
     let hasError = false;
-    basePath = promptUserInput(
+    basePath = await promptUserInput(
       'Base path for the translations files: e.g. "src/localizations": '
     );
     if (!basePath) {
       console.log("The base path is required.\n");
       continue;
     }
-    const filesInPath = await listFilesOnDirectory(parsePath(basePath)).catch((err) => {
+    const filesInPath = await listFilesOnDirectory(parsePath(basePath)).catch(async (err) => {
       console.error(err.message);
       console.log("\n-------------\n");
       console.log(
         "Please check that the path provided is correct and that you have the necessary permissions and try again.\n\n"
       );
-      promptUserInput("Press enter to continue...\n\n");
+      await promptUserInput("Press enter to continue...\n\n");
       console.clear();
       hasError = true;
     }) || [];
@@ -1457,18 +1416,18 @@ const _promptBasePath = async () => {
     }
     pathFiles = filesInPath || [];
     console.clear();
-    confirmedAction = confirmUserAction(
+    confirmedAction = await confirmUserAction(
       `Please confirm that the path that you want to use is: ${parsePath(
         basePath
       )} and ${filesInPath.length > 0 ? `contains the following files:
 - ${pathFiles.join("\n- ")}` : "doesn't contains files"} (y/n): `
     );
   } while (!confirmedAction);
-  promptUserInput("\nPress enter to continue...");
+  await promptUserInput("\nPress enter to continue...");
   console.clear();
   return { basePath, pathFiles };
 };
-const _promptLanguages = (filesNames) => {
+const _promptLanguages = async (filesNames) => {
   const languages = [];
   console.clear();
   console.log(
@@ -1481,13 +1440,13 @@ const _promptLanguages = (filesNames) => {
   console.log(
     "Remember that you can change this later in the configuration file.\n\n"
   );
-  promptUserInput("Press enter to continue...\n");
+  await promptUserInput("Press enter to continue...\n");
   for (const fileName of filesNames) {
     if (fileName.includes(".json")) {
       let languageName;
       let isSupportedLanguage;
       do {
-        languageName = promptUserInput(
+        languageName = await promptUserOptions(
           `
 Please type the language name for the file ${fileName}: `,
           supportedLanguagesCodes
@@ -1502,7 +1461,7 @@ Please type the language name for the file ${fileName}: `,
 
 `
           );
-          promptUserInput("Press enter to continue...\n");
+          await promptUserInput("Press enter to continue...\n");
         }
       } while (!isSupportedLanguage);
       if (languageName === "") continue;
@@ -1522,7 +1481,7 @@ Please type the language name for the file ${fileName}: `,
   console.log(
     "\n\nThe languages that you've selected are saved in the configuration file. You can change them later.\n\n"
   );
-  promptUserInput("Press enter to continue...\n");
+  await promptUserInput("Press enter to continue...\n");
   return languages;
 };
 const generateConfigController = async () => {
@@ -1544,8 +1503,8 @@ const generateConfigController = async () => {
   };
   const { basePath: userSelectedBasePath, pathFiles: filesNames } = await _promptBasePath();
   config.basePath = userSelectedBasePath;
-  config.languages = _promptLanguages(filesNames);
-  config.translationEngines = _promptTranslationEngines();
+  config.languages = await _promptLanguages(filesNames);
+  config.translationEngines = await _promptTranslationEngines();
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };
 

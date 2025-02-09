@@ -1,6 +1,3 @@
-import { translate } from "@vitalets/google-translate-api";
-import { configPath, parsePath } from "../utils/getConfigPath";
-import prompt from "../utils/promptUser";
 import { validEngines } from "../services/translateService";
 import fs from "fs";
 import {
@@ -11,7 +8,6 @@ import {
   it,
   jest,
 } from "@jest/globals";
-import { getOrCreateJsonFile } from "../utils/getOrCreateJsonFile";
 import {
   getLanguagesCodesWithNames,
   supportedLanguages,
@@ -19,21 +15,6 @@ import {
 import translateController from "./translateController";
 import { TranslateController } from "./translateController.d";
 import { Engines } from "../types/settings";
-
-const config = {
-  languages: [
-    {
-      name: "en",
-      files: ["en.json"],
-    },
-    {
-      name: "es",
-      files: ["es.json"],
-    },
-  ],
-  basePath: "test",
-  translationEngines: ["google", "bing", "libreTranslate"],
-};
 
 describe("TranslateController", () => {
   let text, from, name, settingsFile;

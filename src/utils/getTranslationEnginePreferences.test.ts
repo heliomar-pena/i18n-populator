@@ -67,12 +67,6 @@ describe("getTranslationEnginesToUse", () => {
         settingsTranslationEngines,
         cliArgEngine,
       });
-      console.log({
-        result,
-        DEFAULT_ENGINES,
-        settingsTranslationEngines,
-        cliArgEngine,
-      });
       expect(result).toEqual(DEFAULT_ENGINES);
     });
   });
