@@ -2,8 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-import { AutocompleteBehavior, Key } from "prompt-sync-plus/dist/index";
-import prompt from "./promptUser";
+import { confirm, input, select } from "@inquirer/prompts";
 
 /**
  * Get an array of commands to autocomplete the user prompt input
@@ -11,7 +10,7 @@ import prompt from "./promptUser";
  * @returns {function(string): string[]} a function that receives a string and returns an array of commands that start with that string
  */
 const autoComplete: (commands?: string[]) => (str?: string) => string[] = (
-  commands = [],
+  commands = []
 ) => {
   return (str) => commands.filter((command) => command.indexOf(str) === 0);
 };
@@ -21,42 +20,25 @@ const autoComplete: (commands?: string[]) => (str?: string) => string[] = (
  * @param {string} message - The message to display to the user
  * @returns {boolean} true if the user confirms the action, false otherwise
  */
-const confirmUserAction = (message) => {
-  const userAnswer = prompt(message, {
-    autocomplete: {
-      searchFn: autoComplete(["y", "n", "yes", "no"]),
-      behavior: AutocompleteBehavior.CYCLE,
-      fill: false,
-      sticky: false,
-      suggestColCount: 0,
-      triggerKey: Key.SIGINT,
-    },
-    echo: "",
-    eot: false,
-    defaultResponse: "no",
-    sigint: false,
-  });
+const confirmUserAction = async (message) => {
+  const userAnswer = await confirm({ message, default: false });
 
-  const userConfirmed = ["y", "yes"].includes(userAnswer?.toLowerCase());
-
-  return userConfirmed;
+  return userAnswer;
 };
 
-const promptUserInput = (message, autocomplete = []) => {
-  return prompt(message, {
-    autocomplete: {
-      searchFn: autoComplete(autocomplete),
-      behavior: AutocompleteBehavior.HYBRID,
-      suggestColCount: 3,
-      fill: true,
-      sticky: true,
-      triggerKey: Key.SIGINT,
-    },
-    echo: "",
-    eot: false,
-    defaultResponse: "",
-    sigint: false,
-  });
+const promptUserInput = async (message) => {
+  const userAnswer = await input({ message })
+
+  return userAnswer;
 };
 
-export { autoComplete, confirmUserAction, promptUserInput };
+const promptUserOptions = async (message, choices) => {
+  const userAnswer = await select({
+    message,
+    choices
+  })
+
+  return userAnswer;
+}
+
+export { autoComplete, confirmUserAction, promptUserInput, promptUserOptions };

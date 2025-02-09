@@ -1,11 +1,11 @@
 import fs from "fs";
 import { validEngines } from "../utils/translationEnginesUtils";
-import { confirmUserAction, promptUserInput } from "../utils/promptUtils";
+import { confirmUserAction, promptUserInput, promptUserOptions } from "../utils/promptUtils";
 import { parsePath } from "../utils/getConfigPath";
 import { listFilesOnDirectory } from "../utils/listFiles";
 import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils";
 
-const _promptTranslationEngines = () => {
+const _promptTranslationEngines = async () => {
   const translationEnginesToUse = [];
 
   console.clear();
@@ -13,8 +13,8 @@ const _promptTranslationEngines = () => {
     "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file.",
   );
 
-  for (const translationEngine of validEngines) {
-    const shouldUseEngine = confirmUserAction(
+  for await (const translationEngine of validEngines) {
+    const shouldUseEngine = await confirmUserAction(
       `Do you want to use ${translationEngine} as translation engine? (y/n): `,
     );
 
@@ -33,7 +33,7 @@ const _promptBasePath = async () => {
 
   do {
     let hasError = false;
-    basePath = promptUserInput(
+    basePath = await promptUserInput(
       'Base path for the translations files: e.g. "src/localizations": ',
     );
 
@@ -43,13 +43,13 @@ const _promptBasePath = async () => {
     }
 
     const filesInPath =
-      (await listFilesOnDirectory(parsePath(basePath)).catch((err) => {
+      (await listFilesOnDirectory(parsePath(basePath)).catch(async (err) => {
         console.error(err.message);
         console.log("\n-------------\n");
         console.log(
           "Please check that the path provided is correct and that you have the necessary permissions and try again.\n\n",
         );
-        promptUserInput("Press enter to continue...\n\n");
+        await promptUserInput("Press enter to continue...\n\n");
         console.clear();
         hasError = true;
       })) || [];
@@ -69,7 +69,7 @@ const _promptBasePath = async () => {
 
     pathFiles = filesInPath || [];
     console.clear();
-    confirmedAction = confirmUserAction(
+    confirmedAction = await confirmUserAction(
       `Please confirm that the path that you want to use is: ${parsePath(
         basePath,
       )} and ${
@@ -80,13 +80,13 @@ const _promptBasePath = async () => {
     );
   } while (!confirmedAction);
 
-  promptUserInput("\nPress enter to continue...");
+  await promptUserInput("\nPress enter to continue...");
   console.clear();
 
   return { basePath, pathFiles };
 };
 
-const _promptLanguages = (filesNames) => {
+const _promptLanguages = async (filesNames) => {
   const languages = [];
 
   console.clear();
@@ -101,7 +101,7 @@ const _promptLanguages = (filesNames) => {
     "Remember that you can change this later in the configuration file.\n\n",
   );
 
-  promptUserInput("Press enter to continue...\n");
+  await promptUserInput("Press enter to continue...\n");
 
   for (const fileName of filesNames) {
     if (fileName.includes(".json")) {
@@ -109,7 +109,7 @@ const _promptLanguages = (filesNames) => {
       let isSupportedLanguage;
 
       do {
-        languageName = promptUserInput(
+        languageName = await promptUserOptions(
           `\nPlease type the language name for the file ${fileName}: `,
           supportedLanguagesCodes,
         );
@@ -124,7 +124,7 @@ const _promptLanguages = (filesNames) => {
               ", ",
             )}. Detailed information on https://github.com/victor-heliomar/i18n-populator/blob/master/ALL-LANGUAGES-CODES.json\n\n`,
           );
-          promptUserInput("Press enter to continue...\n");
+          await promptUserInput("Press enter to continue...\n");
         }
       } while (!isSupportedLanguage);
 
@@ -149,7 +149,7 @@ const _promptLanguages = (filesNames) => {
   console.log(
     "\n\nThe languages that you've selected are saved in the configuration file. You can change them later.\n\n",
   );
-  promptUserInput("Press enter to continue...\n");
+  await promptUserInput("Press enter to continue...\n");
 
   return languages;
 };
@@ -178,8 +178,8 @@ const generateConfigController = async () => {
   const { basePath: userSelectedBasePath, pathFiles: filesNames } =
     await _promptBasePath();
   config.basePath = userSelectedBasePath;
-  config.languages = _promptLanguages(filesNames);
-  config.translationEngines = _promptTranslationEngines();
+  config.languages = await _promptLanguages(filesNames);
+  config.translationEngines = await _promptTranslationEngines();
 
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };

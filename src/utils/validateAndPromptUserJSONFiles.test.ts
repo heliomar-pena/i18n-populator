@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { parsePath } from "./getConfigPath";
-import prompt from "./promptUser";
 import fs from "fs";
 import { validateAndPromptUserJSONFiles } from "./validateAndPromptUserJSONFiles";
 

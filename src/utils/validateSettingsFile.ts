@@ -21,7 +21,7 @@ const validateSettingsFile = async (
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await import(settingsFilePath);
+  } = await import(settingsFilePath, { with: { type: "json" } });
 
   if (!languages?.length || !basePath?.length)
     throw new Error(

@@ -6,7 +6,7 @@ import { ValidateAndPromptUserJSONFilesFn } from "./validateAndPromptUserJSONFil
 const validateAndPromptUserJSONFiles: ValidateAndPromptUserJSONFilesFn = async (
   basePath,
   fileNames,
-  nameOfTranslation,
+  nameOfTranslation
 ) => {
   const jsonFiles = await Promise.all(
     fileNames.map(async (fileName) => {
@@ -16,22 +16,22 @@ const validateAndPromptUserJSONFiles: ValidateAndPromptUserJSONFilesFn = async (
         ...fileData,
         fileName,
       };
-    }),
+    })
   );
 
   const filesToEdit = [];
 
-  jsonFiles.forEach(({ file, parsedPath, fileName }) => {
+  for await (const { file, parsedPath, fileName } of jsonFiles) {
     let shouldOverwrite = true;
     const hasPropertyInFile = hasProperty(file, nameOfTranslation);
 
     if (hasPropertyInFile)
-      shouldOverwrite = confirmUserAction(
-        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? (y/n): `,
+      shouldOverwrite = await confirmUserAction(
+        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? `
       );
     if (!hasPropertyInFile || shouldOverwrite)
       filesToEdit.push({ file, parsedPath });
-  });
+  }
 
   return filesToEdit;
 };

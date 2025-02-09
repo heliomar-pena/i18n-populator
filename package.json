@@ -15,7 +15,7 @@
     "prepare": "husky",
     "build": "pkgroll"
   },
-  "bin": "./dist/cli.mjs",
+  "bin": "./dist/cli.cjs",
   "files": [
     "dist"
   ],
@@ -37,10 +37,11 @@
   "author": "penaheliomar@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "@inquirer/prompts": "^7.3.1",
     "@vitalets/google-translate-api": "^9.2.0",
     "bing-translate-api": "^2.9.1",
     "commander": "^13.1.0",
-    "dset": "^3.1.2",
+    "dset": "^3.1.4",
     "node-fetch": "^2.7.0",
     "prompt-sync-plus": "^1.0.2"
   },

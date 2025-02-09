@@ -6,7 +6,7 @@ import translateController from "./controllers/translateController";
 import languagesController from "./controllers/languagesController";
 import { generateConfigController } from "./controllers/generateConfigController";
 import { validEngines } from "./utils/translationEnginesUtils";
-import { version } from "../package.json";
+import { version } from "../package.json" with { type: "json" };
 
 program
   .name("i18n-populator")
@@ -53,8 +53,8 @@ program
     "-e, --by-engine <string>",
     "Filter the language supported list by engine",
   )
-  .action(() => {
-    languagesController;
+  .action((options) => {
+    languagesController(options);
   });
 
 program

@@ -6,8 +6,8 @@ const getOrCreateJsonFile = async (basePath, fileName) => {
 
   if (fs.existsSync(parsedPath)) {
     try {
-      const file = await import(parsedPath);
-      console.log({ file });
+      const file = (await import(parsedPath, { with: { type: "json" } })).default;
+
       return { file, parsedPath };
     } catch (error) {
       console.error(`Error reading file ${parsedPath}.`);
