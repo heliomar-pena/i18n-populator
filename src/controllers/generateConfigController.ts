@@ -1,6 +1,10 @@
 import fs from "fs";
 import { validEngines } from "../utils/translationEnginesUtils";
-import { confirmUserAction, promptUserInput, promptUserOptions } from "../utils/promptUtils";
+import {
+  confirmUserAction,
+  promptUserInput,
+  promptUserOptions,
+} from "../utils/promptUtils";
 import { parsePath } from "../utils/getConfigPath";
 import { listFilesOnDirectory } from "../utils/listFiles";
 import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils";

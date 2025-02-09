@@ -39,7 +39,7 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = (await import(settingsFilePath, { with: { type: "json" } })) as Settings;
+  } = (await import(settingsFilePath)) as Settings;
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
