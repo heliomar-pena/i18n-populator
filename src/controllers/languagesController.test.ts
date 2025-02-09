@@ -2,7 +2,10 @@ import { describe, expect, it, beforeEach } from "@jest/globals";
 import { Engines } from "../types/settings.d";
 import languagesController from "./languagesController";
 import { validEngines } from "../utils/translationEnginesUtils";
-import { supportedLanguages, supportedLanguagesGroupedByEngine } from "../utils/supportedLanguagesUtils";
+import {
+  supportedLanguages,
+  supportedLanguagesGroupedByEngine,
+} from "../utils/supportedLanguagesUtils";
 
 describe("LanguagesController", () => {
   let byEngine;
@@ -20,8 +23,8 @@ describe("LanguagesController", () => {
       it("should throw an error", () => {
         expect(languagesController.bind(null, { byEngine })).toThrow(
           new Error(
-            `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
-          )
+            `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
+          ),
         );
       });
     });
@@ -30,9 +33,13 @@ describe("LanguagesController", () => {
       Object.values(Engines).forEach((value) => {
         describe(`And is ${value}`, () => {
           it("should return the languages for that engine", () => {
-            const { totalLanguages, languages } = languagesController({ byEngine: value })
+            const { totalLanguages, languages } = languagesController({
+              byEngine: value,
+            });
 
-            expect(totalLanguages).toEqual(Object.keys(supportedLanguagesGroupedByEngine[value]).length);
+            expect(totalLanguages).toEqual(
+              Object.keys(supportedLanguagesGroupedByEngine[value]).length,
+            );
             expect(languages).toEqual(supportedLanguagesGroupedByEngine[value]);
           });
         });

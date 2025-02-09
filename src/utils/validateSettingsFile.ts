@@ -4,13 +4,15 @@ import { validEngines, isEngineValid } from "../services/translateService";
 /**
  * Checks if setting file is valid.
  *
- * @param {string} settingsFilePath 
+ * @param {string} settingsFilePath
  * @throws {Error} if there are languages without name
  * @throws {Error} if there are languages without files
  * @throws {Error} if there are engines not valid on the settings
  * @returns {Boolean}
  */
-const validateSettingsFile = async (settingsFilePath: string): Promise<Boolean> => {
+const validateSettingsFile = async (
+  settingsFilePath: string,
+): Promise<Boolean> => {
   const existsFile = fs.existsSync(settingsFilePath);
   if (!settingsFilePath || !existsFile)
     throw new Error(`No settings file found on file path ${settingsFilePath}`);

@@ -1,8 +1,8 @@
 export type TranslateOptions = {
-        from: string,
-        to: string
-}
+  from: string;
+  to: string;
+};
 
-export type TranslateText = string
+export type TranslateText = string;
 
-export type TranslateResult = { text: string }
+export type TranslateResult = { text: string };

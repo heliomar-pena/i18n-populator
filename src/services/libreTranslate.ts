@@ -8,7 +8,7 @@ const mirrors = [
 
 const libreTranslate = async (
   text: TranslateText,
-  { from, to }: TranslateOptions
+  { from, to }: TranslateOptions,
 ): Promise<TranslateResult> => {
   for await (const url of mirrors) {
     try {
@@ -26,7 +26,7 @@ const libreTranslate = async (
       return { text: res.translatedText };
     } catch (err) {
       console.log(
-        `Mirror failed: ${url} with the next error:\n\n> ${err.message}\n\nTrying with the next one...\n`
+        `Mirror failed: ${url} with the next error:\n\n> ${err.message}\n\nTrying with the next one...\n`,
       );
     }
   }

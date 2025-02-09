@@ -42,8 +42,8 @@ const _promptBasePath = async () => {
       continue;
     }
 
-    const filesInPath = (await listFilesOnDirectory(parsePath(basePath)).catch(
-      (err) => {
+    const filesInPath =
+      (await listFilesOnDirectory(parsePath(basePath)).catch((err) => {
         console.error(err.message);
         console.log("\n-------------\n");
         console.log(
@@ -52,8 +52,7 @@ const _promptBasePath = async () => {
         promptUserInput("Press enter to continue...\n\n");
         console.clear();
         hasError = true;
-      },
-    )) || [];
+      })) || [];
 
     if (hasError) continue;
 

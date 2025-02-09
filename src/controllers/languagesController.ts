@@ -4,13 +4,12 @@ import {
   supportedLanguagesGroupedByEngine,
 } from "../utils/supportedLanguagesUtils";
 
-import {
-  isEngineValid,
-  validEngines,
-} from "../utils/translationEnginesUtils";
+import { isEngineValid, validEngines } from "../utils/translationEnginesUtils";
 import { LanguagesController } from "./languagesController.d";
 
-const languagesController: LanguagesController = ({ byEngine: engine } = {}) => {
+const languagesController: LanguagesController = ({
+  byEngine: engine,
+} = {}) => {
   if (engine && !isEngineValid(engine))
     throw new Error(
       `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
@@ -30,8 +29,8 @@ const languagesController: LanguagesController = ({ byEngine: engine } = {}) => 
   return {
     totalLanguages: formattedSupportedLanguages.length,
     languagesWithNames: formattedSupportedLanguages,
-    languages: supportedLanguages
-  }
+    languages: supportedLanguages,
+  };
 };
 
 export default languagesController;

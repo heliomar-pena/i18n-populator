@@ -9,7 +9,7 @@ import {
 } from "../services/translateService";
 import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
 import { validEngines } from "../utils/translationEnginesUtils";
-import { TranslateController } from './translateController.d';
+import { TranslateController } from "./translateController.d";
 import { Settings } from "../types/settings";
 
 /**
@@ -39,7 +39,7 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await import(settingsFilePath) as Settings;
+  } = (await import(settingsFilePath)) as Settings;
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(

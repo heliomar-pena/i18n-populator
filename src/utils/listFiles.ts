@@ -10,7 +10,7 @@ const listFilesOnDirectory = (directory): Promise<string[]> => {
     fs.readdir(directory, (err, files) => {
       if (err) {
         reject(err);
-        return ;
+        return;
       }
       resolve(files);
     });
