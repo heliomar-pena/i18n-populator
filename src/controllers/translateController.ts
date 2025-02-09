@@ -11,6 +11,7 @@ import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
 import { validEngines } from "../utils/translationEnginesUtils";
 import { TranslateController } from "./translateController.d";
 import { Settings } from "../types/settings";
+import { importJsonFile } from "../utils/getOrCreateJsonFile";
 
 /**
  * Translates a text to multiple languages and saves the translations in the JSON files
@@ -39,7 +40,7 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = (await import(settingsFilePath)) as Settings;
+  } = await importJsonFile<Settings>(settingsFilePath);
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(

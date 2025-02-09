@@ -1207,6 +1207,44 @@ For more info check CLI help or open an issue at https://github.com/victor-helio
   return { engines, translate: translateWithFallbackEngines };
 };
 
+const importJsonFile = (parsedFilePath) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(parsedFilePath, "utf8", (err, data) => {
+      try {
+        if (err) throw err;
+        resolve(JSON.parse(data));
+      } catch (err2) {
+        reject(err2);
+      }
+    });
+  });
+};
+const getOrCreateJsonFile = async (basePath, fileName) => {
+  const parsedPath = parsePath(`${basePath}/${fileName}`);
+  if (fs.existsSync(parsedPath)) {
+    try {
+      const file2 = await importJsonFile(parsedPath);
+      return { file: file2, parsedPath };
+    } catch (error) {
+      console.error(`Error reading file ${parsedPath}.`);
+      if (error instanceof SyntaxError) {
+        console.error("Syntax error in JSON file. It is probably malformed.");
+        console.error(
+          "It exists and is on your i18n-populator.config.js file but it is not a valid JSON file.",
+        );
+      }
+      process.exit(1);
+    }
+  }
+  const file = {};
+  const directory = basePath;
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory, { recursive: true });
+  }
+  fs.writeFileSync(parsedPath, JSON.stringify(file, null, 2));
+  return { file, parsedPath };
+};
+
 const validateSettingsFile = async (settingsFilePath) => {
   const existsFile = fs.existsSync(settingsFilePath);
   if (!settingsFilePath || !existsFile)
@@ -1215,7 +1253,7 @@ const validateSettingsFile = async (settingsFilePath) => {
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await import(settingsFilePath);
+  } = await importJsonFile(settingsFilePath);
   if (!languages?.length || !basePath?.length)
     throw new Error(
       "No languages or basePath found, please check your settings file",
@@ -1245,32 +1283,6 @@ const validateSettingsFile = async (settingsFilePath) => {
       );
   }
   return true;
-};
-
-const getOrCreateJsonFile = async (basePath, fileName) => {
-  const parsedPath = parsePath(`${basePath}/${fileName}`);
-  if (fs.existsSync(parsedPath)) {
-    try {
-      const file2 = (await import(parsedPath)).default;
-      return { file: file2, parsedPath };
-    } catch (error) {
-      console.error(`Error reading file ${parsedPath}.`);
-      if (error instanceof SyntaxError) {
-        console.error("Syntax error in JSON file. It is probably malformed.");
-        console.error(
-          "It exists and is on your i18n-populator.config.js file but it is not a valid JSON file.",
-        );
-      }
-      process.exit(1);
-    }
-  }
-  const file = {};
-  const directory = basePath;
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, { recursive: true });
-  }
-  fs.writeFileSync(parsedPath, JSON.stringify(file, null, 2));
-  return { file, parsedPath };
 };
 
 const confirmUserAction = async (message) => {
@@ -1341,7 +1353,7 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await import(settingsFilePath);
+  } = await importJsonFile(settingsFilePath);
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
       `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,

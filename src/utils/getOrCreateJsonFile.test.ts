@@ -34,7 +34,7 @@ describe("getOrCreateJsonFile", () => {
   // TODO: Mock import function
   describe.skip("When requested file exists in the provided route", () => {
     it("should return the file and the parsedPath if file exists", async () => {
-      // importJSONFile.mockImplementation(() => fileContent);
+      // importJsonFile.mockImplementation(() => fileContent);
       (fs.existsSync as jest.Mock).mockImplementation(() => true);
 
       const { file, parsedPath } = await getOrCreateJsonFile(

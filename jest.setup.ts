@@ -11,6 +11,7 @@ jest.mock("fs", () => ({
   writeFileSync: jest.fn(),
   mkdirSync: jest.fn(),
   rmSync: jest.fn(),
+  readFile: jest.fn(() => ({})),
 }));
 
 jest.mock("bing-translate-api", () => ({

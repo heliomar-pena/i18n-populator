@@ -1,5 +1,7 @@
-import fs, { exists } from "fs";
+import fs from "fs";
 import { validEngines, isEngineValid } from "../services/translateService";
+import { importJsonFile } from "./getOrCreateJsonFile";
+import { Settings } from "../types/settings.d";
 
 /**
  * Checks if setting file is valid.
@@ -21,7 +23,7 @@ const validateSettingsFile = async (
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
-  } = await import(settingsFilePath);
+  } = await importJsonFile<Settings>(settingsFilePath);
 
   if (!languages?.length || !basePath?.length)
     throw new Error(
