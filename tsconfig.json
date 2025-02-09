@@ -6,5 +6,6 @@
     "allowJs": true,
     "esModuleInterop": true,
     "isolatedModules": true
-  }
+  },
+  "exclude": ["dist", "eslint.config.mjs", "jest.config.js"]
 }
