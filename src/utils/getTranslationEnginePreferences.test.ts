@@ -1,0 +1,79 @@
+import { afterEach, describe, expect, it, beforeEach } from "@jest/globals";
+import {
+  getTranslationEnginesToUse,
+  DEFAULT_ENGINES,
+} from "./getTranslationEnginePreferences";
+import { Engines } from "../types/settings.d";
+
+describe("getTranslationEnginesToUse", () => {
+  let cliArgEngine, settingsTranslationEngines;
+
+  afterEach(() => {
+    cliArgEngine = undefined;
+    settingsTranslationEngines = undefined;
+  });
+
+  describe("When engine is defined", () => {
+    describe("In CLI", () => {
+      beforeEach(() => {
+        cliArgEngine = Engines.GOOGLE;
+      });
+
+      it("should return an array with the cliArgEngine", () => {
+        const result = getTranslationEnginesToUse({ cliArgEngine });
+        expect(result).toEqual([cliArgEngine]);
+      });
+    });
+    describe("In Settings File", () => {
+      beforeEach(() => {
+        settingsTranslationEngines = [Engines.GOOGLE, Engines.BING];
+      });
+
+      it("should return an array with the engines defined in settings", () => {
+        const result = getTranslationEnginesToUse({
+          settingsTranslationEngines,
+          cliArgEngine,
+        });
+        expect(result).toEqual(settingsTranslationEngines);
+      });
+    });
+    describe("In CLI and Settings File", () => {
+      beforeEach(() => {
+        settingsTranslationEngines = [Engines.BING, Engines.GOOGLE];
+        cliArgEngine = Engines.GOOGLE;
+      });
+
+      it("should return all provided engines, cli engine have more priority, should not be repeated", () => {
+        const result = getTranslationEnginesToUse({
+          settingsTranslationEngines,
+          cliArgEngine,
+        });
+
+        const filteredResult = [
+          cliArgEngine,
+          ...settingsTranslationEngines.filter(
+            (engines) => engines !== cliArgEngine,
+          ),
+        ];
+
+        expect(result).toEqual(filteredResult);
+      });
+    });
+  });
+
+  describe("When engine is not defined", () => {
+    it("should return an array with the DEFAULT_ENGINES if neither cliArgEngine nor settingsTranslationEngines are provided", () => {
+      const result = getTranslationEnginesToUse({
+        settingsTranslationEngines,
+        cliArgEngine,
+      });
+      console.log({
+        result,
+        DEFAULT_ENGINES,
+        settingsTranslationEngines,
+        cliArgEngine,
+      });
+      expect(result).toEqual(DEFAULT_ENGINES);
+    });
+  });
+});

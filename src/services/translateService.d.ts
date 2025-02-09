@@ -13,8 +13,8 @@ export type SetTranslateWithFallbackEnginesReturn = {
 };
 
 export type SetTranslateWithFallbackEngines = {
-  settingsTranslationEngines: TranslationEngines;
-  cliArgEngine: Engines;
+  settingsTranslationEngines?: TranslationEngines;
+  cliArgEngine?: Engines;
 };
 
 export type SetTranslateWithFallbackEnginesFn = (
