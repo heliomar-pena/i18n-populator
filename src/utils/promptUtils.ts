@@ -2,7 +2,7 @@
  * Utility functions for prompting the user for input and confirmation
  * @module promptUtils
  */
-import { AutocompleteBehavior, Key } from "prompt-sync-plus/dist/index.d";
+import { AutocompleteBehavior, Key } from "prompt-sync-plus/dist/index";
 import prompt from "./promptUser";
 
 /**
