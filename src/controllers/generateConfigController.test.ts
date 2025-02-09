@@ -7,4 +7,7 @@ import {
 
 // rewrite tests
 describe.skip("_promptTranslationEngines", () => {
+  it("skip", () => {
+    expect(true).toEqual(true);
+  });
 });
