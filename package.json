@@ -16,6 +16,9 @@
     "build": "pkgroll"
   },
   "bin": "./dist/cli.mjs",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": "23.6.0"
   },
