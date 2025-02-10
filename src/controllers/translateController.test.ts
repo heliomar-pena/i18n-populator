@@ -14,18 +14,57 @@ import {
 } from "../utils/supportedLanguagesUtils";
 import translateController from "./translateController";
 import { TranslateController } from "./translateController.d";
-import { Engines } from "../types/settings";
+import { Engines } from "../types/settings.d";
+import { parsePath } from "../utils/getConfigPath";
+import { importJsonFile } from "../utils/getOrCreateJsonFile";
+
+const configFile = {
+  basePath: "example",
+  translationEngines: ["google", "bing", "libreTranslate"],
+  languages: [
+    {
+      name: "en",
+      files: ["en.json"],
+    },
+    {
+      name: "es",
+      files: ["es.json"],
+    },
+  ],
+};
+
+jest.mock("../utils/getOrCreateJsonFile", () => ({
+  importJsonFile: jest.fn(() => {}),
+  getOrCreateJsonFile: jest.fn((basePath, fileName) => {
+    return {
+      file: {},
+      parsedPath: parsePath(`${basePath}/${fileName}`),
+    };
+  }),
+}));
+
+const mockedImport = jest.mocked(importJsonFile);
+const mockedExistsSync = jest.mocked(fs.existsSync);
 
 describe("TranslateController", () => {
-  let text, from, name, settingsFile;
+  let text, from, name, engine, settingsFile;
 
   beforeEach(() => {
     text = "Hello World";
     from = "en";
     name = "helloWorld";
-    settingsFile = "/i18n-populator.config.json";
+    engine = Engines.GOOGLE;
+    settingsFile = "/__fake_only_tests_i18n-populator.config.json";
 
-    (fs.existsSync as jest.Mock).mockImplementation(() => true);
+    mockedExistsSync.mockImplementation(() => true);
+
+    mockedImport.mockImplementation(
+      async <ReturnType>(fileName: string): Promise<ReturnType> => {
+        return (
+          fileName.endsWith(settingsFile) ? configFile : {}
+        ) as ReturnType;
+      }
+    );
   });
 
   afterEach(() => {
@@ -44,11 +83,23 @@ describe("TranslateController", () => {
             from,
             text,
             settingsFile,
-          }),
+          })
         ).rejects.toThrow(
-          `Language ${from} is not supported.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
+          `Language ${from} is not supported.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
         );
       });
+    });
+
+    it("should add the new translations into the languages' json files", async () => {
+      await translateController({
+        from,
+        name,
+        text,
+        engine,
+        settingsFile,
+      });
+
+      expect(fs.writeFileSync).toBeCalledTimes(2);
     });
 
     describe("and engine is provided", () => {
@@ -61,9 +112,9 @@ describe("TranslateController", () => {
               text,
               engine: "badEngine" as Engines,
               settingsFile,
-            } as TranslateController),
+            } as TranslateController)
           ).rejects.toThrow(
-            `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
+            `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
           );
         });
       });
@@ -77,7 +128,7 @@ describe("TranslateController", () => {
           from,
           name,
           settingsFile,
-        } as TranslateController),
+        } as TranslateController)
       ).rejects.toThrow("No text to translate provided");
 
       expect(
@@ -85,7 +136,7 @@ describe("TranslateController", () => {
           text,
           name,
           settingsFile,
-        } as TranslateController),
+        } as TranslateController)
       ).rejects.toThrow("No language provided");
 
       expect(
@@ -93,7 +144,7 @@ describe("TranslateController", () => {
           text,
           from,
           settingsFile,
-        } as TranslateController),
+        } as TranslateController)
       ).rejects.toThrow("No name of translation provided");
     });
   });
