@@ -5,17 +5,6 @@
 import { confirm, input, select } from "@inquirer/prompts";
 
 /**
- * Get an array of commands to autocomplete the user prompt input
- * @param {string[]} commands - Array of commands to auto complete
- * @returns {function(string): string[]} a function that receives a string and returns an array of commands that start with that string
- */
-const autoComplete: (commands?: string[]) => (str?: string) => string[] = (
-  commands = [],
-) => {
-  return (str) => commands.filter((command) => command.indexOf(str) === 0);
-};
-
-/**
  * Prompts the user for confirmation of an action
  * @param {string} message - The message to display to the user
  * @returns {boolean} true if the user confirms the action, false otherwise
@@ -41,4 +30,4 @@ const promptUserOptions = async (message, choices) => {
   return userAnswer;
 };
 
-export { autoComplete, confirmUserAction, promptUserInput, promptUserOptions };
+export { confirmUserAction, promptUserInput, promptUserOptions };

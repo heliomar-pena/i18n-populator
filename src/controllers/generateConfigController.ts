@@ -163,8 +163,8 @@ const generateConfigController = async () => {
   const configExists = fs.existsSync(configPath);
 
   if (configExists) {
-    const shouldOverwrite = confirmUserAction(
-      `The configuration file already exists. Do you want to overwrite it? (y/n): `,
+    const shouldOverwrite = await confirmUserAction(
+      `The configuration file already exists. Do you want to overwrite it?:`,
     );
 
     if (!shouldOverwrite) {
