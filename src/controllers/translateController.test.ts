@@ -63,7 +63,7 @@ describe("TranslateController", () => {
         return (
           fileName.endsWith(settingsFile) ? configFile : {}
         ) as ReturnType;
-      }
+      },
     );
   });
 
@@ -83,9 +83,9 @@ describe("TranslateController", () => {
             from,
             text,
             settingsFile,
-          })
+          }),
         ).rejects.toThrow(
-          `Language ${from} is not supported.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
+          `Language ${from} is not supported.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
         );
       });
     });
@@ -112,9 +112,9 @@ describe("TranslateController", () => {
               text,
               engine: "badEngine" as Engines,
               settingsFile,
-            } as TranslateController)
+            } as TranslateController),
           ).rejects.toThrow(
-            `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
+            `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
           );
         });
       });
@@ -128,7 +128,7 @@ describe("TranslateController", () => {
           from,
           name,
           settingsFile,
-        } as TranslateController)
+        } as TranslateController),
       ).rejects.toThrow("No text to translate provided");
 
       expect(
@@ -136,7 +136,7 @@ describe("TranslateController", () => {
           text,
           name,
           settingsFile,
-        } as TranslateController)
+        } as TranslateController),
       ).rejects.toThrow("No language provided");
 
       expect(
@@ -144,7 +144,7 @@ describe("TranslateController", () => {
           text,
           from,
           settingsFile,
-        } as TranslateController)
+        } as TranslateController),
       ).rejects.toThrow("No name of translation provided");
     });
   });
