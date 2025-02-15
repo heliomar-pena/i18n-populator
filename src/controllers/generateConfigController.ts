@@ -19,7 +19,7 @@ const _promptTranslationEngines = async () => {
 
   for await (const translationEngine of validEngines) {
     const shouldUseEngine = await confirmUserAction(
-      `Do you want to use ${translationEngine} as translation engine? (y/n): `,
+      `Do you want to use ${translationEngine} as translation engine?`,
     );
 
     if (shouldUseEngine) {
@@ -46,8 +46,8 @@ const _promptBasePath = async () => {
       continue;
     }
 
-    const filesInPath =
-      (await listFilesOnDirectory(parsePath(basePath)).catch(async (err) => {
+    const filesInPath = await listFilesOnDirectory(parsePath(basePath)).catch(
+      async (err) => {
         console.error(err.message);
         console.log("\n-------------\n");
         console.log(
@@ -56,15 +56,17 @@ const _promptBasePath = async () => {
         await promptUserInput("Press enter to continue...\n\n");
         console.clear();
         hasError = true;
-      })) || [];
+        return [];
+      },
+    );
 
     if (hasError) continue;
 
     if (!filesInPath.length) {
       console.log("The path provided does not contain any files.\n\n");
 
-      const continueWithEmptyPath = confirmUserAction(
-        "Are you sure you want to use this path? (y/n): ",
+      const continueWithEmptyPath = await confirmUserAction(
+        "Are you sure you want to use this path?",
       );
       console.clear();
 
@@ -188,9 +190,4 @@ const generateConfigController = async () => {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };
 
-export {
-  _promptBasePath,
-  _promptLanguages,
-  _promptTranslationEngines,
-  generateConfigController,
-};
+export { generateConfigController };
