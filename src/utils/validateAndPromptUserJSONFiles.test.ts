@@ -2,17 +2,34 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { parsePath } from "./getConfigPath";
 import fs from "fs";
 import { validateAndPromptUserJSONFiles } from "./validateAndPromptUserJSONFiles";
+import { importJsonFile } from "./importJsonFile";
+import { confirmUserAction } from "./promptUtils";
+
+jest.mock("./importJsonFile", () => ({
+  importJsonFile: jest.fn(),
+}));
+
+jest.mock("./promptUtils", () => ({
+  confirmUserAction: jest.fn(),
+}));
+
+const mockedConfirmUserAction = jest.mocked(confirmUserAction);
+const mockedImportJSONFile = jest.mocked(importJsonFile);
 
 const mockImportJSONFile = (filesMock, basePath) => {
   let filesMockWithParsedPath = {};
-  Object.keys(filesMock).forEach((fileName) => {
+
+  Object.entries(filesMock).forEach(([fileName, fileContent]) => {
     const parsedPath = parsePath(`${basePath}/${fileName}`);
-    filesMockWithParsedPath[parsedPath] = filesMock[fileName];
+    filesMockWithParsedPath[parsedPath] = fileContent;
+  });
+
+  mockedImportJSONFile.mockImplementation(async (path) => {
+    return filesMockWithParsedPath[path];
   });
 };
 
-// TODO: Add a way to mock import
-describe.skip("validateAndPromptUserJSONFiles", () => {
+describe.only("validateAndPromptUserJSONFiles", () => {
   let filesMock, filesName, basePath, nameOfTranslation;
   beforeEach(() => {
     jest.clearAllMocks();
@@ -37,7 +54,7 @@ describe.skip("validateAndPromptUserJSONFiles", () => {
 
   it("should not include the json files that already have the property if the user doesn't confirm it", async () => {
     mockImportJSONFile(filesMock, basePath);
-    (prompt as jest.Mock).mockImplementationOnce(() => "no");
+    mockedConfirmUserAction.mockResolvedValueOnce(false);
 
     const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
@@ -52,12 +69,12 @@ describe.skip("validateAndPromptUserJSONFiles", () => {
     expect(filesToEdit).toEqual([
       { file: filesMock[fileName], parsedPath: expectedParsedPath },
     ]);
-    expect(prompt).toHaveBeenCalledTimes(1);
+    expect(mockedConfirmUserAction).toHaveBeenCalledTimes(1);
   });
 
   it("should include the json files that already have the property if the user confirm it", async () => {
     mockImportJSONFile(filesMock, basePath);
-    (prompt as jest.Mock).mockImplementationOnce(() => "yes");
+    mockedConfirmUserAction.mockResolvedValueOnce(true);
 
     const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
@@ -69,13 +86,13 @@ describe.skip("validateAndPromptUserJSONFiles", () => {
       parsedPath: parsePath(`${basePath}/${fileName}`),
     }));
 
-    expect(prompt).toHaveBeenCalledTimes(1);
+    expect(mockedConfirmUserAction).toHaveBeenCalledTimes(1);
     expect(filesToEdit).toEqual(expectedFiles);
   });
 
   it("should return an empty array if all the files already have the property and the user doesn't want overwrite them", async () => {
     mockImportJSONFile(filesMock, basePath);
-    (prompt as jest.Mock).mockImplementationOnce(() => "no");
+    mockedConfirmUserAction.mockResolvedValueOnce(false);
 
     const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
@@ -83,7 +100,7 @@ describe.skip("validateAndPromptUserJSONFiles", () => {
       nameOfTranslation,
     );
 
-    expect(prompt).toHaveBeenCalledTimes(1);
+    expect(mockedConfirmUserAction).toHaveBeenCalledTimes(1);
     expect(filesToEdit).toEqual([]);
   });
 });
