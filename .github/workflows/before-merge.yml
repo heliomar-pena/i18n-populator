@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run checks before merge
 
 on:
   pull_request:
