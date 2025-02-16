@@ -18,6 +18,8 @@ jobs:
 
       - name: Build
         run: |
+          git pull origin ${{ github.event.pull_request.head.ref }}
+
           npm run build
           echo "${{ github.head_ref }}"
           git add .
