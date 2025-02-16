@@ -45,3 +45,9 @@ jest.mock("prompt-sync-plus/dist/index.d", () => ({
     TAB: 9,
   },
 }));
+
+jest.mock("@inquirer/prompts", () => ({
+  confirm: jest.fn(() => true),
+  input: jest.fn(() => ""),
+  select: jest.fn(() => ""),
+}));

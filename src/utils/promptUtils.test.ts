@@ -1,59 +1,46 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { confirmUserAction } from "./promptUtils";
+import { confirm } from "@inquirer/prompts";
 
-// Adapt to inquirer
-describe.skip("promptUtils", () => {
+const mockedConfirm = jest.mocked(confirm);
+
+describe.only("promptUtils", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("confirmUserAction", () => {
-    it("returns true when user confirms action", () => {
-      const message = "Are you sure you want to proceed?";
-      const expected = true;
-
-      const result = confirmUserAction(message);
-
-      expect(prompt).toHaveBeenCalledWith(message, {
-        echo: expect.any(String),
-        eot: expect.any(Boolean),
-        sigint: expect.any(Boolean),
-        defaultResponse: "no",
-        autocomplete: expect.any(Object),
-      });
-      expect(result).toEqual(expected);
+    let message, expected;
+    beforeEach(() => {
+      message = "Are you sure you want to proceed?";
     });
 
-    it("returns false when user cancels action", () => {
-      const message = "Are you sure you want to proceed?";
-      const expected = false;
-
-      (prompt as jest.Mock).mockImplementationOnce(() => "no");
-
-      const result = confirmUserAction(message);
-
-      expect(prompt).toHaveBeenCalledWith(message, {
-        echo: expect.any(String),
-        eot: expect.any(Boolean),
-        sigint: expect.any(Boolean),
-        defaultResponse: "no",
-        autocomplete: expect.any(Object),
+    describe("When user confirms action", () => {
+      beforeEach(() => {
+        expected = true;
+        mockedConfirm.mockResolvedValueOnce(expected);
       });
-      expect(result).toEqual(expected);
+
+      it("then returns ture", async () => {
+        const result = await confirmUserAction(message);
+
+        expect(mockedConfirm).toHaveBeenCalledWith({ message, default: false });
+        expect(result).toEqual(expected);
+      });
     });
 
-    it("returns false if user inserts an invalid option", () => {
-      const message = "Are you sure you want to proceed?";
-      const expected = false;
-
-      (prompt as jest.Mock).mockImplementationOnce(() => "invalid option");
-
-      const result = confirmUserAction(message);
-
-      expect(prompt).toHaveBeenCalledWith(message, {
-        echo: expect.any(String),
-        eot: expect.any(Boolean),
-        sigint: expect.any(Boolean),
-        defaultResponse: "no",
-        autocomplete: expect.any(Object),
+    describe("When user rejects action", () => {
+      beforeEach(() => {
+        expected = false;
+        mockedConfirm.mockResolvedValueOnce(expected);
       });
-      expect(result).toEqual(expected);
+
+      it("then returns false", async () => {
+        const result = await confirmUserAction(message);
+
+        expect(mockedConfirm).toHaveBeenCalledWith({ message, default: false });
+        expect(result).toEqual(expected);
+      });
     });
   });
 });
