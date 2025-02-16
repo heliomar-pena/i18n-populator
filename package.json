@@ -13,7 +13,7 @@
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "prepare": "husky",
-    "build": "pkgroll"
+    "build": "pkgroll --clean-dist"
   },
   "bin": "./dist/cli.cjs",
   "files": [

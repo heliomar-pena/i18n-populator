@@ -1,0 +1,36 @@
+name: Building Dist
+
+on: workflow_call
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Using Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: |
+          git pull origin ${{ github.event.pull_request.head.ref }} --rebase
+
+          npm run build
+          echo "${{ github.head_ref }}"
+          git add dist
+
+          if [[ -n "$(git diff --staged)" ]]; then  # Important: Check staged changes
+            git config --local user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+            git commit -m "[skip ci] Build dist package" --no-verify
+
+            git push origin HEAD:${{github.head_ref}}
+          else
+            echo "No changes detected after build. Skipping commit and push."
+          fi
