@@ -11,7 +11,7 @@ import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
 import { validEngines } from "../utils/translationEnginesUtils";
 import { TranslateController } from "./translateController.d";
 import { Settings } from "../types/settings";
-import { importJsonFile } from "../utils/getOrCreateJsonFile";
+import { importJsonFile } from "../utils/importJsonFile";
 
 /**
  * Translates a text to multiple languages and saves the translations in the JSON files

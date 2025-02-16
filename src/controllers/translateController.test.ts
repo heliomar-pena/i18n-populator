@@ -16,7 +16,7 @@ import translateController from "./translateController";
 import { TranslateController } from "./translateController.d";
 import { Engines } from "../types/settings.d";
 import { parsePath } from "../utils/getConfigPath";
-import { importJsonFile } from "../utils/getOrCreateJsonFile";
+import { importJsonFile } from "../utils/importJsonFile";
 
 const configFile = {
   basePath: "example",
@@ -33,8 +33,11 @@ const configFile = {
   ],
 };
 
-jest.mock("../utils/getOrCreateJsonFile", () => ({
+jest.mock("../utils/importJsonFile", () => ({
   importJsonFile: jest.fn(() => {}),
+}));
+
+jest.mock("../utils/getOrCreateJsonFile", () => ({
   getOrCreateJsonFile: jest.fn((basePath, fileName) => {
     return {
       file: {},

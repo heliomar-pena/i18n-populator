@@ -1,6 +1,6 @@
 import fs from "fs";
 import { validEngines, isEngineValid } from "../services/translateService";
-import { importJsonFile } from "./getOrCreateJsonFile";
+import { importJsonFile } from "./importJsonFile";
 import { Settings } from "../types/settings.d";
 
 /**

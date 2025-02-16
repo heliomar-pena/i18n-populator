@@ -1,7 +1,14 @@
 import { parsePath } from "./getConfigPath";
 import fs from "fs";
 import { getOrCreateJsonFile } from "./getOrCreateJsonFile";
+import { importJsonFile } from "./importJsonFile";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+
+jest.mock("./importJsonFile", () => ({
+  importJsonFile: jest.fn(() => {}),
+}));
+
+const mockedImportJsonFile = jest.mocked(importJsonFile);
 
 describe("getOrCreateJsonFile", () => {
   let basePath, fileName, fileContent;
@@ -31,10 +38,10 @@ describe("getOrCreateJsonFile", () => {
       );
     });
   });
-  // TODO: Mock import function
+
   describe.skip("When requested file exists in the provided route", () => {
     it("should return the file and the parsedPath if file exists", async () => {
-      // importJsonFile.mockImplementation(() => fileContent);
+      mockedImportJsonFile.mockImplementation(() => fileContent);
       (fs.existsSync as jest.Mock).mockImplementation(() => true);
 
       const { file, parsedPath } = await getOrCreateJsonFile(
