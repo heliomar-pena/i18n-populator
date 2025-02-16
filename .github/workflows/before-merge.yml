@@ -2,10 +2,13 @@ name: Run checks before merge
 
 on:
   pull_request:
-  # paths:
-  #   - "**/*.js"
-  #   - "**/*.json"
-  #   - "**/*.ts"
+    paths:
+      - "**/*.js"
+      - "**/*.mjs"
+      - "**/*.json"
+      - "**/*.ts"
+    paths-ignore:
+      - "dist/*"
 
 jobs:
   test:
@@ -13,4 +16,6 @@ jobs:
 
   build:
     needs: test
+    permissions:
+      contents: write
     uses: ./.github/workflows/build.yml
