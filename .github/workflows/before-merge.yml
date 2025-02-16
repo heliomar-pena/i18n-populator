@@ -1,11 +1,12 @@
 name: Run Tests
 
 on:
-  pull_request:
-    paths:
-      - "**/*.js"
-      - "**/*.json"
-      - "**/*.ts"
+  pull_request
+  # pull_request:
+  # paths:
+  #   - "**/*.js"
+  #   - "**/*.json"
+  #   - "**/*.ts"
 
 jobs:
   test:
