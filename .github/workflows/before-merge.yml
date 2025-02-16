@@ -2,13 +2,12 @@ name: Run checks before merge
 
 on:
   pull_request:
-    # paths:
-    #   - "**.js"
-    #   - "**.mjs"
-    #   - "**.json"
-    #   - "**.ts"
-    paths-ignore:
-      - "dist/*"
+    paths:
+      - "**.js"
+      - "**.mjs"
+      - "**.json"
+      - "**.ts"
+      - "!dist/*"
 
 jobs:
   test:
