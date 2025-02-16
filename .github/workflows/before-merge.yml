@@ -1,0 +1,16 @@
+name: Run Tests
+
+on:
+  pull_request:
+    paths:
+      - "**/*.js"
+      - "**/*.json"
+      - "**/*.ts"
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  build:
+    needs: test
+    uses: ./.github/workflows/build.yml

@@ -1,7 +1,6 @@
 name: Run Tests
 
-on:
-  pull_request:
+on: workflow_call
 
 jobs:
   test:
@@ -16,14 +15,10 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Types Check
         run: npm run type-check
 
       - name: Run Tests
         run: npm test
-
-  build:
-    needs: test
-    uses: ./.github/workflows/build.yml
