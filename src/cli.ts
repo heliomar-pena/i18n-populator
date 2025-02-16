@@ -10,11 +10,7 @@ import { version } from "../package.json" with { type: "json" };
 
 program
   .name("i18n-populator")
-  .description("CLI to translate JavaScript strings")
-  .version(version);
-
-program
-  .command("translate")
+  .version(version)
   .description(
     "Translate a text and put the result on the files in the output directory",
   )
