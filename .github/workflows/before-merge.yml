@@ -1,8 +1,7 @@
 name: Run Tests
 
 on:
-  pull_request
-  # pull_request:
+  pull_request:
   # paths:
   #   - "**/*.js"
   #   - "**/*.json"
