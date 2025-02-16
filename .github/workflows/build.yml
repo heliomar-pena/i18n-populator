@@ -29,4 +29,4 @@ jobs:
 
           git commit -m "chore: Build dist package" --no-verify
 
-          git push origin ${{ github.head_ref }}
+          git push origin HEAD:${{github.head_ref}}
