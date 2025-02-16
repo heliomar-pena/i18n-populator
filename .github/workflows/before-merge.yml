@@ -16,4 +16,6 @@ jobs:
 
   build:
     needs: test
+    permissions:
+      contents: write
     uses: ./.github/workflows/build.yml
