@@ -18,7 +18,7 @@ jobs:
 
       - name: Build
         run: |
-          git pull origin ${{ github.event.pull_request.head.ref }}
+          git pull origin ${{ github.event.pull_request.head.ref }} --rebase
 
           npm run build
           echo "${{ github.head_ref }}"
