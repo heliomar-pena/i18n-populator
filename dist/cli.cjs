@@ -17,7 +17,6 @@ const config = {
 const { defaultConfigPath } = config;
 const configPath = defaultConfigPath;
 const parsePath = (customPath) => {
-  console.log({ customPath });
   return path.join(process.cwd(), customPath);
 };
 
@@ -1549,8 +1548,7 @@ const generateConfigController = async () => {
 var version = "1.1.1";
 
 const program = new commander.Command();
-program.name("i18n-populator").description("CLI to translate JavaScript strings").version(version);
-program.command("translate").description(
+program.name("i18n-populator").version(version).description(
   "Translate a text and put the result on the files in the output directory"
 ).option(
   "-t, --text <string>",
