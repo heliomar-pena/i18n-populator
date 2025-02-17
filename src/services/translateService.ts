@@ -7,12 +7,10 @@ import {
 } from "../utils/translationEnginesUtils";
 import { TranslateResult, TranslateText } from "./translate";
 import {
-  SetTranslateWithFallbackEngines,
   SetTranslateWithFallbackEnginesFn,
-  SetTranslateWithFallbackEnginesReturn,
   TranslateFn,
 } from "./translateService.d";
-import { Engines } from "../types/settings.d";
+import { Engines, TranslationEngine } from "../types/settings.d";
 
 /**
  * Translates the given text from one language to another using the specified translation engine.
@@ -27,16 +25,18 @@ const translate = async (
   text: TranslateText,
   from: string,
   to: string,
-  engine: Engines = Engines.GOOGLE,
+  engine: TranslationEngine = { name: Engines.GOOGLE },
 ): Promise<TranslateResult> => {
-  if (!isEngineValid(engine))
+  const { name, ...config } = engine;
+
+  if (!isEngineValid(name))
     throw new Error(
       `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );
 
   if (from === to) return { text };
 
-  return await translateEngines[engine](text, { from, to });
+  return await translateEngines[name](text, { from, to, config });
 };
 
 /**
@@ -73,8 +73,8 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
     for await (const engine of enginesFiltered) {
       try {
         // Validate that the language is supported by the engine to avoid unnecessary network requests
-        const fromLanguageCode = getLanguageCodeByEngine(from, engine);
-        const toLanguageCode = getLanguageCodeByEngine(to, engine);
+        const fromLanguageCode = getLanguageCodeByEngine(from, engine.name);
+        const toLanguageCode = getLanguageCodeByEngine(to, engine.name);
 
         await translate(text, fromLanguageCode, toLanguageCode, engine)
           .then(({ text }) => {
