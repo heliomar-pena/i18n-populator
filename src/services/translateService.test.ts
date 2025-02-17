@@ -24,22 +24,22 @@ describe("translate", () => {
   });
 
   it("should translate text from English to Spanish using Bing Translate", async () => {
-    const engine = Engines.BING;
+    const engine = { name: Engines.BING };
     const result = await translate(text, from, to, engine);
 
     expect(bingTranslate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
-      `Hello world! translated from ${from} to ${to} using ${engine}`,
+      `Hello world! translated from ${from} to ${to} using ${engine}`
     );
   });
 
   it("should translate text from English to Spanish using LibreTranslate", async () => {
-    const engine = Engines.LIBRE_TRANSLATE;
+    const engine = { name: Engines.LIBRE_TRANSLATE };
     const result = await translate(text, from, to, engine);
 
     expect(libreTranslate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
-      `Hello world! translated from ${from} to ${to} using ${engine}`,
+      `Hello world! translated from ${from} to ${to} using ${engine}`
     );
   });
 
@@ -52,9 +52,9 @@ describe("translate", () => {
   });
 
   it("should throw an error if an invalid engine is provided", async () => {
-    const engine = "invalid" as Engines;
+    const engine = { name: "invalid" as Engines };
     await expect(translate(text, from, to, engine)).rejects.toThrow(
-      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
+      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
     );
   });
 });

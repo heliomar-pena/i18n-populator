@@ -8,12 +8,12 @@ export type TranslateFn = (
 ) => Promise<TranslateResult>;
 
 export type SetTranslateWithFallbackEnginesReturn = {
-  engines: TranslationEngines;
+  engines: Partial<TranslationEngines>;
   translate: TranslateFn;
 };
 
 export type SetTranslateWithFallbackEngines = {
-  settingsTranslationEngines?: TranslationEngines;
+  settingsTranslationEngines?: Partial<TranslationEngines>;
   cliArgEngine?: Engines;
 };
 
