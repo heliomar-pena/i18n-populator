@@ -9,6 +9,14 @@
     {
       "name": "es",
       "files": ["es.json"]
+    },
+    {
+      "name": "ja",
+      "files": ["ja.json"]
+    },
+    {
+      "name": "pt",
+      "files": ["pt.json"]
     }
   ]
 }
