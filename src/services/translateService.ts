@@ -80,13 +80,13 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
           .then(({ text }) => {
             result = text;
             console.log(
-              `Translated successfully with ${engine} engine. Result: ${text}`,
+              `Translated successfully with ${engine.name} engine. Result: ${text}`,
             );
           })
           .catch(() => {
             enginesFailed.push(engine);
             throw new Error(
-              `Error translating with ${engine} engine. Trying next engine...`,
+              `Error translating with ${engine.name} engine. Trying next engine...`,
             );
           });
 
