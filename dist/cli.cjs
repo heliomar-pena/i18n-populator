@@ -1180,12 +1180,12 @@ const setTranslateWithFallbackEngines = ({
         await translate(text, fromLanguageCode, toLanguageCode, engine).then(({ text: text2 }) => {
           result = text2;
           console.log(
-            `Translated successfully with ${engine} engine. Result: ${text2}`
+            `Translated successfully with ${engine.name} engine. Result: ${text2}`
           );
         }).catch(() => {
           enginesFailed.push(engine);
           throw new Error(
-            `Error translating with ${engine} engine. Trying next engine...`
+            `Error translating with ${engine.name} engine. Trying next engine...`
           );
         });
         if (result) break;
