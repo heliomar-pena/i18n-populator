@@ -1420,7 +1420,7 @@ const _promptTranslationEngines = async () => {
       `Do you want to use ${translationEngine} as translation engine?`
     );
     if (shouldUseEngine) {
-      translationEnginesToUse.push(translationEngine);
+      translationEnginesToUse.push({ name: translationEngine });
     }
   }
   return translationEnginesToUse;
