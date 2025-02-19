@@ -260,7 +260,11 @@ describe("generateConfigController", () => {
               JSON.stringify(
                 {
                   basePath: "/tests/localization",
-                  translationEngines: ["google", "bing", "libreTranslate"],
+                  translationEngines: [
+                    { name: "google" },
+                    { name: "bing" },
+                    { name: "libreTranslate" },
+                  ],
                   languages: [
                     {
                       name: "es",
