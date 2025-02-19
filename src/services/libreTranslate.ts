@@ -1,16 +1,20 @@
 import fetch from "node-fetch";
 import { TranslateOptions, TranslateResult, TranslateText } from "./translate";
+import { TranslationEngines } from "../types/settings";
 
-const mirrors = [
+const defaultMirrors = [
   "https://translate.terraprint.co/translate",
   "https://trans.zillyhuhn.com/translate",
 ];
 
 const libreTranslate = async (
   text: TranslateText,
-  { from, to }: TranslateOptions,
+  { from, to, config = {} }: TranslateOptions & { config: Omit<TranslationEngines[2], 'name'> },
 ): Promise<TranslateResult> => {
-  for await (const url of mirrors) {
+  const { mirrors = [] } = config;
+  const allMirrors = mirrors.concat(defaultMirrors);
+
+  for await (const url of allMirrors) {
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -34,8 +38,8 @@ const libreTranslate = async (
   throw new Error("All libreTranslate mirrors failed. Please try again later.");
 };
 
-const translate = async (text, { from, to }) => {
-  const result = await libreTranslate(text, { from, to });
+const translate = async (text, { from, to, config }) => {
+  const result = await libreTranslate(text, { from, to, config });
 
   return result;
 };

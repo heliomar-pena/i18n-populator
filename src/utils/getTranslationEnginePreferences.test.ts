@@ -21,12 +21,15 @@ describe("getTranslationEnginesToUse", () => {
 
       it("should return an array with the cliArgEngine", () => {
         const result = getTranslationEnginesToUse({ cliArgEngine });
-        expect(result).toEqual([cliArgEngine]);
+        expect(result).toEqual([{ name: cliArgEngine }]);
       });
     });
     describe("In Settings File", () => {
       beforeEach(() => {
-        settingsTranslationEngines = [Engines.GOOGLE, Engines.BING];
+        settingsTranslationEngines = [
+          { name: Engines.GOOGLE },
+          { name: Engines.BING },
+        ];
       });
 
       it("should return an array with the engines defined in settings", () => {
@@ -39,7 +42,10 @@ describe("getTranslationEnginesToUse", () => {
     });
     describe("In CLI and Settings File", () => {
       beforeEach(() => {
-        settingsTranslationEngines = [Engines.BING, Engines.GOOGLE];
+        settingsTranslationEngines = [
+          { name: Engines.BING },
+          { name: Engines.GOOGLE },
+        ];
         cliArgEngine = Engines.GOOGLE;
       });
 
@@ -50,9 +56,9 @@ describe("getTranslationEnginesToUse", () => {
         });
 
         const filteredResult = [
-          cliArgEngine,
+          { name: cliArgEngine },
           ...settingsTranslationEngines.filter(
-            (engines) => engines !== cliArgEngine,
+            (engines) => engines.name !== cliArgEngine,
           ),
         ];
 

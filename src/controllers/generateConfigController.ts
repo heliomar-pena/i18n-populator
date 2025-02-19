@@ -23,7 +23,7 @@ const _promptTranslationEngines = async () => {
     );
 
     if (shouldUseEngine) {
-      translationEnginesToUse.push(translationEngine);
+      translationEnginesToUse.push({ name: translationEngine });
     }
   }
 
