@@ -51,7 +51,7 @@ const validateSettingsFile = async (
 
   if (settingsTranslationEngines?.length) {
     const isValidSettingsTranslationEngines =
-      settingsTranslationEngines?.every(isEngineValid);
+      settingsTranslationEngines?.every((engine) => isEngineValid(engine.name));
 
     if (!isValidSettingsTranslationEngines)
       throw new Error(

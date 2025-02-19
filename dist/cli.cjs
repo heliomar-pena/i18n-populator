@@ -25,12 +25,14 @@ const translate$2 = async (text, { from, to }) => {
   return { text: translation };
 };
 
-const mirrors = [
+const defaultMirrors = [
   "https://translate.terraprint.co/translate",
   "https://trans.zillyhuhn.com/translate"
 ];
-const libreTranslate = async (text, { from, to }) => {
-  for await (const url of mirrors) {
+const libreTranslate = async (text, { from, to, config = {} }) => {
+  const { mirrors = [] } = config;
+  const allMirrors = mirrors.concat(defaultMirrors);
+  for await (const url of allMirrors) {
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -56,8 +58,8 @@ Trying with the next one...
   }
   throw new Error("All libreTranslate mirrors failed. Please try again later.");
 };
-const translate$1 = async (text, { from, to }) => {
-  const result = await libreTranslate(text, { from, to });
+const translate$1 = async (text, { from, to, config }) => {
+  const result = await libreTranslate(text, { from, to, config });
   return result;
 };
 
@@ -1123,17 +1125,23 @@ ${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
   }
 };
 
-const DEFAULT_ENGINES = [Engines.GOOGLE, Engines.BING, Engines.LIBRE_TRANSLATE];
+const DEFAULT_ENGINES = [
+  { name: Engines.GOOGLE },
+  { name: Engines.BING },
+  { name: Engines.LIBRE_TRANSLATE }
+];
 const getTranslationEnginesToUse = ({
   settingsTranslationEngines,
   cliArgEngine
 }) => {
   const translationEnginesToUse = [];
   if (cliArgEngine) {
-    translationEnginesToUse.push(cliArgEngine);
+    translationEnginesToUse.push({ name: cliArgEngine });
   }
   if (settingsTranslationEngines) {
-    const settingsTranslationEnginesFiltered = settingsTranslationEngines.filter((engine) => engine !== cliArgEngine);
+    const settingsTranslationEnginesFiltered = settingsTranslationEngines.filter(
+      (engine) => engine.name !== cliArgEngine
+    );
     translationEnginesToUse.push(...settingsTranslationEnginesFiltered);
   }
   if (translationEnginesToUse.length === 0) {
@@ -1142,13 +1150,14 @@ const getTranslationEnginesToUse = ({
   return translationEnginesToUse;
 };
 
-const translate = async (text, from, to, engine = Engines.GOOGLE) => {
-  if (!isEngineValid(engine))
+const translate = async (text, from, to, engine = { name: Engines.GOOGLE }) => {
+  const { name, ...config } = engine;
+  if (!isEngineValid(name))
     throw new Error(
       `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
     );
   if (from === to) return { text };
-  return await translateEngines[engine](text, { from, to });
+  return await translateEngines[name](text, { from, to, config });
 };
 const setTranslateWithFallbackEngines = ({
   settingsTranslationEngines,
@@ -1166,17 +1175,17 @@ const setTranslateWithFallbackEngines = ({
     );
     for await (const engine of enginesFiltered) {
       try {
-        const fromLanguageCode = getLanguageCodeByEngine(from, engine);
-        const toLanguageCode = getLanguageCodeByEngine(to, engine);
+        const fromLanguageCode = getLanguageCodeByEngine(from, engine.name);
+        const toLanguageCode = getLanguageCodeByEngine(to, engine.name);
         await translate(text, fromLanguageCode, toLanguageCode, engine).then(({ text: text2 }) => {
           result = text2;
           console.log(
-            `Translated successfully with ${engine} engine. Result: ${text2}`
+            `Translated successfully with ${engine.name} engine. Result: ${text2}`
           );
         }).catch(() => {
           enginesFailed.push(engine);
           throw new Error(
-            `Error translating with ${engine} engine. Trying next engine...`
+            `Error translating with ${engine.name} engine. Trying next engine...`
           );
         });
         if (result) break;
@@ -1242,7 +1251,7 @@ const validateSettingsFile = async (settingsFilePath) => {
       "There is an invalid language config on your settings file, please check it"
     );
   if (settingsTranslationEngines?.length) {
-    const isValidSettingsTranslationEngines = settingsTranslationEngines?.every(isEngineValid);
+    const isValidSettingsTranslationEngines = settingsTranslationEngines?.every((engine) => isEngineValid(engine.name));
     if (!isValidSettingsTranslationEngines)
       throw new Error(
         `There is an invalid translation engine on your settings file, here are the valid ones: ${validEngines.join(", ")}`
@@ -1411,7 +1420,7 @@ const _promptTranslationEngines = async () => {
       `Do you want to use ${translationEngine} as translation engine?`
     );
     if (shouldUseEngine) {
-      translationEnginesToUse.push(translationEngine);
+      translationEnginesToUse.push({ name: translationEngine });
     }
   }
   return translationEnginesToUse;

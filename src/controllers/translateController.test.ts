@@ -20,7 +20,11 @@ import { importJsonFile } from "../utils/importJsonFile";
 
 const configFile = {
   basePath: "example",
-  translationEngines: ["google", "bing", "libreTranslate"],
+  translationEngines: [
+    { name: "google" },
+    { name: "bing" },
+    { name: "libreTranslate" },
+  ],
   languages: [
     {
       name: "en",
