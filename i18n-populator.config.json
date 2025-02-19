@@ -8,8 +8,7 @@
       "name": "bing"
     },
     {
-      "name": "libreTranslate",
-      "mirrors": []
+      "name": "libreTranslate"
     }
   ],
   "languages": [
