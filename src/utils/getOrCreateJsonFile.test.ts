@@ -8,10 +8,12 @@ jest.mock("./importJsonFile", () => ({
   importJsonFile: jest.fn(() => ({})),
 }));
 
-const mockedImportJsonFile = jest.mocked(importJsonFile);
+const mockedImportJsonFile = jest.mocked(importJsonFile<{}>);
 
 describe("getOrCreateJsonFile", () => {
-  let basePath, fileName, fileContent;
+  let basePath = "",
+    fileName = "",
+    fileContent = {};
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
@@ -41,7 +43,7 @@ describe("getOrCreateJsonFile", () => {
 
   describe("When requested file exists in the provided route", () => {
     it("should return the file and the parsedPath if file exists", async () => {
-      mockedImportJsonFile.mockImplementation(() => fileContent);
+      mockedImportJsonFile.mockImplementation(async () => fileContent);
       (fs.existsSync as jest.Mock).mockImplementation(() => true);
 
       const { file, parsedPath } = await getOrCreateJsonFile(
