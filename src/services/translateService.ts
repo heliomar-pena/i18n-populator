@@ -10,7 +10,11 @@ import {
   SetTranslateWithFallbackEnginesFn,
   TranslateFn,
 } from "./translateService.d";
-import { Engines, TranslationEngine } from "../types/settings.d";
+import {
+  Engines,
+  TranslationEngine,
+  TranslationEngines,
+} from "../types/settings.d";
 
 /**
  * Translates the given text from one language to another using the specified translation engine.
@@ -52,7 +56,7 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
     settingsTranslationEngines,
     cliArgEngine,
   });
-  const enginesFailed = [];
+  const enginesFailed: Partial<TranslationEngines> = [];
 
   /**
    * Translates the given text from one language to another using the specified translation engines in order of preference.
@@ -72,6 +76,8 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
 
     for await (const engine of enginesFiltered) {
       try {
+        if (!engine) continue;
+
         // Validate that the language is supported by the engine to avoid unnecessary network requests
         const fromLanguageCode = getLanguageCodeByEngine(from, engine.name);
         const toLanguageCode = getLanguageCodeByEngine(to, engine.name);
@@ -92,7 +98,9 @@ const setTranslateWithFallbackEngines: SetTranslateWithFallbackEnginesFn = ({
 
         if (result) break;
       } catch (error) {
-        console.log(error.message);
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
       }
     }
 

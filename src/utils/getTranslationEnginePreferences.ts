@@ -30,7 +30,7 @@ const getTranslationEnginesToUse = ({
   if (settingsTranslationEngines) {
     const settingsTranslationEnginesFiltered =
       settingsTranslationEngines.filter(
-        (engine) => engine.name !== cliArgEngine
+        (engine) => engine?.name !== cliArgEngine,
       );
 
     translationEnginesToUse.push(...settingsTranslationEnginesFiltered);

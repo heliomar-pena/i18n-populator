@@ -14,23 +14,30 @@ jest.mock("./promptUtils", () => ({
 }));
 
 const mockedConfirmUserAction = jest.mocked(confirmUserAction);
-const mockedImportJSONFile = jest.mocked(importJsonFile);
+type FilesMock = Record<string, any>;
 
-const mockImportJSONFile = (filesMock, basePath) => {
-  let filesMockWithParsedPath = {};
+const mockedImportJSONFile = jest.mocked(importJsonFile<FilesMock>);
+
+const mockImportJSONFile = (filesMock: FilesMock, basePath: string) => {
+  let filesMockWithParsedPath: { [key: string]: FilesMock } = {};
 
   Object.entries(filesMock).forEach(([fileName, fileContent]) => {
     const parsedPath = parsePath(`${basePath}/${fileName}`);
     filesMockWithParsedPath[parsedPath] = fileContent;
   });
 
-  mockedImportJSONFile.mockImplementation(async (path) => {
-    return filesMockWithParsedPath[path];
-  });
+  mockedImportJSONFile.mockImplementation(
+    async (path: string): Promise<FilesMock> => {
+      return filesMockWithParsedPath[path];
+    },
+  );
 };
 
 describe.only("validateAndPromptUserJSONFiles", () => {
-  let filesMock, filesName, basePath, nameOfTranslation;
+  let filesMock: FilesMock,
+    filesName: string[],
+    basePath: string,
+    nameOfTranslation: string;
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
@@ -67,7 +74,7 @@ describe.only("validateAndPromptUserJSONFiles", () => {
     const expectedParsedPath = parsePath(`${basePath}/${fileName}`);
 
     expect(filesToEdit).toEqual([
-      { file: filesMock[fileName], parsedPath: expectedParsedPath },
+      { file: filesMock[fileName || ""], parsedPath: expectedParsedPath },
     ]);
     expect(mockedConfirmUserAction).toHaveBeenCalledTimes(1);
   });
