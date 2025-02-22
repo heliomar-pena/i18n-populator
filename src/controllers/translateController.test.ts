@@ -54,7 +54,11 @@ const mockedImport = jest.mocked(importJsonFile);
 const mockedExistsSync = jest.mocked(fs.existsSync);
 
 describe("TranslateController", () => {
-  let text, from, name, engine, settingsFile;
+  let text: string,
+    from: string,
+    name: string,
+    engine: Engines,
+    settingsFile: string;
 
   beforeEach(() => {
     text = "Hello World";
