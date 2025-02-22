@@ -46,14 +46,16 @@ const libreTranslate = async (text, { from, to, config = {} }) => {
       }).then((res2) => res2.json());
       return { text: res.translatedText };
     } catch (err) {
-      console.log(
-        `Mirror failed: ${url} with the next error:
+      if (err instanceof Error) {
+        console.log(
+          `Mirror failed: ${url} with the next error:
 
 > ${err.message}
 
 Trying with the next one...
 `
-      );
+        );
+      }
     }
   }
   throw new Error("All libreTranslate mirrors failed. Please try again later.");
@@ -76,7 +78,7 @@ const translateEngines = {
   [Engines.LIBRE_TRANSLATE]: translate$1
 };
 const validEngines = Object.values(Engines);
-const isEngineValid = (engine) => validEngines.includes(engine);
+const isEngineValid = (engine) => !!engine && validEngines.includes(engine);
 
 var ab = {
 	name: "Abkhazian"
@@ -1065,24 +1067,26 @@ var allLanguagesCodes = {
 	zu: zu
 };
 
-const supportedLanguages = Object.keys(
+const supportedLanguages = Object.entries(
   allLanguagesCodes
-).reduce((acc, language) => {
-  const isLanguageSupportedByAlmostOneEngine = Object.keys(
-    allLanguagesCodes[language]
-  ).some((value) => validEngines.includes(value));
-  if (isLanguageSupportedByAlmostOneEngine)
-    acc[language] = allLanguagesCodes[language];
+).reduce((acc, [language, properties]) => {
+  const isLanguageSupportedByAlmostOneEngine = Object.keys(properties).some(
+    (value) => validEngines.some((validEngine) => validEngine === value)
+  );
+  if (isLanguageSupportedByAlmostOneEngine) acc[language] = properties;
   return acc;
 }, {});
 const supportedLanguagesCodes = Object.keys(supportedLanguages);
-const supportedLanguagesGroupedByEngine = Object.keys(supportedLanguages).reduce((acc, language) => {
-  Object.keys(supportedLanguages[language]).forEach((engine) => {
-    const languageObject = supportedLanguages[language];
+const supportedLanguagesGroupedByEngine = Object.entries(
+  supportedLanguages
+).reduce((acc, [language, properties]) => {
+  const { name, ...engines } = properties;
+  Object.keys(engines).forEach((_engine) => {
+    const engine = _engine;
     if (!acc[engine]) acc[engine] = {};
     acc[engine] = {
       ...acc[engine],
-      [language]: { name: languageObject.name }
+      [language]: { name }
     };
   });
   return acc;
@@ -1091,7 +1095,7 @@ supportedLanguagesGroupedByEngine.google;
 supportedLanguagesGroupedByEngine.bing;
 supportedLanguagesGroupedByEngine.libreTranslate;
 const validateLanguageIsSupportedByEngine = (requestedLanguage, engine) => {
-  const isLanguageSupportedByEngine = supportedLanguagesGroupedByEngine[engine][requestedLanguage] !== undefined;
+  const isLanguageSupportedByEngine = supportedLanguagesGroupedByEngine[engine]?.[requestedLanguage] !== undefined;
   if (!isLanguageSupportedByEngine)
     throw new Error(
       `Language ${requestedLanguage} is not supported by ${engine}.`
@@ -1100,9 +1104,10 @@ const validateLanguageIsSupportedByEngine = (requestedLanguage, engine) => {
 };
 const getLanguageCodeByEngine = (requestedLanguage, engine) => {
   validateLanguageIsSupportedByEngine(requestedLanguage, engine);
-  return allLanguagesCodes[requestedLanguage][engine];
+  return supportedLanguages[requestedLanguage][engine];
 };
 const getLanguagesCodesWithNames = (languages) => {
+  if (!languages) return [];
   return Object.entries(languages).map(([language, data]) => {
     return `${language} -> ${data?.name || "Unknown"}`;
   });
@@ -1115,13 +1120,16 @@ const validateLanguageRequested = (requestedLanguage) => {
       throw new Error(`Language ${requestedLanguage} is not supported`);
     return true;
   } catch (error) {
-    throw new Error(
-      `${error.message}.
+    if (error instanceof Error) {
+      throw new Error(
+        `${error.message}.
 
 Please use one of these:
 
 ${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
-    );
+      );
+    }
+    throw error;
   }
 };
 
@@ -1140,7 +1148,7 @@ const getTranslationEnginesToUse = ({
   }
   if (settingsTranslationEngines) {
     const settingsTranslationEnginesFiltered = settingsTranslationEngines.filter(
-      (engine) => engine.name !== cliArgEngine
+      (engine) => engine?.name !== cliArgEngine
     );
     translationEnginesToUse.push(...settingsTranslationEnginesFiltered);
   }
@@ -1175,6 +1183,7 @@ const setTranslateWithFallbackEngines = ({
     );
     for await (const engine of enginesFiltered) {
       try {
+        if (!engine) continue;
         const fromLanguageCode = getLanguageCodeByEngine(from, engine.name);
         const toLanguageCode = getLanguageCodeByEngine(to, engine.name);
         await translate(text, fromLanguageCode, toLanguageCode, engine).then(({ text: text2 }) => {
@@ -1190,7 +1199,9 @@ const setTranslateWithFallbackEngines = ({
         });
         if (result) break;
       } catch (error) {
-        console.log(error.message);
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
       }
     }
     if (!result) {
@@ -1251,7 +1262,9 @@ const validateSettingsFile = async (settingsFilePath) => {
       "There is an invalid language config on your settings file, please check it"
     );
   if (settingsTranslationEngines?.length) {
-    const isValidSettingsTranslationEngines = settingsTranslationEngines?.every((engine) => isEngineValid(engine.name));
+    const isValidSettingsTranslationEngines = settingsTranslationEngines?.every(
+      (engine) => isEngineValid(engine?.name)
+    );
     if (!isValidSettingsTranslationEngines)
       throw new Error(
         `There is an invalid translation engine on your settings file, here are the valid ones: ${validEngines.join(", ")}`
@@ -1304,14 +1317,20 @@ const promptUserOptions = async (message, choices) => {
 
 const hasProperty = (obj, path) => {
   const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
-  const objHasProperty = pathArray?.reduce((prevObj, key) => prevObj && prevObj[key], obj) !== undefined;
+  const objHasProperty = pathArray?.reduce(
+    (prevObj, key) => typeof prevObj !== "object" ? prevObj : prevObj[key],
+    obj
+  ) !== undefined;
   return objHasProperty;
 };
 
 const validateAndPromptUserJSONFiles = async (basePath, fileNames, nameOfTranslation) => {
   const jsonFiles = await Promise.all(
     fileNames.map(async (fileName) => {
-      const fileData = await getOrCreateJsonFile(basePath, fileName);
+      const fileData = await getOrCreateJsonFile(
+        basePath,
+        fileName
+      );
       return {
         ...fileData,
         fileName
