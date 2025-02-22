@@ -1,17 +1,13 @@
-import { afterEach, describe, expect, it, beforeEach } from "@jest/globals";
+import { describe, expect, it, beforeEach } from "@jest/globals";
 import {
   getTranslationEnginesToUse,
   DEFAULT_ENGINES,
 } from "./getTranslationEnginePreferences";
-import { Engines } from "../types/settings.d";
+import { Engines, TranslationEngines } from "../types/settings.d";
 
 describe("getTranslationEnginesToUse", () => {
-  let cliArgEngine, settingsTranslationEngines;
-
-  afterEach(() => {
-    cliArgEngine = undefined;
-    settingsTranslationEngines = undefined;
-  });
+  let cliArgEngine: Engines,
+    settingsTranslationEngines: Partial<TranslationEngines>;
 
   describe("When engine is defined", () => {
     describe("In CLI", () => {
@@ -58,7 +54,7 @@ describe("getTranslationEnginesToUse", () => {
         const filteredResult = [
           { name: cliArgEngine },
           ...settingsTranslationEngines.filter(
-            (engines) => engines.name !== cliArgEngine,
+            (engines) => engines?.name !== cliArgEngine,
           ),
         ];
 
@@ -70,8 +66,8 @@ describe("getTranslationEnginesToUse", () => {
   describe("When engine is not defined", () => {
     it("should return an array with the DEFAULT_ENGINES if neither cliArgEngine nor settingsTranslationEngines are provided", () => {
       const result = getTranslationEnginesToUse({
-        settingsTranslationEngines,
-        cliArgEngine,
+        settingsTranslationEngines: undefined,
+        cliArgEngine: undefined,
       });
       expect(result).toEqual(DEFAULT_ENGINES);
     });

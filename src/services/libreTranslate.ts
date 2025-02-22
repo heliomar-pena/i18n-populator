@@ -1,18 +1,13 @@
 import fetch from "node-fetch";
-import {
-  TranslateFn,
-  TranslateOptions,
-  TranslateResult,
-  TranslateText,
-} from "./translate.d";
-import { TranslationEngines } from "../types/settings.d";
+import { TranslateFn } from "./translate.d";
+import { LibreTranslateEngine } from "../types/settings.d";
 
 const defaultMirrors = [
   "https://translate.terraprint.co/translate",
   "https://trans.zillyhuhn.com/translate",
 ];
 
-const libreTranslate: TranslateFn<TranslationEngines[2]> = async (
+const libreTranslate: TranslateFn<LibreTranslateEngine> = async (
   text,
   { from, to, config = {} },
 ) => {
@@ -45,7 +40,7 @@ const libreTranslate: TranslateFn<TranslationEngines[2]> = async (
   throw new Error("All libreTranslate mirrors failed. Please try again later.");
 };
 
-const translate: TranslateFn<TranslationEngines[2]> = async (
+const translate: TranslateFn<LibreTranslateEngine> = async (
   text,
   { from, to, config },
 ) => {

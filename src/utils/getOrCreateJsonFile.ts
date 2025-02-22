@@ -2,7 +2,10 @@ import fs from "fs";
 import { parsePath } from "./getConfigPath";
 import { importJsonFile } from "./importJsonFile";
 
-const getOrCreateJsonFile = async <JsonType>(basePath, fileName) => {
+const getOrCreateJsonFile = async <JsonType>(
+  basePath: string,
+  fileName: string,
+) => {
   const parsedPath = parsePath(`${basePath}/${fileName}`);
 
   if (fs.existsSync(parsedPath)) {
