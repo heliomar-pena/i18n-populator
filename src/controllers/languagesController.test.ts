@@ -8,7 +8,7 @@ import {
 } from "../utils/supportedLanguagesUtils";
 
 describe("LanguagesController", () => {
-  let byEngine;
+  let byEngine: Engines;
 
   beforeEach(() => {
     byEngine = Engines.GOOGLE;
@@ -30,17 +30,20 @@ describe("LanguagesController", () => {
     });
 
     describe("And is valid", () => {
-      Object.values(Engines).forEach((value) => {
-        describe(`And is ${value}`, () => {
+      Object.values(Engines).forEach((engine) => {
+        describe(`And is ${engine}`, () => {
           it("should return the languages for that engine", () => {
             const { totalLanguages, languages } = languagesController({
-              byEngine: value,
+              byEngine: engine,
             });
 
             expect(totalLanguages).toEqual(
-              Object.keys(supportedLanguagesGroupedByEngine[value]).length,
+              Object.keys(supportedLanguagesGroupedByEngine[engine] ?? {})
+                .length,
             );
-            expect(languages).toEqual(supportedLanguagesGroupedByEngine[value]);
+            expect(languages).toEqual(
+              supportedLanguagesGroupedByEngine[engine],
+            );
           });
         });
       });
