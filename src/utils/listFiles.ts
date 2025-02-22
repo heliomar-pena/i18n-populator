@@ -5,7 +5,7 @@ import fs from "fs";
  * @param {string} directory - The directory path.
  * @returns {Promise<string[]>} - A promise that resolves to an array of file names in the directory.
  */
-const listFilesOnDirectory = (directory): Promise<string[]> => {
+const listFilesOnDirectory = (directory: string): Promise<string[]> => {
   return new Promise<string[]>((resolve, reject) => {
     fs.readdir(directory, (err, files) => {
       if (err) {

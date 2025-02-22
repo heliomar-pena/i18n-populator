@@ -10,7 +10,7 @@ describe.only("promptUtils", () => {
   });
 
   describe("confirmUserAction", () => {
-    let message, expected;
+    let message: string, expected: boolean;
     beforeEach(() => {
       message = "Are you sure you want to proceed?";
     });

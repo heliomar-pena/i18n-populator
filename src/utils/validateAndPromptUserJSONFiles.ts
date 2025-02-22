@@ -2,6 +2,7 @@ import { getOrCreateJsonFile } from "./getOrCreateJsonFile";
 import { confirmUserAction } from "./promptUtils";
 import { hasProperty } from "./objectUtils";
 import { ValidateAndPromptUserJSONFilesFn } from "./validateAndPromptUserJSONFiles.d";
+import { GenericObject } from "../types/shared";
 
 const validateAndPromptUserJSONFiles: ValidateAndPromptUserJSONFilesFn = async (
   basePath,
@@ -10,7 +11,10 @@ const validateAndPromptUserJSONFiles: ValidateAndPromptUserJSONFilesFn = async (
 ) => {
   const jsonFiles = await Promise.all(
     fileNames.map(async (fileName) => {
-      const fileData = await getOrCreateJsonFile(basePath, fileName);
+      const fileData = await getOrCreateJsonFile<GenericObject>(
+        basePath,
+        fileName,
+      );
 
       return {
         ...fileData,

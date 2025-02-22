@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Engines } from "../types/settings.d";
 
 describe("translate", () => {
-  let text, from, to;
+  let text: string, from: string, to: string;
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
