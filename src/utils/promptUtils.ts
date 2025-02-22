@@ -3,6 +3,7 @@
  * @module promptUtils
  */
 import { confirm, input, select } from "@inquirer/prompts";
+import { PromptUserOptions } from "./promptUtils.d";
 
 /**
  * Prompts the user for confirmation of an action
@@ -21,8 +22,8 @@ const promptUserInput = async (message) => {
   return userAnswer;
 };
 
-const promptUserOptions = async (message, choices) => {
-  const userAnswer = await select({
+const promptUserOptions: PromptUserOptions = async (message, choices) => {
+  const userAnswer = await select<string>({
     message,
     choices,
   });

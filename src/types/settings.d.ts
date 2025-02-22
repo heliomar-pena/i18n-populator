@@ -4,17 +4,19 @@ export enum Engines {
   LIBRE_TRANSLATE = "libreTranslate",
 }
 
+export type Files = string[];
+
 export type TranslationEngines = [
   { name: Engines.GOOGLE },
   { name: Engines.BING },
-  { name: Engines.LIBRE_TRANSLATE, mirrors?: string[] },
+  { name: Engines.LIBRE_TRANSLATE; mirrors?: string[] },
 ];
 
 export type TranslationEngine = TranslationEngines[number];
 
 export type Language = {
-  name: "en";
-  files: string[];
+  name: string;
+  files: Files;
 };
 
 export type Path = string;
