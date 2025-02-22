@@ -4,6 +4,6 @@ export type TranslateController = {
   text: string;
   from: string;
   name: string;
-  settingsFile?: string;
+  settingsFile: string;
   engine?: Engines;
 };
