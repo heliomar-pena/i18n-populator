@@ -21,7 +21,7 @@ export type AllLanguagesGroupedByEngine = {
 export type ValidateLanguageIsSupportedByEngine = (
   requestedLanguage: string,
   engine: Engines,
-) => Boolean;
+) => true | never;
 
 export type ValidateLanguageRequested = (requestedLanguage: string) => Boolean;
 
@@ -31,5 +31,5 @@ export type GetLanguageCodeByEngine = (
 ) => string;
 
 export type GetLanguagesCodesWithNames = (
-  languages: AllLanguagesCodes,
+  languages?: AllLanguagesCodes,
 ) => string[];

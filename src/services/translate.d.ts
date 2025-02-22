@@ -6,3 +6,8 @@ export type TranslateOptions = {
 export type TranslateText = string;
 
 export type TranslateResult = { text: string };
+
+export type TranslateFn<TranslationEngine> = (
+  text: TranslateText,
+  {}: TranslateOptions & { config: Omit<TranslationEngine, "name"> },
+) => Promise<TranslateResult>;

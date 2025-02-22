@@ -9,8 +9,20 @@ import { parsePath } from "../utils/getConfigPath";
 import { listFilesOnDirectory } from "../utils/listFiles";
 import { supportedLanguagesCodes } from "../utils/supportedLanguagesUtils";
 
-const _promptTranslationEngines = async () => {
-  const translationEnginesToUse = [];
+import {
+  PromptBasePath,
+  PromptLanguages,
+  PromptTranslationEngines,
+} from "./generateConfigControllers.d";
+import {
+  Files,
+  Languages,
+  Settings,
+  TranslationEngines,
+} from "../types/settings.d";
+
+const _promptTranslationEngines: PromptTranslationEngines = async () => {
+  const translationEnginesToUse: Partial<TranslationEngines> = [];
 
   console.clear();
   console.log(
@@ -30,9 +42,9 @@ const _promptTranslationEngines = async () => {
   return translationEnginesToUse;
 };
 
-const _promptBasePath = async () => {
+const _promptBasePath: PromptBasePath = async () => {
   let confirmedAction = false;
-  let pathFiles = [];
+  let pathFiles: Files = [];
   let basePath = "";
 
   do {
@@ -92,8 +104,8 @@ const _promptBasePath = async () => {
   return { basePath, pathFiles };
 };
 
-const _promptLanguages = async (filesNames) => {
-  const languages = [];
+const _promptLanguages: PromptLanguages = async (filesNames) => {
+  const languages: Languages = [];
 
   console.clear();
   console.log(
@@ -175,7 +187,7 @@ const generateConfigController = async () => {
     }
   }
 
-  const config = {
+  const config: Settings = {
     basePath: "",
     translationEngines: [],
     languages: [],

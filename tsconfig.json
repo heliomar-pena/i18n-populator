@@ -6,7 +6,13 @@
     "allowJs": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "target": "es2020"
+    "target": "es2020",
+    "strict": true
   },
-  "exclude": ["dist", "eslint.config.mjs", "jest.config.js"]
+  "exclude": [
+    "dist/*",
+    "node_modules/**/*",
+    "eslint.config.mjs",
+    "jest.config.js"
+  ]
 }

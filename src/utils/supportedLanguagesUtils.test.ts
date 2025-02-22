@@ -7,6 +7,7 @@ import {
   getLanguageCodeByEngine,
 } from "./supportedLanguagesUtils";
 import { Engines } from "../types/settings.d";
+import { AllLanguagesCodes } from "./supportedLanguagesUtils.d";
 
 describe("supportedLanguagesUtils", () => {
   describe("getLanguagesCodesWithNames", () => {
@@ -42,7 +43,9 @@ describe("supportedLanguagesUtils", () => {
         el: { name: undefined },
       };
 
-      const result = getLanguagesCodesWithNames(supportedLanguages);
+      const result = getLanguagesCodesWithNames(
+        supportedLanguages as unknown as AllLanguagesCodes,
+      );
 
       expect(result).toEqual([
         "en -> English",

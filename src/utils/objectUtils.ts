@@ -1,10 +1,12 @@
+import { GenericObject } from "../types/shared";
+
 /**
  * Checks if an object has a property with the given path.
  * @param {Object} obj - The object to check.
  * @param {string | Array<string>} path - The path to the property to check. Can be a string with dot notation or an array of keys.
  * @returns {boolean} - True if the object has the property, false otherwise.
  */
-const hasProperty = (obj, path) => {
+const hasProperty = (obj: GenericObject, path: string | string[]) => {
   /**
    * This regexp is used to split the path string into an array of keys using "[", "]" and "." as separators.
    * In https://regexr.com/58j0k you can get a playground to test and analyze it.
@@ -16,8 +18,10 @@ const hasProperty = (obj, path) => {
   const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
 
   const objHasProperty =
-    pathArray?.reduce((prevObj, key) => prevObj && prevObj[key], obj) !==
-    undefined;
+    pathArray?.reduce<GenericObject>(
+      (prevObj, key) => (typeof prevObj !== "object" ? prevObj : prevObj[key]),
+      obj,
+    ) !== undefined;
 
   return objHasProperty;
 };
