@@ -1,0 +1,61 @@
+#!/usr/bin/env node
+import { Command } from "commander";
+const program = new Command();
+import { configPath } from "./utils/getConfigPath";
+import translateController from "./controllers/translateController";
+import languagesController from "./controllers/languagesController";
+import { generateConfigController } from "./controllers/generateConfigController";
+import { validEngines } from "./utils/translationEnginesUtils";
+import { version } from "../package.json" with { type: "json" };
+
+program
+  .name("i18n-populator")
+  .version(version)
+  .description(
+    "Translate a text and put the result on the files in the output directory",
+  )
+  .option(
+    "-t, --text <string>",
+    "The word or sentence that you want to translate.",
+  )
+  .option(
+    "-f, --from <string>",
+    "The language of the text that you wrote on the --text option.",
+  )
+  .option(
+    "-n, --name <string>",
+    "The name of the property that you want your text has on the output files.",
+  )
+  .option(
+    "-e, --engine <string>",
+    `[OPTIONAL]. The engine that you want to use to translate the text. Available options: ${validEngines.join(", ")}` +
+      "\nIf you specify a engine on the command, it will put it on the first position of the array of engines." +
+      "\nIf for any reason the engine you selected is not available at that moment, then it will use the engines that you have defined on the configuration file in the priority order that you selected." +
+      "\nIf you don't specify any engine, the script will try to get your preferences from your configuration file, and if you don't have any configuration file, it will use by default all the translation engine that are free and doesn't need API Key.",
+  )
+  .option(
+    "-s, --settings-file <string>",
+    `[OPTIONAL]. Use this flag if you want to specify a different path for the configuration file that the default path.
+    
+    If you don't specify this flag, it'll search for a file called \`i18n-populator.config.json\` on the root of your project.`,
+    configPath,
+  )
+  .action(translateController);
+
+program
+  .command("languages")
+  .description("Show the languages supported in ISO-639-1 standard")
+  .option(
+    "-e, --by-engine <string>",
+    "Filter the language supported list by engine",
+  )
+  .action((options) => {
+    languagesController(options);
+  });
+
+program
+  .command("init")
+  .description("Start the configuration wizard to create the settings file")
+  .action(generateConfigController);
+
+program.parse();
