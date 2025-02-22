@@ -13,15 +13,15 @@ import allLanguagesCodes from "../ALL-LANGUAGES-CODES.json";
 /**
  * Object containing supported languages and their corresponding language codes.
  */
-const supportedLanguages: AllLanguagesCodes = Object.keys(
+const supportedLanguages = Object.entries(
   allLanguagesCodes,
-).reduce((acc, language) => {
-  const isLanguageSupportedByAlmostOneEngine = Object.keys(
-    allLanguagesCodes[language],
-  ).some((value: Engines) => validEngines.includes(value));
+).reduce<AllLanguagesCodes>((acc, [language, properties]) => {
+  const isLanguageSupportedByAlmostOneEngine = Object.keys(properties).some(
+    (value: string) =>
+      validEngines.some((validEngine) => validEngine === value),
+  );
 
-  if (isLanguageSupportedByAlmostOneEngine)
-    acc[language] = allLanguagesCodes[language];
+  if (isLanguageSupportedByAlmostOneEngine) acc[language] = properties;
 
   return acc;
 }, {});
@@ -32,20 +32,24 @@ const supportedLanguages: AllLanguagesCodes = Object.keys(
  */
 const supportedLanguagesCodes: string[] = Object.keys(supportedLanguages);
 
-const supportedLanguagesGroupedByEngine: AllLanguagesGroupedByEngine =
-  Object.keys(supportedLanguages).reduce((acc, language) => {
-    Object.keys(supportedLanguages[language]).forEach((engine: Engines) => {
-      const languageObject = supportedLanguages[language];
+const supportedLanguagesGroupedByEngine = Object.entries(
+  supportedLanguages,
+).reduce<AllLanguagesGroupedByEngine>((acc, [language, properties]) => {
+  const { name, ...engines } = properties;
 
-      if (!acc[engine]) acc[engine] = {};
-      acc[engine] = {
-        ...acc[engine],
-        [language]: { name: languageObject.name },
-      };
-    });
+  Object.keys(engines).forEach((_engine) => {
+    const engine = _engine as Engines;
 
-    return acc;
-  }, {});
+    if (!acc[engine]) acc[engine] = {};
+
+    acc[engine] = {
+      ...acc[engine],
+      [language]: { name },
+    };
+  });
+
+  return acc;
+}, {});
 
 /**
  * The supported languages by Google.
@@ -77,7 +81,7 @@ const supportedLanguagesByLibreTranslate =
 const validateLanguageIsSupportedByEngine: ValidateLanguageIsSupportedByEngine =
   (requestedLanguage, engine) => {
     const isLanguageSupportedByEngine =
-      supportedLanguagesGroupedByEngine[engine][requestedLanguage] !==
+      supportedLanguagesGroupedByEngine[engine]?.[requestedLanguage] !==
       undefined;
 
     if (!isLanguageSupportedByEngine)
@@ -101,7 +105,8 @@ const getLanguageCodeByEngine: GetLanguageCodeByEngine = (
 ) => {
   validateLanguageIsSupportedByEngine(requestedLanguage, engine);
 
-  return allLanguagesCodes[requestedLanguage][engine];
+  // It is always a string since {@link validateLanguageSupportedByEngine} throws an error if not exists
+  return supportedLanguages[requestedLanguage][engine] as string;
 };
 
 /**
@@ -110,6 +115,8 @@ const getLanguageCodeByEngine: GetLanguageCodeByEngine = (
  * @returns {string[]} - An array of strings in the format "languageCode -> languageName".
  */
 const getLanguagesCodesWithNames: GetLanguagesCodesWithNames = (languages) => {
+  if (!languages) return [];
+
   return Object.entries(languages).map(([language, data]) => {
     return `${language} -> ${data?.name || "Unknown"}`;
   });
@@ -136,9 +143,13 @@ const validateLanguageRequested: ValidateLanguageRequested = (
 
     return true;
   } catch (error) {
-    throw new Error(
-      `${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
-    );
+    if (error instanceof Error) {
+      throw new Error(
+        `${error.message}.\n\nPlease use one of these:\n\n${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
+      );
+    }
+
+    throw error;
   }
 };
 
