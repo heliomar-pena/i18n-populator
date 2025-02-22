@@ -1,6 +1,16 @@
 {
   "basePath": "example",
-  "translationEngines": ["google", "bing", "libreTranslate"],
+  "translationEngines": [
+    {
+      "name": "google"
+    },
+    {
+      "name": "bing"
+    },
+    {
+      "name": "libreTranslate"
+    }
+  ],
   "languages": [
     {
       "name": "en",
@@ -9,6 +19,14 @@
     {
       "name": "es",
       "files": ["es.json"]
+    },
+    {
+      "name": "ja",
+      "files": ["ja.json"]
+    },
+    {
+      "name": "pt",
+      "files": ["pt.json"]
     }
   ]
 }
