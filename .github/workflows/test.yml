@@ -1,6 +1,13 @@
 name: Run Tests
 
-on: workflow_call
+on:
+  pull_request:
+    paths:
+      - "**.js"
+      - "**.mjs"
+      - "**.json"
+      - "**.ts"
+      - "!dist/*"
 
 jobs:
   test:
