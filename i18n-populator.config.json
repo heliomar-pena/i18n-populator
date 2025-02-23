@@ -9,7 +9,7 @@
     },
     {
       "name": "libreTranslate",
-      "mirrors": []
+      "mirrors": ["http://127.0.0.1:5000"]
     }
   ],
   "languages": [
