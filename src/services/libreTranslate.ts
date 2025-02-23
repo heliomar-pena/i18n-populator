@@ -2,10 +2,7 @@ import fetch from "node-fetch";
 import { TranslateFn } from "./translate.d";
 import { LibreTranslateEngine } from "../types/settings.d";
 
-const defaultMirrors = [
-  "https://translate.terraprint.co/translate",
-  "https://trans.zillyhuhn.com/translate",
-];
+const defaultMirrors: string[] = [];
 
 const libreTranslate: TranslateFn<LibreTranslateEngine> = async (
   text,
@@ -16,7 +13,7 @@ const libreTranslate: TranslateFn<LibreTranslateEngine> = async (
 
   for await (const url of allMirrors) {
     try {
-      const res = await fetch(url, {
+      const res = await fetch(new URL("/translate", url), {
         method: "POST",
         body: JSON.stringify({
           q: text,
