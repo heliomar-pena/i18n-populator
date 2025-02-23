@@ -34,7 +34,11 @@
     "cli-tool",
     "development-tool"
   ],
-  "author": "penaheliomar@gmail.com",
+  "author": {
+    "name": "Heliomar Peña",
+    "email": "penaheliomar@gmail.com",
+    "url": "https://www.linkedin.com/in/heliomar/"
+  },
   "license": "MIT",
   "dependencies": {
     "@inquirer/prompts": "^7.3.1",
@@ -44,6 +48,11 @@
     "dset": "^3.1.4",
     "node-fetch": "^2.7.0",
     "prompt-sync-plus": "^1.0.2"
+  },
+  "homepage": "https://github.com/heliomar-pena/i18n-populator#readme",
+  "bugs": {
+    "url": "https://github.com/heliomar-pena/i18n-populator/issues/new",
+    "email": "penaheliomar@gmail.com"
   },
   "devDependencies": {
     "@eslint/js": "^9.4.0",
