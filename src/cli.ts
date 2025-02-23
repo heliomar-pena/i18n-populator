@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import "./polyfills";
+
 import { Command } from "commander";
 const program = new Command();
 import { configPath } from "./utils/getConfigPath";
