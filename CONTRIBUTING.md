@@ -1,4 +1,4 @@
-# Welcome to the i18n Translation Generator contributing guide
+# Welcome to the i18n Populator contributing guide
 
 Thank you for investing your time in contributing to our project!.
 
