@@ -7,7 +7,7 @@
 
 Run one command and generate all the translations for your localization JSON files using LibreTranslate, Google Translate or Bing Translate.
 
-![Generate Translations GIF](./docs/assets/i18n-generate-translations.gif)
+![Generate Translations GIF](https://raw.githubusercontent.com/heliomar-pena/i18n-populator/master/docs/assets/i18n-generate-translations.gif)
 
 > [!IMPORTANT]
 > DISCLAIMER! This project uses [Google Translate API](https://github.com/vitalets/google-translate-api) and [Bing Translate API](https://github.com/plainheart/bing-translate-api) libraries which aren't associated with Google and Bing and uses the web API of their web translation pages. This mean that Google and Bing translations without API Key could not work 100% of the time as these APIs are not intended for use and can change anytime, if you want a more stable result it is highly recommended to use the official Google and Bing APIs or use a free service as [Libre Translate](https://github.com/LibreTranslate/LibreTranslate) and only use the Google and Bing free options if you're working on a personal/non-commercial project.
