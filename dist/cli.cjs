@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-var commander = require('commander');
-var path = require('path');
-var fs = require('fs');
-var googleTranslateApi = require('@vitalets/google-translate-api');
-var bingTranslateApi = require('bing-translate-api');
-var fetch = require('node-fetch');
-var dset = require('dset');
-var prompts = require('@inquirer/prompts');
+var commander = require("commander");
+var path = require("path");
+var fs = require("fs");
+var googleTranslateApi = require("@vitalets/google-translate-api");
+var bingTranslateApi = require("bing-translate-api");
+var fetch = require("node-fetch");
+var dset = require("dset");
+var prompts = require("@inquirer/prompts");
 
 const config = {
-  defaultConfigPath: "i18n-populator.config.json"
+  defaultConfigPath: "i18n-populator.config.json",
 };
 
 const { defaultConfigPath } = config;
@@ -27,7 +27,7 @@ const translate$2 = async (text, { from, to }) => {
 
 const defaultMirrors = [
   "https://translate.terraprint.co/translate",
-  "https://trans.zillyhuhn.com/translate"
+  "https://trans.zillyhuhn.com/translate",
 ];
 const libreTranslate = async (text, { from, to, config = {} }) => {
   const { mirrors = [] } = config;
@@ -40,9 +40,9 @@ const libreTranslate = async (text, { from, to, config = {} }) => {
           q: text,
           source: from,
           target: to,
-          format: "text"
+          format: "text",
         }),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       }).then((res2) => res2.json());
       return { text: res.translatedText };
     } catch (err) {
@@ -53,7 +53,7 @@ const libreTranslate = async (text, { from, to, config = {} }) => {
 > ${err.message}
 
 Trying with the next one...
-`
+`,
         );
       }
     }
@@ -75,1010 +75,1011 @@ var Engines = /* @__PURE__ */ ((Engines2) => {
 const translateEngines = {
   [Engines.GOOGLE]: googleTranslateApi.translate,
   [Engines.BING]: translate$2,
-  [Engines.LIBRE_TRANSLATE]: translate$1
+  [Engines.LIBRE_TRANSLATE]: translate$1,
 };
 const validEngines = Object.values(Engines);
 const isEngineValid = (engine) => !!engine && validEngines.includes(engine);
 
 var ab = {
-	name: "Abkhazian"
+  name: "Abkhazian",
 };
 var aa = {
-	name: "Afar"
+  name: "Afar",
 };
 var af = {
-	name: "Afrikaans",
-	google: "af",
-	bing: "af"
+  name: "Afrikaans",
+  google: "af",
+  bing: "af",
 };
 var ak = {
-	name: "Akan"
+  name: "Akan",
 };
 var sq = {
-	name: "Albanian",
-	google: "sq",
-	bing: "sq",
-	libreTranslate: "sq"
+  name: "Albanian",
+  google: "sq",
+  bing: "sq",
+  libreTranslate: "sq",
 };
 var am = {
-	name: "Amharic",
-	google: "am",
-	bing: "am"
+  name: "Amharic",
+  google: "am",
+  bing: "am",
 };
 var ar = {
-	name: "Arabic",
-	google: "ar",
-	bing: "ar",
-	libreTranslate: "ar"
+  name: "Arabic",
+  google: "ar",
+  bing: "ar",
+  libreTranslate: "ar",
 };
 var an = {
-	name: "Aragonese"
+  name: "Aragonese",
 };
 var hy = {
-	name: "Armenian",
-	google: "hy",
-	bing: "hy"
+  name: "Armenian",
+  google: "hy",
+  bing: "hy",
 };
 var as = {
-	name: "Assamese",
-	bing: "as"
+  name: "Assamese",
+  bing: "as",
 };
 var av = {
-	name: "Avaric"
+  name: "Avaric",
 };
 var ae = {
-	name: "Avestan"
+  name: "Avestan",
 };
 var ay = {
-	name: "Aymara"
+  name: "Aymara",
 };
 var az = {
-	name: "Azerbaijani",
-	google: "az",
-	bing: "az",
-	libreTranslate: "az"
+  name: "Azerbaijani",
+  google: "az",
+  bing: "az",
+  libreTranslate: "az",
 };
 var bm = {
-	name: "Bambara"
+  name: "Bambara",
 };
 var ba = {
-	name: "Bashkir",
-	bing: "ba"
+  name: "Bashkir",
+  bing: "ba",
 };
 var eu = {
-	name: "Basque",
-	google: "eu",
-	bing: "eu"
+  name: "Basque",
+  google: "eu",
+  bing: "eu",
 };
 var be = {
-	name: "Belarusian",
-	google: "be"
+  name: "Belarusian",
+  google: "be",
 };
 var bn = {
-	name: "Bengali",
-	google: "bn",
-	libreTranslate: "bn"
+  name: "Bengali",
+  google: "bn",
+  libreTranslate: "bn",
 };
 var bi = {
-	name: "Bislama"
+  name: "Bislama",
 };
 var bs = {
-	name: "Bosnian",
-	google: "bs",
-	bing: "bs"
+  name: "Bosnian",
+  google: "bs",
+  bing: "bs",
 };
 var br = {
-	name: "Breton"
+  name: "Breton",
 };
 var bg = {
-	name: "Bulgarian",
-	google: "bg",
-	bing: "bg",
-	libreTranslate: "bg"
+  name: "Bulgarian",
+  google: "bg",
+  bing: "bg",
+  libreTranslate: "bg",
 };
 var my = {
-	name: "Burmese",
-	google: "my",
-	bing: "my"
+  name: "Burmese",
+  google: "my",
+  bing: "my",
 };
 var ca = {
-	name: "Catalan, Valencian",
-	google: "ca",
-	bing: "ca",
-	libreTranslate: "ca"
+  name: "Catalan, Valencian",
+  google: "ca",
+  bing: "ca",
+  libreTranslate: "ca",
 };
 var ch = {
-	name: "Chamorro"
+  name: "Chamorro",
 };
 var ce = {
-	name: "Chechen"
+  name: "Chechen",
 };
 var ny = {
-	name: "Chichewa, Chewa, Nyanja",
-	google: "ny",
-	bing: "nya"
+  name: "Chichewa, Chewa, Nyanja",
+  google: "ny",
+  bing: "nya",
 };
 var zh = {
-	name: "Chinese",
-	google: "zh-CN",
-	bing: "lzh",
-	libreTranslate: "zh"
+  name: "Chinese",
+  google: "zh-CN",
+  bing: "lzh",
+  libreTranslate: "zh",
 };
 var cu = {
-	name: "Church Slavonic, Old Slavonic, Old Church Slavonic"
+  name: "Church Slavonic, Old Slavonic, Old Church Slavonic",
 };
 var cv = {
-	name: "Chuvash"
+  name: "Chuvash",
 };
 var kw = {
-	name: "Cornish"
+  name: "Cornish",
 };
 var co = {
-	name: "Corsican",
-	google: "co"
+  name: "Corsican",
+  google: "co",
 };
 var cr = {
-	name: "Cree"
+  name: "Cree",
 };
 var hr = {
-	name: "Croatian",
-	google: "hr",
-	bing: "hr"
+  name: "Croatian",
+  google: "hr",
+  bing: "hr",
 };
 var cs = {
-	name: "Czech",
-	google: "cs",
-	bing: "cs",
-	libreTranslate: "cs"
+  name: "Czech",
+  google: "cs",
+  bing: "cs",
+  libreTranslate: "cs",
 };
 var da = {
-	name: "Danish",
-	google: "da",
-	bing: "da",
-	libreTranslate: "da"
+  name: "Danish",
+  google: "da",
+  bing: "da",
+  libreTranslate: "da",
 };
 var dv = {
-	name: "Divehi, Dhivehi, Maldivian",
-	bing: "dv"
+  name: "Divehi, Dhivehi, Maldivian",
+  bing: "dv",
 };
 var nl = {
-	name: "Dutch, Flemish",
-	google: "nl",
-	bing: "nl",
-	libreTranslate: "nl"
+  name: "Dutch, Flemish",
+  google: "nl",
+  bing: "nl",
+  libreTranslate: "nl",
 };
 var dz = {
-	name: "Dzongkha"
+  name: "Dzongkha",
 };
 var en = {
-	name: "English",
-	google: "en",
-	bing: "en",
-	libreTranslate: "en"
+  name: "English",
+  google: "en",
+  bing: "en",
+  libreTranslate: "en",
 };
 var eo = {
-	name: "Esperanto",
-	google: "eo",
-	libreTranslate: "eo"
+  name: "Esperanto",
+  google: "eo",
+  libreTranslate: "eo",
 };
 var et = {
-	name: "Estonian",
-	google: "et",
-	bing: "et",
-	libreTranslate: "et"
+  name: "Estonian",
+  google: "et",
+  bing: "et",
+  libreTranslate: "et",
 };
 var ee = {
-	name: "Ewe"
+  name: "Ewe",
 };
 var fo = {
-	name: "Faroese",
-	bing: "fo"
+  name: "Faroese",
+  bing: "fo",
 };
 var fj = {
-	name: "Fijian",
-	bing: "fj"
+  name: "Fijian",
+  bing: "fj",
 };
 var fi = {
-	name: "Finnish",
-	google: "fi",
-	bing: "fi",
-	libreTranslate: "fi"
+  name: "Finnish",
+  google: "fi",
+  bing: "fi",
+  libreTranslate: "fi",
 };
 var fr = {
-	name: "French",
-	google: "fr",
-	bing: "fr",
-	libreTranslate: "fr"
+  name: "French",
+  google: "fr",
+  bing: "fr",
+  libreTranslate: "fr",
 };
 var fy = {
-	name: "Western Frisian",
-	google: "fy"
+  name: "Western Frisian",
+  google: "fy",
 };
 var ff = {
-	name: "Fulah"
+  name: "Fulah",
 };
 var gd = {
-	name: "Gaelic, Scottish Gaelic",
-	google: "gd"
+  name: "Gaelic, Scottish Gaelic",
+  google: "gd",
 };
 var gl = {
-	name: "Galician",
-	google: "gl",
-	bing: "gl"
+  name: "Galician",
+  google: "gl",
+  bing: "gl",
 };
 var lg = {
-	name: "Ganda",
-	bing: "lug"
+  name: "Ganda",
+  bing: "lug",
 };
 var ka = {
-	name: "Georgian",
-	google: "ka",
-	bing: "ka"
+  name: "Georgian",
+  google: "ka",
+  bing: "ka",
 };
 var de = {
-	name: "German",
-	google: "de",
-	bing: "de",
-	libreTranslate: "de"
+  name: "German",
+  google: "de",
+  bing: "de",
+  libreTranslate: "de",
 };
 var el = {
-	name: "Greek, Modern (1453–)",
-	google: "el",
-	bing: "el",
-	libreTranslate: "el"
+  name: "Greek, Modern (1453–)",
+  google: "el",
+  bing: "el",
+  libreTranslate: "el",
 };
 var kl = {
-	name: "Kalaallisut, Greenlandic"
+  name: "Kalaallisut, Greenlandic",
 };
 var gn = {
-	name: "Guarani"
+  name: "Guarani",
 };
 var gu = {
-	name: "Gujarati",
-	google: "gu",
-	bing: "gu"
+  name: "Gujarati",
+  google: "gu",
+  bing: "gu",
 };
 var ht = {
-	name: "Haitian, Haitian Creole",
-	google: "ht",
-	bing: "ht"
+  name: "Haitian, Haitian Creole",
+  google: "ht",
+  bing: "ht",
 };
 var ha = {
-	name: "Hausa",
-	google: "ha",
-	bing: "ha"
+  name: "Hausa",
+  google: "ha",
+  bing: "ha",
 };
 var he = {
-	name: "Hebrew",
-	google: "iw",
-	bing: "he",
-	libreTranslate: "he"
+  name: "Hebrew",
+  google: "iw",
+  bing: "he",
+  libreTranslate: "he",
 };
 var hz = {
-	name: "Herero"
+  name: "Herero",
 };
 var hi = {
-	name: "Hindi",
-	google: "hi",
-	bing: "hi",
-	libreTranslate: "hi"
+  name: "Hindi",
+  google: "hi",
+  bing: "hi",
+  libreTranslate: "hi",
 };
 var ho = {
-	name: "Hiri Motu"
+  name: "Hiri Motu",
 };
 var hu = {
-	name: "Hungarian",
-	google: "hu",
-	bing: "hu",
-	libreTranslate: "hu"
+  name: "Hungarian",
+  google: "hu",
+  bing: "hu",
+  libreTranslate: "hu",
 };
 var is = {
-	name: "Icelandic",
-	google: "is",
-	bing: "is"
+  name: "Icelandic",
+  google: "is",
+  bing: "is",
 };
 var io = {
-	name: "Ido"
+  name: "Ido",
 };
 var ig = {
-	name: "Igbo",
-	google: "ig",
-	bing: "ig"
+  name: "Igbo",
+  google: "ig",
+  bing: "ig",
 };
 var id = {
-	name: "Indonesian",
-	google: "id",
-	bing: "id",
-	libreTranslate: "id"
+  name: "Indonesian",
+  google: "id",
+  bing: "id",
+  libreTranslate: "id",
 };
 var ia = {
-	name: "Interlingua (International Auxiliary Language Association)"
+  name: "Interlingua (International Auxiliary Language Association)",
 };
 var ie = {
-	name: "Interlingue, Occidental"
+  name: "Interlingue, Occidental",
 };
 var iu = {
-	name: "Inuktitut",
-	bing: "iu"
+  name: "Inuktitut",
+  bing: "iu",
 };
 var ik = {
-	name: "Inupiaq"
+  name: "Inupiaq",
 };
 var ga = {
-	name: "Irish",
-	google: "ga",
-	bing: "ga",
-	libreTranslate: "ga"
+  name: "Irish",
+  google: "ga",
+  bing: "ga",
+  libreTranslate: "ga",
 };
 var it = {
-	name: "Italian",
-	google: "it",
-	bing: "it",
-	libreTranslate: "it"
+  name: "Italian",
+  google: "it",
+  bing: "it",
+  libreTranslate: "it",
 };
 var ja = {
-	name: "Japanese",
-	google: "ja",
-	bing: "ja",
-	libreTranslate: "ja"
+  name: "Japanese",
+  google: "ja",
+  bing: "ja",
+  libreTranslate: "ja",
 };
 var jv = {
-	name: "Javanese",
-	google: "jw"
+  name: "Javanese",
+  google: "jw",
 };
 var kn = {
-	name: "Kannada",
-	google: "kn",
-	bing: "kn"
+  name: "Kannada",
+  google: "kn",
+  bing: "kn",
 };
 var kr = {
-	name: "Kanuri"
+  name: "Kanuri",
 };
 var ks = {
-	name: "Kashmiri",
-	bing: "ks"
+  name: "Kashmiri",
+  bing: "ks",
 };
 var kk = {
-	name: "Kazakh",
-	google: "kk",
-	bing: "kk"
+  name: "Kazakh",
+  google: "kk",
+  bing: "kk",
 };
 var km = {
-	name: "Central Khmer",
-	google: "km",
-	bing: "km"
+  name: "Central Khmer",
+  google: "km",
+  bing: "km",
 };
 var ki = {
-	name: "Kikuyu, Gikuyu"
+  name: "Kikuyu, Gikuyu",
 };
 var rw = {
-	name: "Kinyarwanda",
-	bing: "rw"
+  name: "Kinyarwanda",
+  bing: "rw",
 };
 var ky = {
-	name: "Kirghiz, Kyrgyz",
-	google: "ky",
-	bing: "ky"
+  name: "Kirghiz, Kyrgyz",
+  google: "ky",
+  bing: "ky",
 };
 var kv = {
-	name: "Komi"
+  name: "Komi",
 };
 var kg = {
-	name: "Kongo"
+  name: "Kongo",
 };
 var ko = {
-	name: "Korean",
-	google: "ko",
-	bing: "ko",
-	libreTranslate: "ko"
+  name: "Korean",
+  google: "ko",
+  bing: "ko",
+  libreTranslate: "ko",
 };
 var kj = {
-	name: "Kuanyama, Kwanyama"
+  name: "Kuanyama, Kwanyama",
 };
 var ku = {
-	name: "Kurdish",
-	google: "ku",
-	bing: "ku"
+  name: "Kurdish",
+  google: "ku",
+  bing: "ku",
 };
 var lo = {
-	name: "Lao",
-	google: "lo",
-	bing: "lo"
+  name: "Lao",
+  google: "lo",
+  bing: "lo",
 };
 var la = {
-	name: "Latin",
-	google: "la",
-	bing: "iu-Latn"
+  name: "Latin",
+  google: "la",
+  bing: "iu-Latn",
 };
 var lv = {
-	name: "Latvian",
-	google: "lv",
-	bing: "lv",
-	libreTranslate: "lv"
+  name: "Latvian",
+  google: "lv",
+  bing: "lv",
+  libreTranslate: "lv",
 };
 var li = {
-	name: "Limburgan, Limburger, Limburgish"
+  name: "Limburgan, Limburger, Limburgish",
 };
 var ln = {
-	name: "Lingala",
-	bing: "ln"
+  name: "Lingala",
+  bing: "ln",
 };
 var lt = {
-	name: "Lithuanian",
-	google: "lt",
-	bing: "lt",
-	libreTranslate: "lt"
+  name: "Lithuanian",
+  google: "lt",
+  bing: "lt",
+  libreTranslate: "lt",
 };
 var lu = {
-	name: "Luba-Katanga"
+  name: "Luba-Katanga",
 };
 var lb = {
-	name: "Luxembourgish, Letzeburgesch",
-	google: "lb"
+  name: "Luxembourgish, Letzeburgesch",
+  google: "lb",
 };
 var mk = {
-	name: "Macedonian",
-	google: "mk",
-	bing: "mk"
+  name: "Macedonian",
+  google: "mk",
+  bing: "mk",
 };
 var mg = {
-	name: "Malagasy",
-	google: "mg",
-	bing: "mg"
+  name: "Malagasy",
+  google: "mg",
+  bing: "mg",
 };
 var ms = {
-	name: "Malay",
-	google: "ms",
-	bing: "ms",
-	libreTranslate: "ms"
+  name: "Malay",
+  google: "ms",
+  bing: "ms",
+  libreTranslate: "ms",
 };
 var ml = {
-	name: "Malayalam",
-	google: "ml",
-	bing: "ms",
-	libreTranslate: "ms"
+  name: "Malayalam",
+  google: "ml",
+  bing: "ms",
+  libreTranslate: "ms",
 };
 var mt = {
-	name: "Maltese",
-	google: "mt",
-	bing: "mt"
+  name: "Maltese",
+  google: "mt",
+  bing: "mt",
 };
 var gv = {
-	name: "Manx"
+  name: "Manx",
 };
 var mi = {
-	name: "Maori",
-	google: "mi"
+  name: "Maori",
+  google: "mi",
 };
 var mr = {
-	name: "Marathi",
-	google: "mr",
-	bing: "mr"
+  name: "Marathi",
+  google: "mr",
+  bing: "mr",
 };
 var mh = {
-	name: "Marshallese"
+  name: "Marshallese",
 };
 var mn = {
-	name: "Mongolian",
-	google: "mn",
-	bing: "mn-Cyrl"
+  name: "Mongolian",
+  google: "mn",
+  bing: "mn-Cyrl",
 };
 var na = {
-	name: "Nauru"
+  name: "Nauru",
 };
 var nv = {
-	name: "Navajo, Navaho"
+  name: "Navajo, Navaho",
 };
 var nd = {
-	name: "North Ndebele"
+  name: "North Ndebele",
 };
 var nr = {
-	name: "South Ndebele"
+  name: "South Ndebele",
 };
 var ng = {
-	name: "Ndonga"
+  name: "Ndonga",
 };
 var ne = {
-	name: "Nepali",
-	google: "ne",
-	bing: "ne"
+  name: "Nepali",
+  google: "ne",
+  bing: "ne",
 };
 var no = {
-	name: "Norwegian",
-	google: "no",
-	bing: "nb",
-	libreTranslate: "nb"
+  name: "Norwegian",
+  google: "no",
+  bing: "nb",
+  libreTranslate: "nb",
 };
 var nb = {
-	name: "Norwegian Bokmål",
-	bing: "nb",
-	libreTranslate: "nb"
+  name: "Norwegian Bokmål",
+  bing: "nb",
+  libreTranslate: "nb",
 };
 var nn = {
-	name: "Norwegian Nynorsk",
-	bing: "nb",
-	libreTranslate: "nb"
+  name: "Norwegian Nynorsk",
+  bing: "nb",
+  libreTranslate: "nb",
 };
 var ii = {
-	name: "Sichuan Yi, Nuosu"
+  name: "Sichuan Yi, Nuosu",
 };
 var oc = {
-	name: "Occitan"
+  name: "Occitan",
 };
 var oj = {
-	name: "Ojibwa"
+  name: "Ojibwa",
 };
 var or = {
-	name: "Oriya"
+  name: "Oriya",
 };
 var om = {
-	name: "Oromo"
+  name: "Oromo",
 };
 var os = {
-	name: "Ossetian, Ossetic"
+  name: "Ossetian, Ossetic",
 };
 var pi = {
-	name: "Pali"
+  name: "Pali",
 };
 var ps = {
-	name: "Pashto, Pushto",
-	google: "ps",
-	bing: "ps"
+  name: "Pashto, Pushto",
+  google: "ps",
+  bing: "ps",
 };
 var fa = {
-	name: "Persian",
-	google: "fa",
-	bing: "fa",
-	libreTranslate: "fa"
+  name: "Persian",
+  google: "fa",
+  bing: "fa",
+  libreTranslate: "fa",
 };
 var pl = {
-	name: "Polish",
-	google: "pl",
-	bing: "pl",
-	libreTranslate: "pl"
+  name: "Polish",
+  google: "pl",
+  bing: "pl",
+  libreTranslate: "pl",
 };
 var pt = {
-	name: "Portuguese",
-	google: "pt",
-	bing: "pt",
-	libreTranslate: "pt"
+  name: "Portuguese",
+  google: "pt",
+  bing: "pt",
+  libreTranslate: "pt",
 };
 var pa = {
-	name: "Punjabi, Panjabi",
-	google: "pa",
-	bing: "pa"
+  name: "Punjabi, Panjabi",
+  google: "pa",
+  bing: "pa",
 };
 var qu = {
-	name: "Quechua"
+  name: "Quechua",
 };
 var ro = {
-	name: "Romanian, Moldavian, Moldovan",
-	google: "ro",
-	bing: "ro",
-	libreTranslate: "ro"
+  name: "Romanian, Moldavian, Moldovan",
+  google: "ro",
+  bing: "ro",
+  libreTranslate: "ro",
 };
 var rm = {
-	name: "Romansh"
+  name: "Romansh",
 };
 var rn = {
-	name: "Rundi",
-	bing: "run"
+  name: "Rundi",
+  bing: "run",
 };
 var ru = {
-	name: "Russian",
-	google: "ru",
-	bing: "ru",
-	libreTranslate: "ru"
+  name: "Russian",
+  google: "ru",
+  bing: "ru",
+  libreTranslate: "ru",
 };
 var se = {
-	name: "Northern Sami"
+  name: "Northern Sami",
 };
 var sm = {
-	name: "Samoan",
-	google: "sm",
-	bing: "sm"
+  name: "Samoan",
+  google: "sm",
+  bing: "sm",
 };
 var sg = {
-	name: "Sango"
+  name: "Sango",
 };
 var sa = {
-	name: "Sanskrit"
+  name: "Sanskrit",
 };
 var sc = {
-	name: "Sardinian"
+  name: "Sardinian",
 };
 var sr = {
-	name: "Serbian",
-	google: "sr",
-	bing: "sr-Cyrl",
-	libreTranslate: "sr"
+  name: "Serbian",
+  google: "sr",
+  bing: "sr-Cyrl",
+  libreTranslate: "sr",
 };
 var sn = {
-	name: "Shona",
-	google: "sn",
-	bing: "sn"
+  name: "Shona",
+  google: "sn",
+  bing: "sn",
 };
 var sd = {
-	name: "Sindhi",
-	google: "sd",
-	bing: "sd"
+  name: "Sindhi",
+  google: "sd",
+  bing: "sd",
 };
 var si = {
-	name: "Sinhala, Sinhalese",
-	google: "si",
-	bing: "si"
+  name: "Sinhala, Sinhalese",
+  google: "si",
+  bing: "si",
 };
 var sk = {
-	name: "Slovak",
-	google: "sk",
-	bing: "sk",
-	libreTranslate: "sk"
+  name: "Slovak",
+  google: "sk",
+  bing: "sk",
+  libreTranslate: "sk",
 };
 var sl = {
-	name: "Slovenian",
-	google: "sl",
-	bing: "sl",
-	libreTranslate: "sl"
+  name: "Slovenian",
+  google: "sl",
+  bing: "sl",
+  libreTranslate: "sl",
 };
 var so = {
-	name: "Somali",
-	google: "so",
-	bing: "so"
+  name: "Somali",
+  google: "so",
+  bing: "so",
 };
 var st = {
-	name: "Southern Sotho"
+  name: "Southern Sotho",
 };
 var es = {
-	name: "Spanish, Castilian",
-	google: "es",
-	bing: "es",
-	libreTranslate: "es"
+  name: "Spanish, Castilian",
+  google: "es",
+  bing: "es",
+  libreTranslate: "es",
 };
 var su = {
-	name: "Sundanese",
-	google: "su"
+  name: "Sundanese",
+  google: "su",
 };
 var sw = {
-	name: "Swahili",
-	google: "sw",
-	bing: "sw"
+  name: "Swahili",
+  google: "sw",
+  bing: "sw",
 };
 var ss = {
-	name: "Swati"
+  name: "Swati",
 };
 var sv = {
-	name: "Swedish",
-	google: "sv",
-	bing: "sv",
-	libreTranslate: "sv"
+  name: "Swedish",
+  google: "sv",
+  bing: "sv",
+  libreTranslate: "sv",
 };
 var tl = {
-	name: "Tagalog",
-	google: "tl",
-	libreTranslate: "tl"
+  name: "Tagalog",
+  google: "tl",
+  libreTranslate: "tl",
 };
 var ty = {
-	name: "Tahitian",
-	bing: "ty"
+  name: "Tahitian",
+  bing: "ty",
 };
 var tg = {
-	name: "Tajik",
-	google: "tg"
+  name: "Tajik",
+  google: "tg",
 };
 var ta = {
-	name: "Tamil",
-	google: "ta",
-	bing: "ta"
+  name: "Tamil",
+  google: "ta",
+  bing: "ta",
 };
 var tt = {
-	name: "Tatar",
-	bing: "tt"
+  name: "Tatar",
+  bing: "tt",
 };
 var te = {
-	name: "Telugu",
-	google: "te",
-	bing: "te"
+  name: "Telugu",
+  google: "te",
+  bing: "te",
 };
 var th = {
-	name: "Thai",
-	google: "th",
-	bing: "th",
-	libreTranslate: "th"
+  name: "Thai",
+  google: "th",
+  bing: "th",
+  libreTranslate: "th",
 };
 var bo = {
-	name: "Tibetan",
-	bing: "bo"
+  name: "Tibetan",
+  bing: "bo",
 };
 var ti = {
-	name: "Tigrinya",
-	bing: "ti"
+  name: "Tigrinya",
+  bing: "ti",
 };
 var to = {
-	name: "Tonga (Tonga Islands)"
+  name: "Tonga (Tonga Islands)",
 };
 var ts = {
-	name: "Tsonga"
+  name: "Tsonga",
 };
 var tn = {
-	name: "Tswana"
+  name: "Tswana",
 };
 var tr = {
-	name: "Turkish",
-	google: "tr",
-	bing: "tr",
-	libreTranslate: "tr"
+  name: "Turkish",
+  google: "tr",
+  bing: "tr",
+  libreTranslate: "tr",
 };
 var tk = {
-	name: "Turkmen",
-	bing: "tk"
+  name: "Turkmen",
+  bing: "tk",
 };
 var tw = {
-	name: "Twi"
+  name: "Twi",
 };
 var ug = {
-	name: "Uighur, Uyghur",
-	bing: "ug"
+  name: "Uighur, Uyghur",
+  bing: "ug",
 };
 var uk = {
-	name: "Ukrainian",
-	google: "uk",
-	bing: "uk",
-	libreTranslate: "uk"
+  name: "Ukrainian",
+  google: "uk",
+  bing: "uk",
+  libreTranslate: "uk",
 };
 var ur = {
-	name: "Urdu",
-	google: "ur",
-	bing: "ur",
-	libreTranslate: "ur"
+  name: "Urdu",
+  google: "ur",
+  bing: "ur",
+  libreTranslate: "ur",
 };
 var uz = {
-	name: "Uzbek",
-	google: "uz",
-	bing: "uz"
+  name: "Uzbek",
+  google: "uz",
+  bing: "uz",
 };
 var ve = {
-	name: "Venda"
+  name: "Venda",
 };
 var vi = {
-	name: "Vietnamese",
-	google: "vi",
-	bing: "vi",
-	libreTranslate: "vi"
+  name: "Vietnamese",
+  google: "vi",
+  bing: "vi",
+  libreTranslate: "vi",
 };
 var vo = {
-	name: "Volapük"
+  name: "Volapük",
 };
 var wa = {
-	name: "Walloon"
+  name: "Walloon",
 };
 var cy = {
-	name: "Welsh",
-	google: "cy",
-	bing: "cy"
+  name: "Welsh",
+  google: "cy",
+  bing: "cy",
 };
 var wo = {
-	name: "Wolof"
+  name: "Wolof",
 };
 var xh = {
-	name: "Xhosa",
-	google: "xh",
-	bing: "xh"
+  name: "Xhosa",
+  google: "xh",
+  bing: "xh",
 };
 var yi = {
-	name: "Yiddish",
-	google: "yi"
+  name: "Yiddish",
+  google: "yi",
 };
 var yo = {
-	name: "Yoruba",
-	google: "yo",
-	bing: "yo"
+  name: "Yoruba",
+  google: "yo",
+  bing: "yo",
 };
 var za = {
-	name: "Zhuang, Chuang"
+  name: "Zhuang, Chuang",
 };
 var zu = {
-	name: "Zulu",
-	google: "zu",
-	bing: "zu"
+  name: "Zulu",
+  google: "zu",
+  bing: "zu",
 };
 var allLanguagesCodes = {
-	ab: ab,
-	aa: aa,
-	af: af,
-	ak: ak,
-	sq: sq,
-	am: am,
-	ar: ar,
-	an: an,
-	hy: hy,
-	as: as,
-	av: av,
-	ae: ae,
-	ay: ay,
-	az: az,
-	bm: bm,
-	ba: ba,
-	eu: eu,
-	be: be,
-	bn: bn,
-	bi: bi,
-	bs: bs,
-	br: br,
-	bg: bg,
-	my: my,
-	ca: ca,
-	ch: ch,
-	ce: ce,
-	ny: ny,
-	zh: zh,
-	cu: cu,
-	cv: cv,
-	kw: kw,
-	co: co,
-	cr: cr,
-	hr: hr,
-	cs: cs,
-	da: da,
-	dv: dv,
-	nl: nl,
-	dz: dz,
-	en: en,
-	eo: eo,
-	et: et,
-	ee: ee,
-	fo: fo,
-	fj: fj,
-	fi: fi,
-	fr: fr,
-	fy: fy,
-	ff: ff,
-	gd: gd,
-	gl: gl,
-	lg: lg,
-	ka: ka,
-	de: de,
-	el: el,
-	kl: kl,
-	gn: gn,
-	gu: gu,
-	ht: ht,
-	ha: ha,
-	he: he,
-	hz: hz,
-	hi: hi,
-	ho: ho,
-	hu: hu,
-	is: is,
-	io: io,
-	ig: ig,
-	id: id,
-	ia: ia,
-	ie: ie,
-	iu: iu,
-	ik: ik,
-	ga: ga,
-	it: it,
-	ja: ja,
-	jv: jv,
-	kn: kn,
-	kr: kr,
-	ks: ks,
-	kk: kk,
-	km: km,
-	ki: ki,
-	rw: rw,
-	ky: ky,
-	kv: kv,
-	kg: kg,
-	ko: ko,
-	kj: kj,
-	ku: ku,
-	lo: lo,
-	la: la,
-	lv: lv,
-	li: li,
-	ln: ln,
-	lt: lt,
-	lu: lu,
-	lb: lb,
-	mk: mk,
-	mg: mg,
-	ms: ms,
-	ml: ml,
-	mt: mt,
-	gv: gv,
-	mi: mi,
-	mr: mr,
-	mh: mh,
-	mn: mn,
-	na: na,
-	nv: nv,
-	nd: nd,
-	nr: nr,
-	ng: ng,
-	ne: ne,
-	no: no,
-	nb: nb,
-	nn: nn,
-	ii: ii,
-	oc: oc,
-	oj: oj,
-	or: or,
-	om: om,
-	os: os,
-	pi: pi,
-	ps: ps,
-	fa: fa,
-	pl: pl,
-	pt: pt,
-	pa: pa,
-	qu: qu,
-	ro: ro,
-	rm: rm,
-	rn: rn,
-	ru: ru,
-	se: se,
-	sm: sm,
-	sg: sg,
-	sa: sa,
-	sc: sc,
-	sr: sr,
-	sn: sn,
-	sd: sd,
-	si: si,
-	sk: sk,
-	sl: sl,
-	so: so,
-	st: st,
-	es: es,
-	su: su,
-	sw: sw,
-	ss: ss,
-	sv: sv,
-	tl: tl,
-	ty: ty,
-	tg: tg,
-	ta: ta,
-	tt: tt,
-	te: te,
-	th: th,
-	bo: bo,
-	ti: ti,
-	to: to,
-	ts: ts,
-	tn: tn,
-	tr: tr,
-	tk: tk,
-	tw: tw,
-	ug: ug,
-	uk: uk,
-	ur: ur,
-	uz: uz,
-	ve: ve,
-	vi: vi,
-	vo: vo,
-	wa: wa,
-	cy: cy,
-	wo: wo,
-	xh: xh,
-	yi: yi,
-	yo: yo,
-	za: za,
-	zu: zu
+  ab: ab,
+  aa: aa,
+  af: af,
+  ak: ak,
+  sq: sq,
+  am: am,
+  ar: ar,
+  an: an,
+  hy: hy,
+  as: as,
+  av: av,
+  ae: ae,
+  ay: ay,
+  az: az,
+  bm: bm,
+  ba: ba,
+  eu: eu,
+  be: be,
+  bn: bn,
+  bi: bi,
+  bs: bs,
+  br: br,
+  bg: bg,
+  my: my,
+  ca: ca,
+  ch: ch,
+  ce: ce,
+  ny: ny,
+  zh: zh,
+  cu: cu,
+  cv: cv,
+  kw: kw,
+  co: co,
+  cr: cr,
+  hr: hr,
+  cs: cs,
+  da: da,
+  dv: dv,
+  nl: nl,
+  dz: dz,
+  en: en,
+  eo: eo,
+  et: et,
+  ee: ee,
+  fo: fo,
+  fj: fj,
+  fi: fi,
+  fr: fr,
+  fy: fy,
+  ff: ff,
+  gd: gd,
+  gl: gl,
+  lg: lg,
+  ka: ka,
+  de: de,
+  el: el,
+  kl: kl,
+  gn: gn,
+  gu: gu,
+  ht: ht,
+  ha: ha,
+  he: he,
+  hz: hz,
+  hi: hi,
+  ho: ho,
+  hu: hu,
+  is: is,
+  io: io,
+  ig: ig,
+  id: id,
+  ia: ia,
+  ie: ie,
+  iu: iu,
+  ik: ik,
+  ga: ga,
+  it: it,
+  ja: ja,
+  jv: jv,
+  kn: kn,
+  kr: kr,
+  ks: ks,
+  kk: kk,
+  km: km,
+  ki: ki,
+  rw: rw,
+  ky: ky,
+  kv: kv,
+  kg: kg,
+  ko: ko,
+  kj: kj,
+  ku: ku,
+  lo: lo,
+  la: la,
+  lv: lv,
+  li: li,
+  ln: ln,
+  lt: lt,
+  lu: lu,
+  lb: lb,
+  mk: mk,
+  mg: mg,
+  ms: ms,
+  ml: ml,
+  mt: mt,
+  gv: gv,
+  mi: mi,
+  mr: mr,
+  mh: mh,
+  mn: mn,
+  na: na,
+  nv: nv,
+  nd: nd,
+  nr: nr,
+  ng: ng,
+  ne: ne,
+  no: no,
+  nb: nb,
+  nn: nn,
+  ii: ii,
+  oc: oc,
+  oj: oj,
+  or: or,
+  om: om,
+  os: os,
+  pi: pi,
+  ps: ps,
+  fa: fa,
+  pl: pl,
+  pt: pt,
+  pa: pa,
+  qu: qu,
+  ro: ro,
+  rm: rm,
+  rn: rn,
+  ru: ru,
+  se: se,
+  sm: sm,
+  sg: sg,
+  sa: sa,
+  sc: sc,
+  sr: sr,
+  sn: sn,
+  sd: sd,
+  si: si,
+  sk: sk,
+  sl: sl,
+  so: so,
+  st: st,
+  es: es,
+  su: su,
+  sw: sw,
+  ss: ss,
+  sv: sv,
+  tl: tl,
+  ty: ty,
+  tg: tg,
+  ta: ta,
+  tt: tt,
+  te: te,
+  th: th,
+  bo: bo,
+  ti: ti,
+  to: to,
+  ts: ts,
+  tn: tn,
+  tr: tr,
+  tk: tk,
+  tw: tw,
+  ug: ug,
+  uk: uk,
+  ur: ur,
+  uz: uz,
+  ve: ve,
+  vi: vi,
+  vo: vo,
+  wa: wa,
+  cy: cy,
+  wo: wo,
+  xh: xh,
+  yi: yi,
+  yo: yo,
+  za: za,
+  zu: zu,
 };
 
-const supportedLanguages = Object.entries(
-  allLanguagesCodes
-).reduce((acc, [language, properties]) => {
-  const isLanguageSupportedByAlmostOneEngine = Object.keys(properties).some(
-    (value) => validEngines.some((validEngine) => validEngine === value)
-  );
-  if (isLanguageSupportedByAlmostOneEngine) acc[language] = properties;
-  return acc;
-}, {});
+const supportedLanguages = Object.entries(allLanguagesCodes).reduce(
+  (acc, [language, properties]) => {
+    const isLanguageSupportedByAlmostOneEngine = Object.keys(properties).some(
+      (value) => validEngines.some((validEngine) => validEngine === value),
+    );
+    if (isLanguageSupportedByAlmostOneEngine) acc[language] = properties;
+    return acc;
+  },
+  {},
+);
 const supportedLanguagesCodes = Object.keys(supportedLanguages);
 const supportedLanguagesGroupedByEngine = Object.entries(
-  supportedLanguages
+  supportedLanguages,
 ).reduce((acc, [language, properties]) => {
   const { name, ...engines } = properties;
   Object.keys(engines).forEach((_engine) => {
@@ -1086,7 +1087,7 @@ const supportedLanguagesGroupedByEngine = Object.entries(
     if (!acc[engine]) acc[engine] = {};
     acc[engine] = {
       ...acc[engine],
-      [language]: { name }
+      [language]: { name },
     };
   });
   return acc;
@@ -1095,10 +1096,12 @@ supportedLanguagesGroupedByEngine.google;
 supportedLanguagesGroupedByEngine.bing;
 supportedLanguagesGroupedByEngine.libreTranslate;
 const validateLanguageIsSupportedByEngine = (requestedLanguage, engine) => {
-  const isLanguageSupportedByEngine = supportedLanguagesGroupedByEngine[engine]?.[requestedLanguage] !== undefined;
+  const isLanguageSupportedByEngine =
+    supportedLanguagesGroupedByEngine[engine]?.[requestedLanguage] !==
+    undefined;
   if (!isLanguageSupportedByEngine)
     throw new Error(
-      `Language ${requestedLanguage} is not supported by ${engine}.`
+      `Language ${requestedLanguage} is not supported by ${engine}.`,
     );
   return true;
 };
@@ -1115,7 +1118,8 @@ const getLanguagesCodesWithNames = (languages) => {
 const validateLanguageRequested = (requestedLanguage) => {
   try {
     if (!requestedLanguage) throw new Error("No language provided");
-    const isLanguageSupported = supportedLanguages[requestedLanguage] !== void 0;
+    const isLanguageSupported =
+      supportedLanguages[requestedLanguage] !== void 0;
     if (!isLanguageSupported)
       throw new Error(`Language ${requestedLanguage} is not supported`);
     return true;
@@ -1126,7 +1130,7 @@ const validateLanguageRequested = (requestedLanguage) => {
 
 Please use one of these:
 
-${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
+${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`,
       );
     }
     throw error;
@@ -1136,20 +1140,21 @@ ${getLanguagesCodesWithNames(supportedLanguages).join("\n")}`
 const DEFAULT_ENGINES = [
   { name: Engines.GOOGLE },
   { name: Engines.BING },
-  { name: Engines.LIBRE_TRANSLATE }
+  { name: Engines.LIBRE_TRANSLATE },
 ];
 const getTranslationEnginesToUse = ({
   settingsTranslationEngines,
-  cliArgEngine
+  cliArgEngine,
 }) => {
   const translationEnginesToUse = [];
   if (cliArgEngine) {
     translationEnginesToUse.push({ name: cliArgEngine });
   }
   if (settingsTranslationEngines) {
-    const settingsTranslationEnginesFiltered = settingsTranslationEngines.filter(
-      (engine) => engine?.name !== cliArgEngine
-    );
+    const settingsTranslationEnginesFiltered =
+      settingsTranslationEngines.filter(
+        (engine) => engine?.name !== cliArgEngine,
+      );
     translationEnginesToUse.push(...settingsTranslationEnginesFiltered);
   }
   if (translationEnginesToUse.length === 0) {
@@ -1162,41 +1167,43 @@ const translate = async (text, from, to, engine = { name: Engines.GOOGLE }) => {
   const { name, ...config } = engine;
   if (!isEngineValid(name))
     throw new Error(
-      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`
+      `Invalid engine. Try with one of these: ${validEngines.join(", ")}`,
     );
   if (from === to) return { text };
   return await translateEngines[name](text, { from, to, config });
 };
 const setTranslateWithFallbackEngines = ({
   settingsTranslationEngines,
-  cliArgEngine
+  cliArgEngine,
 }) => {
   const engines = getTranslationEnginesToUse({
     settingsTranslationEngines,
-    cliArgEngine
+    cliArgEngine,
   });
   const enginesFailed = [];
   const translateWithFallbackEngines = async (text, from, to) => {
     let result;
     const enginesFiltered = engines.filter(
-      (engine) => !enginesFailed.includes(engine)
+      (engine) => !enginesFailed.includes(engine),
     );
     for await (const engine of enginesFiltered) {
       try {
         if (!engine) continue;
         const fromLanguageCode = getLanguageCodeByEngine(from, engine.name);
         const toLanguageCode = getLanguageCodeByEngine(to, engine.name);
-        await translate(text, fromLanguageCode, toLanguageCode, engine).then(({ text: text2 }) => {
-          result = text2;
-          console.log(
-            `Translated successfully with ${engine.name} engine. Result: ${text2}`
-          );
-        }).catch(() => {
-          enginesFailed.push(engine);
-          throw new Error(
-            `Error translating with ${engine.name} engine. Trying next engine...`
-          );
-        });
+        await translate(text, fromLanguageCode, toLanguageCode, engine)
+          .then(({ text: text2 }) => {
+            result = text2;
+            console.log(
+              `Translated successfully with ${engine.name} engine. Result: ${text2}`,
+            );
+          })
+          .catch(() => {
+            enginesFailed.push(engine);
+            throw new Error(
+              `Error translating with ${engine.name} engine. Trying next engine...`,
+            );
+          });
         if (result) break;
       } catch (error) {
         if (error instanceof Error) {
@@ -1211,7 +1218,7 @@ const setTranslateWithFallbackEngines = ({
 
 Please check that requested languages is supported using the command "languages" or check your internet connection and try again.
 
-For more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-populator/issues/new`
+For more info check CLI help or open an issue at https://github.com/victor-heliomar/i18n-populator/issues/new`,
       );
     }
     return { text: result };
@@ -1239,11 +1246,11 @@ const validateSettingsFile = async (settingsFilePath) => {
   const {
     languages,
     basePath,
-    translationEngines: settingsTranslationEngines
+    translationEngines: settingsTranslationEngines,
   } = await importJsonFile(settingsFilePath);
   if (!languages?.length || !basePath?.length)
     throw new Error(
-      "No languages or basePath found, please check your settings file"
+      "No languages or basePath found, please check your settings file",
     );
   const isValidLanguagesConfig = languages.every((language, index) => {
     if (!language.name) {
@@ -1251,7 +1258,7 @@ const validateSettingsFile = async (settingsFilePath) => {
     }
     if (!language?.files?.length)
       throw new Error(
-        `No files found for language ${language.name} on index ${index}`
+        `No files found for language ${language.name} on index ${index}`,
       );
     return language.files.every((file) => {
       return file?.length;
@@ -1259,15 +1266,15 @@ const validateSettingsFile = async (settingsFilePath) => {
   });
   if (!isValidLanguagesConfig)
     throw new Error(
-      "There is an invalid language config on your settings file, please check it"
+      "There is an invalid language config on your settings file, please check it",
     );
   if (settingsTranslationEngines?.length) {
     const isValidSettingsTranslationEngines = settingsTranslationEngines?.every(
-      (engine) => isEngineValid(engine?.name)
+      (engine) => isEngineValid(engine?.name),
     );
     if (!isValidSettingsTranslationEngines)
       throw new Error(
-        `There is an invalid translation engine on your settings file, here are the valid ones: ${validEngines.join(", ")}`
+        `There is an invalid translation engine on your settings file, here are the valid ones: ${validEngines.join(", ")}`,
       );
   }
   return true;
@@ -1284,7 +1291,7 @@ const getOrCreateJsonFile = async (basePath, fileName) => {
       if (error instanceof SyntaxError) {
         console.error("Syntax error in JSON file. It is probably malformed.");
         console.error(
-          "It exists and is on your i18n-populator.config.js file but it is not a valid JSON file."
+          "It exists and is on your i18n-populator.config.js file but it is not a valid JSON file.",
         );
       }
       process.exit(1);
@@ -1310,32 +1317,34 @@ const promptUserInput = async (message) => {
 const promptUserOptions = async (message, choices) => {
   const userAnswer = await prompts.select({
     message,
-    choices
+    choices,
   });
   return userAnswer;
 };
 
 const hasProperty = (obj, path) => {
   const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
-  const objHasProperty = pathArray?.reduce(
-    (prevObj, key) => typeof prevObj !== "object" ? prevObj : prevObj[key],
-    obj
-  ) !== undefined;
+  const objHasProperty =
+    pathArray?.reduce(
+      (prevObj, key) => (typeof prevObj !== "object" ? prevObj : prevObj[key]),
+      obj,
+    ) !== undefined;
   return objHasProperty;
 };
 
-const validateAndPromptUserJSONFiles = async (basePath, fileNames, nameOfTranslation) => {
+const validateAndPromptUserJSONFiles = async (
+  basePath,
+  fileNames,
+  nameOfTranslation,
+) => {
   const jsonFiles = await Promise.all(
     fileNames.map(async (fileName) => {
-      const fileData = await getOrCreateJsonFile(
-        basePath,
-        fileName
-      );
+      const fileData = await getOrCreateJsonFile(basePath, fileName);
       return {
         ...fileData,
-        fileName
+        fileName,
       };
-    })
+    }),
   );
   const filesToEdit = [];
   for await (const { file, parsedPath, fileName } of jsonFiles) {
@@ -1343,7 +1352,7 @@ const validateAndPromptUserJSONFiles = async (basePath, fileNames, nameOfTransla
     const hasPropertyInFile = hasProperty(file, nameOfTranslation);
     if (hasPropertyInFile)
       shouldOverwrite = await confirmUserAction(
-        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? `
+        `The property ${nameOfTranslation} already exists in ${fileName}. Do you want to overwrite it? `,
       );
     if (!hasPropertyInFile || shouldOverwrite)
       filesToEdit.push({ file, parsedPath });
@@ -1366,27 +1375,27 @@ const translateController = async ({
   const {
     languages,
     basePath,
-    translationEngines: settingsTranslationEngines
+    translationEngines: settingsTranslationEngines,
   } = await importJsonFile(settingsFilePath);
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
-      `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
+      `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
     );
   const { translate } = setTranslateWithFallbackEngines({
     settingsTranslationEngines,
-    cliArgEngine: options.engine
+    cliArgEngine: options.engine,
   });
   for await (const language of languages) {
     const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       language.files,
-      nameOfTranslation
+      nameOfTranslation,
     );
     if (filesToEdit.length === 0) continue;
     const { text: result } = await translate(
       text,
       sourceLanguage,
-      language.name
+      language.name,
     );
     filesToEdit.forEach(({ file, parsedPath }) => {
       dset.dset(file, nameOfTranslation, result);
@@ -1395,24 +1404,25 @@ const translateController = async ({
   }
 };
 
-const languagesController = ({
-  byEngine: engine
-} = {}) => {
+const languagesController = ({ byEngine: engine } = {}) => {
   if (engine && !isEngineValid(engine))
     throw new Error(
-      `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
+      `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
     );
-  const supportedLanguages$1 = engine ? supportedLanguagesGroupedByEngine[engine] : supportedLanguages;
-  const formattedSupportedLanguages = getLanguagesCodesWithNames(supportedLanguages$1);
+  const supportedLanguages$1 = engine
+    ? supportedLanguagesGroupedByEngine[engine]
+    : supportedLanguages;
+  const formattedSupportedLanguages =
+    getLanguagesCodesWithNames(supportedLanguages$1);
   console.log(
     `${formattedSupportedLanguages.length} Languages supported:
 
-${formattedSupportedLanguages.join("\n")}`
+${formattedSupportedLanguages.join("\n")}`,
   );
   return {
     totalLanguages: formattedSupportedLanguages.length,
     languagesWithNames: formattedSupportedLanguages,
-    languages: supportedLanguages$1
+    languages: supportedLanguages$1,
   };
 };
 
@@ -1432,11 +1442,11 @@ const _promptTranslationEngines = async () => {
   const translationEnginesToUse = [];
   console.clear();
   console.log(
-    "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file."
+    "Will ask you for the translation engines you want to use. You will be able to change them later in the configuration file.",
   );
   for await (const translationEngine of validEngines) {
     const shouldUseEngine = await confirmUserAction(
-      `Do you want to use ${translationEngine} as translation engine?`
+      `Do you want to use ${translationEngine} as translation engine?`,
     );
     if (shouldUseEngine) {
       translationEnginesToUse.push({ name: translationEngine });
@@ -1451,7 +1461,7 @@ const _promptBasePath = async () => {
   do {
     let hasError = false;
     basePath = await promptUserInput(
-      'Base path for the translations files: e.g. "src/localizations": '
+      'Base path for the translations files: e.g. "src/localizations": ',
     );
     if (!basePath) {
       console.log("The base path is required.\n");
@@ -1462,19 +1472,19 @@ const _promptBasePath = async () => {
         console.error(err.message);
         console.log("\n-------------\n");
         console.log(
-          "Please check that the path provided is correct and that you have the necessary permissions and try again.\n\n"
+          "Please check that the path provided is correct and that you have the necessary permissions and try again.\n\n",
         );
         await promptUserInput("Press enter to continue...\n\n");
         console.clear();
         hasError = true;
         return [];
-      }
+      },
     );
     if (hasError) continue;
     if (!filesInPath.length) {
       console.log("The path provided does not contain any files.\n\n");
       const continueWithEmptyPath = await confirmUserAction(
-        "Are you sure you want to use this path?"
+        "Are you sure you want to use this path?",
       );
       console.clear();
       if (!continueWithEmptyPath) continue;
@@ -1483,9 +1493,13 @@ const _promptBasePath = async () => {
     console.clear();
     confirmedAction = await confirmUserAction(
       `Please confirm that the path that you want to use is: ${parsePath(
-        basePath
-      )} and ${filesInPath.length > 0 ? `contains the following files:
-- ${pathFiles.join("\n- ")}` : "doesn't contains files"} (y/n): `
+        basePath,
+      )} and ${
+        filesInPath.length > 0
+          ? `contains the following files:
+- ${pathFiles.join("\n- ")}`
+          : "doesn't contains files"
+      } (y/n): `,
     );
   } while (!confirmedAction);
   await promptUserInput("\nPress enter to continue...");
@@ -1496,14 +1510,14 @@ const _promptLanguages = async (filesNames) => {
   const languages = [];
   console.clear();
   console.log(
-    "We'll iterate over the files in the base path and you will be able to select the language name for each file.\n"
+    "We'll iterate over the files in the base path and you will be able to select the language name for each file.\n",
   );
   console.log(
-    "The language should be indicated in ISO 639-1 format. For example: 'English' -> 'en'. You can consult the file https://github.com/victor-heliomar/i18n-populator/blob/master/ALL-LANGUAGES-CODES.json to get all the codes or check here: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\n"
+    "The language should be indicated in ISO 639-1 format. For example: 'English' -> 'en'. You can consult the file https://github.com/victor-heliomar/i18n-populator/blob/master/ALL-LANGUAGES-CODES.json to get all the codes or check here: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\n",
   );
   console.log("Leave it empty if you don't want to include that file.\n");
   console.log(
-    "Remember that you can change this later in the configuration file.\n\n"
+    "Remember that you can change this later in the configuration file.\n\n",
   );
   await promptUserInput("Press enter to continue...\n");
   for (const fileName of filesNames) {
@@ -1514,24 +1528,24 @@ const _promptLanguages = async (filesNames) => {
         languageName = await promptUserOptions(
           `
 Please type the language name for the file ${fileName}: `,
-          supportedLanguagesCodes
+          supportedLanguagesCodes,
         );
         isSupportedLanguage = supportedLanguagesCodes.includes(languageName);
         if (languageName === "") break;
         if (!isSupportedLanguage) {
           console.log(
             `The language ${languageName} is not supported. Please use one of these: ${supportedLanguagesCodes.join(
-              ", "
+              ", ",
             )}. Detailed information on https://github.com/victor-heliomar/i18n-populator/blob/master/ALL-LANGUAGES-CODES.json
 
-`
+`,
           );
           await promptUserInput("Press enter to continue...\n");
         }
       } while (!isSupportedLanguage);
       if (languageName === "") continue;
       const languageIndex = languages.findIndex(
-        (language) => language.name === languageName
+        (language) => language.name === languageName,
       );
       if (languageIndex !== -1) {
         languages[languageIndex].files.push(fileName);
@@ -1539,12 +1553,12 @@ Please type the language name for the file ${fileName}: `,
       }
       languages.push({
         name: languageName,
-        files: [fileName]
+        files: [fileName],
       });
     }
   }
   console.log(
-    "\n\nThe languages that you've selected are saved in the configuration file. You can change them later.\n\n"
+    "\n\nThe languages that you've selected are saved in the configuration file. You can change them later.\n\n",
   );
   await promptUserInput("Press enter to continue...\n");
   return languages;
@@ -1554,7 +1568,7 @@ const generateConfigController = async () => {
   const configExists = fs.existsSync(configPath);
   if (configExists) {
     const shouldOverwrite = await confirmUserAction(
-      `The configuration file already exists. Do you want to overwrite it?:`
+      `The configuration file already exists. Do you want to overwrite it?:`,
     );
     if (!shouldOverwrite) {
       console.log("The wizard has been canceled.");
@@ -1564,47 +1578,64 @@ const generateConfigController = async () => {
   const config = {
     basePath: "",
     translationEngines: [],
-    languages: []
+    languages: [],
   };
-  const { basePath: userSelectedBasePath, pathFiles: filesNames } = await _promptBasePath();
+  const { basePath: userSelectedBasePath, pathFiles: filesNames } =
+    await _promptBasePath();
   config.basePath = userSelectedBasePath;
   config.languages = await _promptLanguages(filesNames);
   config.translationEngines = await _promptTranslationEngines();
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 };
 
-var version = "1.1.1";
+var version = "2.0.0";
 
 const program = new commander.Command();
-program.name("i18n-populator").version(version).description(
-  "Translate a text and put the result on the files in the output directory"
-).option(
-  "-t, --text <string>",
-  "The word or sentence that you want to translate."
-).option(
-  "-f, --from <string>",
-  "The language of the text that you wrote on the --text option."
-).option(
-  "-n, --name <string>",
-  "The name of the property that you want your text has on the output files."
-).option(
-  "-e, --engine <string>",
-  `[OPTIONAL]. The engine that you want to use to translate the text. Available options: ${validEngines.join(", ")}
+program
+  .name("i18n-populator")
+  .version(version)
+  .description(
+    "Translate a text and put the result on the files in the output directory",
+  )
+  .option(
+    "-t, --text <string>",
+    "The word or sentence that you want to translate.",
+  )
+  .option(
+    "-f, --from <string>",
+    "The language of the text that you wrote on the --text option.",
+  )
+  .option(
+    "-n, --name <string>",
+    "The name of the property that you want your text has on the output files.",
+  )
+  .option(
+    "-e, --engine <string>",
+    `[OPTIONAL]. The engine that you want to use to translate the text. Available options: ${validEngines.join(", ")}
 If you specify a engine on the command, it will put it on the first position of the array of engines.
 If for any reason the engine you selected is not available at that moment, then it will use the engines that you have defined on the configuration file in the priority order that you selected.
-If you don't specify any engine, the script will try to get your preferences from your configuration file, and if you don't have any configuration file, it will use by default all the translation engine that are free and doesn't need API Key.`
-).option(
-  "-s, --settings-file <string>",
-  `[OPTIONAL]. Use this flag if you want to specify a different path for the configuration file that the default path.
+If you don't specify any engine, the script will try to get your preferences from your configuration file, and if you don't have any configuration file, it will use by default all the translation engine that are free and doesn't need API Key.`,
+  )
+  .option(
+    "-s, --settings-file <string>",
+    `[OPTIONAL]. Use this flag if you want to specify a different path for the configuration file that the default path.
     
     If you don't specify this flag, it'll search for a file called \`i18n-populator.config.json\` on the root of your project.`,
-  configPath
-).action(translateController);
-program.command("languages").description("Show the languages supported in ISO-639-1 standard").option(
-  "-e, --by-engine <string>",
-  "Filter the language supported list by engine"
-).action((options) => {
-  languagesController(options);
-});
-program.command("init").description("Start the configuration wizard to create the settings file").action(generateConfigController);
+    configPath,
+  )
+  .action(translateController);
+program
+  .command("languages")
+  .description("Show the languages supported in ISO-639-1 standard")
+  .option(
+    "-e, --by-engine <string>",
+    "Filter the language supported list by engine",
+  )
+  .action((options) => {
+    languagesController(options);
+  });
+program
+  .command("init")
+  .description("Start the configuration wizard to create the settings file")
+  .action(generateConfigController);
 program.parse();
