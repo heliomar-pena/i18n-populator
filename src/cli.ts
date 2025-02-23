@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import "./utils/polyfills";
+import "./polyfills";
 
 import { Command } from "commander";
 const program = new Command();
