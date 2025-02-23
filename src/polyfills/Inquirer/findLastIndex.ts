@@ -1,4 +1,4 @@
-import "./polyfills.d";
+import "../index.d";
 
 if (!Array.prototype.findLastIndex) {
   Array.prototype.findLastIndex = function (callback, thisArg) {
