@@ -1,5 +1,6 @@
 {
   "basePath": "example",
+  "sort": true,
   "translationEngines": [
     {
       "name": "google"
