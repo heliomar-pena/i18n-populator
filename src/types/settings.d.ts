@@ -31,4 +31,5 @@ export type Settings = {
   basePath: Path;
   translationEngines: Partial<TranslationEngines>;
   languages: Languages;
+  sort?: "A-Z" | "Z-A" | "none"; 
 };
