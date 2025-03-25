@@ -4,6 +4,12 @@ export enum Engines {
   LIBRE_TRANSLATE = "libreTranslate",
 }
 
+export enum SortOrder {
+  ASC = "A-Z",
+  DESC = "Z-A",
+  NONE = "none",
+}
+
 export type Files = string[];
 
 export type LibreTranslateEngine = {
@@ -31,5 +37,5 @@ export type Settings = {
   basePath: Path;
   translationEngines: Partial<TranslationEngines>;
   languages: Languages;
-  sort?: "A-Z" | "Z-A" | "none"; 
+  sort?: SortOrder;
 };

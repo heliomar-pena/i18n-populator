@@ -10,7 +10,7 @@ import {
 import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
 import { validEngines } from "../utils/translationEnginesUtils";
 import { TranslateController } from "./translateController.d";
-import { Settings } from "../types/settings";
+import { Settings, SortOrder } from "../types/settings";
 import { importJsonFile } from "../utils/importJsonFile";
 import { sortObjectKeys } from "../utils/sortObjectKeys";
 
@@ -72,7 +72,7 @@ const translateController = async ({
     filesToEdit.forEach(({ file, parsedPath }) => {
       setDeepValue(file, nameOfTranslation, result);
 
-      const sortedFile = sortObjectKeys(file, sort ?? "none");
+      const sortedFile = sortObjectKeys(file, sort ?? SortOrder.NONE);
 
       fs.writeFileSync(parsedPath, JSON.stringify(sortedFile, null, 2) + "\n");
     });
