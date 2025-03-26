@@ -45,10 +45,8 @@
     "@vitalets/google-translate-api": "^9.2.0",
     "bing-translate-api": "^2.9.1",
     "commander": "^13.1.0",
-    "dotenv": "^16.4.7",
     "dset": "^3.1.4",
     "node-fetch": "^2.7.0",
-    "openai": "^4.89.0",
     "prompt-sync-plus": "^1.0.2"
   },
   "homepage": "https://github.com/heliomar-pena/i18n-populator#readme",

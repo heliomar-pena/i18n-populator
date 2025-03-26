@@ -4,5 +4,3 @@ example/
 coverage/
 test-configs/
 dist/
-.env
-.env.example
