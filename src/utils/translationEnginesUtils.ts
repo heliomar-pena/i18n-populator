@@ -1,12 +1,14 @@
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
 import { translate as bingTranslate } from "../services/bingTranslate";
 import { translate as libreTranslate } from "../services/libreTranslate";
+import { translate as openAiTranslate } from "../services/openAiTranslate";
 import { Engines } from "../types/settings.d";
 
 const translateEngines = {
   [Engines.GOOGLE]: googleTranslate,
   [Engines.BING]: bingTranslate,
   [Engines.LIBRE_TRANSLATE]: libreTranslate,
+  [Engines.OPENAI]: openAiTranslate,
 };
 
 const validEngines = Object.values(Engines);

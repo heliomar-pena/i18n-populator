@@ -2,6 +2,7 @@ export enum Engines {
   GOOGLE = "google",
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
+  OPENAI = "openai",
 }
 
 export type Files = string[];
@@ -14,6 +15,7 @@ export type LibreTranslateEngine = {
 export type TranslationEngine =
   | { name: Engines.GOOGLE }
   | { name: Engines.BING }
+  | { name: Engines.OPENAI }
   | LibreTranslateEngine;
 
 export type TranslationEngines = TranslationEngine[];
