@@ -72,7 +72,7 @@ const translateController = async ({
     filesToEdit.forEach(({ file, parsedPath }) => {
       setDeepValue(file, nameOfTranslation, result);
 
-      const sortedFile = sortObjectKeys(file, sort ?? SortOrder.NONE);
+      const sortedFile = sortObjectKeys(file, sort);
 
       fs.writeFileSync(parsedPath, JSON.stringify(sortedFile, null, 2) + "\n");
     });
