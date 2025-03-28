@@ -1,14 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { sortObjectKeys } from "./sortObjectKeys";
-import { SortOrder } from "../types/settings";
-
-jest.mock("../types/settings", () => ({
-  SortOrder: {
-    ASC: "A-Z",
-    DESC: "Z-A",
-    NONE: "none",
-  },
-}));
+import { SortOrder } from "../types/settings.d";
 
 describe("sortObjectKeys", () => {
   it("Sorts a shallow object", () => {

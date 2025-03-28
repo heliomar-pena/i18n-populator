@@ -10,7 +10,7 @@ import {
 import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
 import { validEngines } from "../utils/translationEnginesUtils";
 import { TranslateController } from "./translateController.d";
-import { Settings, SortOrder } from "../types/settings";
+import { Settings, SortOrder } from "../types/settings.d";
 import { importJsonFile } from "../utils/importJsonFile";
 import { sortObjectKeys } from "../utils/sortObjectKeys";
 

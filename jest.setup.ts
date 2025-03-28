@@ -35,6 +35,14 @@ jest.mock("./src/types/settings.d", () => ({
   },
 }));
 
+jest.mock("./src/types/settings.d", () => ({
+  SortOrder: {
+    ASC: "A-Z",
+    DESC: "Z-A",
+    NONE: "none",
+  },
+}));
+
 jest.mock("prompt-sync-plus/dist/index.d", () => ({
   AutocompleteBehavior: {
     CYCLE: "cycle",

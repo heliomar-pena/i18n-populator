@@ -12,9 +12,6 @@ export default {
     ".*/coverage/.*",
     ".*/node_modules/.*",
   ],
-  moduleNameMapper: {
-    "^../types/settings$": "<rootDir>/src/types/settings.d.ts",
-  },
   collectCoverageFrom: ["**/*.ts"],
   coverageProvider: "v8",
   setupFiles: ["./jest.setup.ts"],
