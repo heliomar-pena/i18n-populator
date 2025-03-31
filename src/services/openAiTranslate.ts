@@ -1,20 +1,23 @@
-export const translate = async (
+import { OpenAiEngine } from "../types/settings";
+import { TranslateFn } from "./translate";
+
+export const translate: TranslateFn<OpenAiEngine> = async (
   text: string,
-  { from, to }: { from: string; to: string },
-  config: { OPENAI_API_KEY: string; OPENAI_API_URL: string } = {
-    OPENAI_API_KEY: "",
-    OPENAI_API_URL: "https://api.openai.com/v1/chat/completions",
-  },
+  { from, to, config },
 ) => {
-  const { OPENAI_API_KEY, OPENAI_API_URL } = config;
+  const { key, url = "https://api.openai.com/v1/chat/completions" } = config;
+
+  if (!key) {
+    throw new Error("Api key is required to perform translation using openai");
+  }
 
   const prompt = `Translate the following text from ${from} to ${to}: "${text}"`;
 
-  const response = await fetch(OPENAI_API_URL, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      Authorization: `Bearer ${key}`,
     },
     body: JSON.stringify({
       model: "gpt-3.5-turbo",

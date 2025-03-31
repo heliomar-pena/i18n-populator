@@ -12,11 +12,17 @@ export type LibreTranslateEngine = {
   mirrors?: string[];
 };
 
+export type OpenAiEngine = {
+  name: Engines.OPENAI;
+  key: string;
+  url?: string;
+};
+
 export type TranslationEngine =
   | { name: Engines.GOOGLE }
   | { name: Engines.BING }
-  | { name: Engines.OPENAI }
-  | LibreTranslateEngine;
+  | LibreTranslateEngine
+  | OpenAiEngine;
 
 export type TranslationEngines = TranslationEngine[];
 
