@@ -14,7 +14,7 @@ export type LibreTranslateEngine = {
 
 export type OpenAiEngine = {
   name: Engines.OPENAI;
-  key: string;
+  key?: string;
   url?: string;
 };
 
