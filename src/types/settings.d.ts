@@ -2,7 +2,7 @@ export enum Engines {
   GOOGLE = "google",
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
-  OPENAI = "openai",
+  OPENAI = "openAI",
 }
 
 export type Files = string[];
