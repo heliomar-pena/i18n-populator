@@ -33,9 +33,6 @@ jest.mock("./src/types/settings.d", () => ({
     BING: "bing",
     LIBRE_TRANSLATE: "libreTranslate",
   },
-}));
-
-jest.mock("./src/types/settings.d", () => ({
   SortOrder: {
     ASC: "A-Z",
     DESC: "Z-A",

@@ -6,7 +6,6 @@ const sortHandlers = {
     Object.fromEntries(
       Object.entries(object).sort(([a], [b]) => a.localeCompare(b))
     ),
-
   [SortOrder.DESC]: (object: GenericObject) =>
     Object.fromEntries(
       Object.entries(object).sort(([a], [b]) => b.localeCompare(a))
@@ -31,9 +30,15 @@ function sortObjectKeys(obj: any, sort: SortOrder = SortOrder.NONE): any {
     sortObjectKeys(value, sort),
   ]);
 
-  return sortHandlers[sort]
-    ? sortHandlers[sort](Object.fromEntries(sortedEntries))
-    : obj;
+  const sortHandler = sortHandlers[sort];
+
+  if (!sortHandler) {
+    throw new Error(
+      `The sort option you've provided is not supported, please try one of the next: ${Object.values(SortOrder).join(", ")}`
+    );
+  }
+
+  return sortHandler(Object.fromEntries(sortedEntries));
 }
 
 export { sortObjectKeys };
