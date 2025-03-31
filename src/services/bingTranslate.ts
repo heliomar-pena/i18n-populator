@@ -5,13 +5,9 @@ const translate = async (
   text: TranslateText,
   { from, to }: TranslateOptions,
 ): Promise<TranslateResult> => {
-  try {
-    const { translation } = await bingTranslate(text, from, to);
+  const { translation } = await bingTranslate(text, from, to);
 
-    return { text: translation };
-  } catch (error) {
-    return { text: `Translation failed: Unknown error ${error}` };
-  }
+  return { text: translation };
 };
 
 export { translate };
