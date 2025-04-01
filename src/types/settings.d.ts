@@ -3,6 +3,7 @@ export enum Engines {
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
   OPENAI = "openAI",
+  DEEPL = "deepl",
 }
 
 export type Files = string[];
@@ -18,11 +19,18 @@ export type OpenAiEngine = {
   url?: string;
 };
 
+export type DeepLEngine = {
+  name: Engines.DEEPL;
+  key?: string;
+  url?: string;
+};
+
 export type TranslationEngine =
   | { name: Engines.GOOGLE }
   | { name: Engines.BING }
   | LibreTranslateEngine
-  | OpenAiEngine;
+  | OpenAiEngine
+  | DeepLEngine;
 
 export type TranslationEngines = TranslationEngine[];
 
