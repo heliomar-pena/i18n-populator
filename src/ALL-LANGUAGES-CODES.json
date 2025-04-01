@@ -1,26 +1,24 @@
 {
   "ab": { "name": "Abkhazian" },
   "aa": { "name": "Afar" },
-  "af": { "name": "Afrikaans", "google": "af", "bing": "af", "openAI": "af" },
+  "af": { "name": "Afrikaans", "google": "af", "bing": "af" },
   "ak": { "name": "Akan" },
   "sq": {
     "name": "Albanian",
     "google": "sq",
     "bing": "sq",
-    "libreTranslate": "sq",
-    "openAI": "sq"
+    "libreTranslate": "sq"
   },
-  "am": { "name": "Amharic", "google": "am", "bing": "am", "openAI": "am" },
+  "am": { "name": "Amharic", "google": "am", "bing": "am" },
   "ar": {
     "name": "Arabic",
     "google": "ar",
     "bing": "ar",
-    "libreTranslate": "ar",
-    "openAI": "ar"
+    "libreTranslate": "ar"
   },
   "an": { "name": "Aragonese" },
-  "hy": { "name": "Armenian", "google": "hy", "bing": "hy", "openAI": "hy" },
-  "as": { "name": "Assamese", "bing": "as", "openAI": "as" },
+  "hy": { "name": "Armenian", "google": "hy", "bing": "hy" },
+  "as": { "name": "Assamese", "bing": "as" },
   "av": { "name": "Avaric" },
   "ae": { "name": "Avestan" },
   "ay": { "name": "Aymara" },
@@ -28,216 +26,194 @@
     "name": "Azerbaijani",
     "google": "az",
     "bing": "az",
-    "libreTranslate": "az",
-    "openAI": "az"
+    "libreTranslate": "az"
   },
   "bm": { "name": "Bambara" },
-  "ba": { "name": "Bashkir", "bing": "ba", "openAI": "ba" },
-  "eu": { "name": "Basque", "google": "eu", "bing": "eu", "openAI": "eu" },
-  "be": { "name": "Belarusian", "google": "be", "openAI": "be" },
-  "bn": { "name": "Bengali", "google": "bn", "libreTranslate": "bn", "openAI": "be" },
+  "ba": { "name": "Bashkir", "bing": "ba" },
+  "eu": { "name": "Basque", "google": "eu", "bing": "eu" },
+  "be": { "name": "Belarusian", "google": "be" },
+  "bn": { "name": "Bengali", "google": "bn", "libreTranslate": "bn" },
   "bi": { "name": "Bislama" },
-  "bs": { "name": "Bosnian", "google": "bs", "bing": "bs", "openAI": "bs" },
+  "bs": { "name": "Bosnian", "google": "bs", "bing": "bs" },
   "br": { "name": "Breton" },
   "bg": {
     "name": "Bulgarian",
     "google": "bg",
     "bing": "bg",
-    "libreTranslate": "bg",
-    "openAI": "bg"
+    "libreTranslate": "bg"
   },
-  "my": { "name": "Burmese", "google": "my", "bing": "my", "openAI": "my" },
+  "my": { "name": "Burmese", "google": "my", "bing": "my" },
   "ca": {
     "name": "Catalan, Valencian",
     "google": "ca",
     "bing": "ca",
-    "libreTranslate": "ca",
-    "openAI": "ca"
+    "libreTranslate": "ca"
   },
   "ch": { "name": "Chamorro" },
   "ce": { "name": "Chechen" },
-  "ny": { "name": "Chichewa, Chewa, Nyanja", "google": "ny", "bing": "nya", "openAI": "ny" },
+  "ny": { "name": "Chichewa, Chewa, Nyanja", "google": "ny", "bing": "nya" },
   "zh": {
     "name": "Chinese",
     "google": "zh-CN",
     "bing": "lzh",
-    "libreTranslate": "zh",
-    "openAI": "zh"
+    "libreTranslate": "zh"
   },
   "cu": { "name": "Church Slavonic, Old Slavonic, Old Church Slavonic" },
   "cv": { "name": "Chuvash" },
   "kw": { "name": "Cornish" },
-  "co": { "name": "Corsican", "google": "co", "openAI": "co" },
+  "co": { "name": "Corsican", "google": "co" },
   "cr": { "name": "Cree" },
-  "hr": { "name": "Croatian", "google": "hr", "bing": "hr", "openAI": "hr" },
+  "hr": { "name": "Croatian", "google": "hr", "bing": "hr" },
   "cs": {
     "name": "Czech",
     "google": "cs",
     "bing": "cs",
-    "libreTranslate": "cs",
-    "openAI": "cs"
+    "libreTranslate": "cs"
   },
   "da": {
     "name": "Danish",
     "google": "da",
     "bing": "da",
-    "libreTranslate": "da",
-    "openAI": "da"
+    "libreTranslate": "da"
   },
-  "dv": { "name": "Divehi, Dhivehi, Maldivian", "bing": "dv", "openAI": "dv" },
+  "dv": { "name": "Divehi, Dhivehi, Maldivian", "bing": "dv" },
   "nl": {
     "name": "Dutch, Flemish",
     "google": "nl",
     "bing": "nl",
-    "libreTranslate": "nl",
-    "openAI": "nl"
+    "libreTranslate": "nl"
   },
   "dz": { "name": "Dzongkha" },
   "en": {
     "name": "English",
     "google": "en",
     "bing": "en",
-    "libreTranslate": "en",
-    "openAI": "en"
+    "libreTranslate": "en"
   },
-  "eo": { "name": "Esperanto", "google": "eo", "libreTranslate": "eo", "openAI": "eo" },
+  "eo": { "name": "Esperanto", "google": "eo", "libreTranslate": "eo" },
   "et": {
     "name": "Estonian",
     "google": "et",
     "bing": "et",
-    "libreTranslate": "et",
-    "openAI": "et"
+    "libreTranslate": "et"
   },
   "ee": { "name": "Ewe" },
-  "fo": { "name": "Faroese", "bing": "fo", "openAI": "fo" },
-  "fj": { "name": "Fijian", "bing": "fj", "openAI": "fj" },
+  "fo": { "name": "Faroese", "bing": "fo" },
+  "fj": { "name": "Fijian", "bing": "fj" },
   "fi": {
     "name": "Finnish",
     "google": "fi",
     "bing": "fi",
-    "libreTranslate": "fi",
-    "openAI": "fi"
+    "libreTranslate": "fi"
   },
   "fr": {
     "name": "French",
     "google": "fr",
     "bing": "fr",
-    "libreTranslate": "fr",
-    "openAI": "fr"
+    "libreTranslate": "fr"
   },
-  "fy": { "name": "Western Frisian", "google": "fy", "openAI": "fy" },
+  "fy": { "name": "Western Frisian", "google": "fy" },
   "ff": { "name": "Fulah" },
-  "gd": { "name": "Gaelic, Scottish Gaelic", "google": "gd", "openAI": "gd" },
-  "gl": { "name": "Galician", "google": "gl", "bing": "gl", "openAI": "gl" },
-  "lg": { "name": "Ganda", "bing": "lug", "openAI": "lug" },
-  "ka": { "name": "Georgian", "google": "ka", "bing": "ka", "openAI": "ka" },
+  "gd": { "name": "Gaelic, Scottish Gaelic", "google": "gd" },
+  "gl": { "name": "Galician", "google": "gl", "bing": "gl" },
+  "lg": { "name": "Ganda", "bing": "lug" },
+  "ka": { "name": "Georgian", "google": "ka", "bing": "ka" },
   "de": {
     "name": "German",
     "google": "de",
     "bing": "de",
-    "libreTranslate": "de",
-    "openAI": "de"
+    "libreTranslate": "de"
   },
   "el": {
     "name": "Greek, Modern (1453–)",
     "google": "el",
     "bing": "el",
-    "libreTranslate": "el",
-    "openAI": "el"
+    "libreTranslate": "el"
   },
   "kl": { "name": "Kalaallisut, Greenlandic" },
   "gn": { "name": "Guarani" },
-  "gu": { "name": "Gujarati", "google": "gu", "bing": "gu", "openAI": "gu" },
-  "ht": { "name": "Haitian, Haitian Creole", "google": "ht", "bing": "ht", "openAI": "ht" },
-  "ha": { "name": "Hausa", "google": "ha", "bing": "ha", "openAI": "ha" },
+  "gu": { "name": "Gujarati", "google": "gu", "bing": "gu" },
+  "ht": { "name": "Haitian, Haitian Creole", "google": "ht", "bing": "ht" },
+  "ha": { "name": "Hausa", "google": "ha", "bing": "ha" },
   "he": {
     "name": "Hebrew",
     "google": "iw",
     "bing": "he",
-    "libreTranslate": "he",
-    "openAI": "he"
+    "libreTranslate": "he"
   },
   "hz": { "name": "Herero" },
   "hi": {
     "name": "Hindi",
     "google": "hi",
     "bing": "hi",
-    "libreTranslate": "hi",
-    "openAI": "hi"
+    "libreTranslate": "hi"
   },
   "ho": { "name": "Hiri Motu" },
   "hu": {
     "name": "Hungarian",
     "google": "hu",
     "bing": "hu",
-    "libreTranslate": "hu",
-    "openAI": "hu"
+    "libreTranslate": "hu"
   },
-  "is": { "name": "Icelandic", "google": "is", "bing": "is", "openAI": "is" },
+  "is": { "name": "Icelandic", "google": "is", "bing": "is" },
   "io": { "name": "Ido" },
-  "ig": { "name": "Igbo", "google": "ig", "bing": "ig", "openAI": "ig" },
+  "ig": { "name": "Igbo", "google": "ig", "bing": "ig" },
   "id": {
     "name": "Indonesian",
     "google": "id",
     "bing": "id",
-    "libreTranslate": "id",
-    "openAI": "id"
+    "libreTranslate": "id"
   },
   "ia": {
     "name": "Interlingua (International Auxiliary Language Association)"
   },
   "ie": { "name": "Interlingue, Occidental" },
-  "iu": { "name": "Inuktitut", "bing": "iu", "openAI": "iu" },
+  "iu": { "name": "Inuktitut", "bing": "iu" },
   "ik": { "name": "Inupiaq" },
   "ga": {
     "name": "Irish",
     "google": "ga",
     "bing": "ga",
-    "libreTranslate": "ga",
-    "openAI": "ga"
+    "libreTranslate": "ga"
   },
   "it": {
     "name": "Italian",
     "google": "it",
     "bing": "it",
-    "libreTranslate": "it",
-    "openAI": "it"
+    "libreTranslate": "it"
   },
   "ja": {
     "name": "Japanese",
     "google": "ja",
     "bing": "ja",
-    "libreTranslate": "ja",
-    "openAI": "ja"
+    "libreTranslate": "ja"
   },
-  "jv": { "name": "Javanese", "google": "jw", "openAI": "jw" },
-  "kn": { "name": "Kannada", "google": "kn", "bing": "kn", "openAI": "kn" },
+  "jv": { "name": "Javanese", "google": "jw" },
+  "kn": { "name": "Kannada", "google": "kn", "bing": "kn" },
   "kr": { "name": "Kanuri" },
-  "ks": { "name": "Kashmiri", "bing": "ks", "openAI": "ks" },
-  "kk": { "name": "Kazakh", "google": "kk", "bing": "kk", "openAI": "kk" },
-  "km": { "name": "Central Khmer", "google": "km", "bing": "km", "openAI": "km" },
+  "ks": { "name": "Kashmiri", "bing": "ks" },
+  "kk": { "name": "Kazakh", "google": "kk", "bing": "kk" },
+  "km": { "name": "Central Khmer", "google": "km", "bing": "km" },
   "ki": { "name": "Kikuyu, Gikuyu" },
   "rw": { "name": "Kinyarwanda", "bing": "rw" },
-  "ky": { "name": "Kirghiz, Kyrgyz", "google": "ky", "bing": "ky", "openAI": "ky" },
+  "ky": { "name": "Kirghiz, Kyrgyz", "google": "ky", "bing": "ky" },
   "kv": { "name": "Komi" },
   "kg": { "name": "Kongo" },
   "ko": {
     "name": "Korean",
     "google": "ko",
     "bing": "ko",
-    "libreTranslate": "ko",
-    "openAI": "ko"
+    "libreTranslate": "ko"
   },
   "kj": { "name": "Kuanyama, Kwanyama" },
-  "ku": { "name": "Kurdish", "google": "ku", "bing": "ku", "openAI": "ku" },
-  "lo": { "name": "Lao", "google": "lo", "bing": "lo", "openAI": "lo" },
-  "la": { "name": "Latin", "google": "la", "bing": "iu-Latn", "openAI": "la" },
+  "ku": { "name": "Kurdish", "google": "ku", "bing": "ku" },
+  "lo": { "name": "Lao", "google": "lo", "bing": "lo" },
+  "la": { "name": "Latin", "google": "la", "bing": "iu-Latn" },
   "lv": {
     "name": "Latvian",
     "google": "lv",
     "bing": "lv",
-    "libreTranslate": "lv",
-    "openAI": "lv"
+    "libreTranslate": "lv"
   },
   "li": { "name": "Limburgan, Limburger, Limburgish" },
   "ln": { "name": "Lingala", "bing": "ln" },
@@ -245,48 +221,44 @@
     "name": "Lithuanian",
     "google": "lt",
     "bing": "lt",
-    "libreTranslate": "lt",
-    "openAI": "lt"
+    "libreTranslate": "lt"
   },
   "lu": { "name": "Luba-Katanga" },
-  "lb": { "name": "Luxembourgish, Letzeburgesch", "google": "lb", "openAI": "lb" },
-  "mk": { "name": "Macedonian", "google": "mk", "bing": "mk", "openAI": "mk" },
-  "mg": { "name": "Malagasy", "google": "mg", "bing": "mg", "openAI": "mg" },
+  "lb": { "name": "Luxembourgish, Letzeburgesch", "google": "lb" },
+  "mk": { "name": "Macedonian", "google": "mk", "bing": "mk" },
+  "mg": { "name": "Malagasy", "google": "mg", "bing": "mg" },
   "ms": {
     "name": "Malay",
     "google": "ms",
     "bing": "ms",
-    "libreTranslate": "ms",
-    "openAI": "ms"
+    "libreTranslate": "ms"
   },
   "ml": {
     "name": "Malayalam",
     "google": "ml",
     "bing": "ms",
-    "libreTranslate": "ms",
-    "openAI": "ms"
+    "libreTranslate": "ms"
   },
-  "mt": { "name": "Maltese", "google": "mt", "bing": "mt", "openAI": "mt" },
+  "mt": { "name": "Maltese", "google": "mt", "bing": "mt" },
   "gv": { "name": "Manx" },
-  "mi": { "name": "Maori", "google": "mi", "openAI": "mi" },
-  "mr": { "name": "Marathi", "google": "mr", "bing": "mr", "openAI": "mr" },
+  "mi": { "name": "Maori", "google": "mi" },
+  "mr": { "name": "Marathi", "google": "mr", "bing": "mr" },
   "mh": { "name": "Marshallese" },
-  "mn": { "name": "Mongolian", "google": "mn", "bing": "mn-Cyrl", "openAI": "mn" },
+  "mn": { "name": "Mongolian", "google": "mn", "bing": "mn-Cyrl" },
   "na": { "name": "Nauru" },
   "nv": { "name": "Navajo, Navaho" },
   "nd": { "name": "North Ndebele" },
   "nr": { "name": "South Ndebele" },
   "ng": { "name": "Ndonga" },
-  "ne": { "name": "Nepali", "google": "ne", "bing": "ne", "openAI": "ne" },
+  "ne": { "name": "Nepali", "google": "ne", "bing": "ne" },
   "no": {
     "name": "Norwegian",
     "google": "no",
     "bing": "nb",
-    "libreTranslate": "nb",
-    "openAI": "nb"
+    "libreTranslate": "nb"
   },
-  "nb": { "name": "Norwegian Bokmål", "bing": "nb", "libreTranslate": "nb", "openAI": "nb" },
-  "nn": { "name": "Norwegian Nynorsk", "bing": "nb", "libreTranslate": "nb", "openAI": "nb" },
+  "nb": { "name": "Norwegian Bokmål", "bing": "nb", "libreTranslate": "nb" },
+  "nn": { "name": "Norwegian Nynorsk", "bing": "nb", "libreTranslate": "nb" },
   "ii": { "name": "Sichuan Yi, Nuosu" },
   "oc": { "name": "Occitan" },
   "oj": { "name": "Ojibwa" },
@@ -294,36 +266,32 @@
   "om": { "name": "Oromo" },
   "os": { "name": "Ossetian, Ossetic" },
   "pi": { "name": "Pali" },
-  "ps": { "name": "Pashto, Pushto", "google": "ps", "bing": "ps", "openAI": "ps" },
+  "ps": { "name": "Pashto, Pushto", "google": "ps", "bing": "ps" },
   "fa": {
     "name": "Persian",
     "google": "fa",
     "bing": "fa",
-    "libreTranslate": "fa",
-    "openAI": "fa"
+    "libreTranslate": "fa"
   },
   "pl": {
     "name": "Polish",
     "google": "pl",
     "bing": "pl",
-    "libreTranslate": "pl",
-    "openAI": "pl"
+    "libreTranslate": "pl"
   },
   "pt": {
     "name": "Portuguese",
     "google": "pt",
     "bing": "pt",
-    "libreTranslate": "pt",
-    "openAI": "pt"
+    "libreTranslate": "pt"
   },
-  "pa": { "name": "Punjabi, Panjabi", "google": "pa", "bing": "pa", "openAI": "pa" },
+  "pa": { "name": "Punjabi, Panjabi", "google": "pa", "bing": "pa" },
   "qu": { "name": "Quechua" },
   "ro": {
     "name": "Romanian, Moldavian, Moldovan",
     "google": "ro",
     "bing": "ro",
-    "libreTranslate": "ro",
-    "openAI": "ro"
+    "libreTranslate": "ro"
   },
   "rm": { "name": "Romansh" },
   "rn": { "name": "Rundi", "bing": "run" },
@@ -331,11 +299,10 @@
     "name": "Russian",
     "google": "ru",
     "bing": "ru",
-    "libreTranslate": "ru",
-    "openAI": "ru"
+    "libreTranslate": "ru"
   },
   "se": { "name": "Northern Sami" },
-  "sm": { "name": "Samoan", "google": "sm", "bing": "sm", "openAI": "sm" },
+  "sm": { "name": "Samoan", "google": "sm", "bing": "sm" },
   "sg": { "name": "Sango" },
   "sa": { "name": "Sanskrit" },
   "sc": { "name": "Sardinian" },
@@ -343,60 +310,54 @@
     "name": "Serbian",
     "google": "sr",
     "bing": "sr-Cyrl",
-    "libreTranslate": "sr",
-    "openAI": "sr"
+    "libreTranslate": "sr"
   },
-  "sn": { "name": "Shona", "google": "sn", "bing": "sn", "openAI": "sn" },
-  "sd": { "name": "Sindhi", "google": "sd", "bing": "sd", "openAI": "sd" },
-  "si": { "name": "Sinhala, Sinhalese", "google": "si", "bing": "si", "openAI": "si" },
+  "sn": { "name": "Shona", "google": "sn", "bing": "sn" },
+  "sd": { "name": "Sindhi", "google": "sd", "bing": "sd" },
+  "si": { "name": "Sinhala, Sinhalese", "google": "si", "bing": "si" },
   "sk": {
     "name": "Slovak",
     "google": "sk",
     "bing": "sk",
-    "libreTranslate": "sk",
-    "openAI": "sk"
+    "libreTranslate": "sk"
   },
   "sl": {
     "name": "Slovenian",
     "google": "sl",
     "bing": "sl",
-    "libreTranslate": "sl",
-    "openAI": "sl"
+    "libreTranslate": "sl"
   },
-  "so": { "name": "Somali", "google": "so", "bing": "so", "openAI": "so" },
+  "so": { "name": "Somali", "google": "so", "bing": "so" },
   "st": { "name": "Southern Sotho" },
   "es": {
     "name": "Spanish, Castilian",
     "google": "es",
     "bing": "es",
-    "libreTranslate": "es",
-    "openAI": "es"
+    "libreTranslate": "es"
   },
-  "su": { "name": "Sundanese", "google": "su", "openAI": "su" },
-  "sw": { "name": "Swahili", "google": "sw", "bing": "sw", "openAI": "sw" },
+  "su": { "name": "Sundanese", "google": "su" },
+  "sw": { "name": "Swahili", "google": "sw", "bing": "sw" },
   "ss": { "name": "Swati" },
   "sv": {
     "name": "Swedish",
     "google": "sv",
     "bing": "sv",
-    "libreTranslate": "sv",
-    "openAI": "sv"
+    "libreTranslate": "sv"
   },
-  "tl": { "name": "Tagalog", "google": "tl", "libreTranslate": "tl", "openAI": "tl" },
-  "ty": { "name": "Tahitian", "bing": "ty", "openAI": "ty" },
-  "tg": { "name": "Tajik", "google": "tg", "openAI": "tg" },
-  "ta": { "name": "Tamil", "google": "ta", "bing": "ta", "openAI": "ta" },
-  "tt": { "name": "Tatar", "bing": "tt", "openAI": "tt" },
-  "te": { "name": "Telugu", "google": "te", "bing": "te", "openAI": "te" },
+  "tl": { "name": "Tagalog", "google": "tl", "libreTranslate": "tl" },
+  "ty": { "name": "Tahitian", "bing": "ty" },
+  "tg": { "name": "Tajik", "google": "tg" },
+  "ta": { "name": "Tamil", "google": "ta", "bing": "ta" },
+  "tt": { "name": "Tatar", "bing": "tt" },
+  "te": { "name": "Telugu", "google": "te", "bing": "te" },
   "th": {
     "name": "Thai",
     "google": "th",
     "bing": "th",
-    "libreTranslate": "th",
-    "openAI": "th"
+    "libreTranslate": "th"
   },
-  "bo": { "name": "Tibetan", "bing": "bo", "openAI": "bo" },
-  "ti": { "name": "Tigrinya", "bing": "ti", "openAI": "ti" },
+  "bo": { "name": "Tibetan", "bing": "bo" },
+  "ti": { "name": "Tigrinya", "bing": "ti" },
   "to": { "name": "Tonga (Tonga Islands)" },
   "ts": { "name": "Tsonga" },
   "tn": { "name": "Tswana" },
@@ -404,42 +365,38 @@
     "name": "Turkish",
     "google": "tr",
     "bing": "tr",
-    "libreTranslate": "tr",
-    "openAI": "tr"
+    "libreTranslate": "tr"
   },
-  "tk": { "name": "Turkmen", "bing": "tk", "openAI": "tk" },
+  "tk": { "name": "Turkmen", "bing": "tk" },
   "tw": { "name": "Twi" },
-  "ug": { "name": "Uighur, Uyghur", "bing": "ug", "openAI": "ug" },
+  "ug": { "name": "Uighur, Uyghur", "bing": "ug" },
   "uk": {
     "name": "Ukrainian",
     "google": "uk",
     "bing": "uk",
-    "libreTranslate": "uk",
-    "openAI": "uk"
+    "libreTranslate": "uk"
   },
   "ur": {
     "name": "Urdu",
     "google": "ur",
     "bing": "ur",
-    "libreTranslate": "ur",
-    "openAI": "ur"
+    "libreTranslate": "ur"
   },
-  "uz": { "name": "Uzbek", "google": "uz", "bing": "uz", "openAI": "uz" },
+  "uz": { "name": "Uzbek", "google": "uz", "bing": "uz" },
   "ve": { "name": "Venda" },
   "vi": {
     "name": "Vietnamese",
     "google": "vi",
     "bing": "vi",
-    "libreTranslate": "vi",
-    "openAI": "vi"
+    "libreTranslate": "vi"
   },
   "vo": { "name": "Volapük" },
   "wa": { "name": "Walloon" },
-  "cy": { "name": "Welsh", "google": "cy", "bing": "cy", "openAI": "cy" },
+  "cy": { "name": "Welsh", "google": "cy", "bing": "cy" },
   "wo": { "name": "Wolof" },
-  "xh": { "name": "Xhosa", "google": "xh", "bing": "xh", "openAI": "xh" },
-  "yi": { "name": "Yiddish", "google": "yi", "openAI": "yi" },
-  "yo": { "name": "Yoruba", "google": "yo", "bing": "yo", "openAI": "yo" },
+  "xh": { "name": "Xhosa", "google": "xh", "bing": "xh" },
+  "yi": { "name": "Yiddish", "google": "yi" },
+  "yo": { "name": "Yoruba", "google": "yo", "bing": "yo" },
   "za": { "name": "Zhuang, Chuang" },
-  "zu": { "name": "Zulu", "google": "zu", "bing": "zu", "openAI": "zu" }
+  "zu": { "name": "Zulu", "google": "zu", "bing": "zu" }
 }

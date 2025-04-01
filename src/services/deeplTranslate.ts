@@ -1,7 +1,7 @@
-import { OpenAiEngine } from "../types/settings";
+import { DeepLEngine } from "../types/settings";
 import { TranslateFn } from "./translate";
 
-export const translate: TranslateFn<OpenAiEngine> = async (
+export const translate: TranslateFn<DeepLEngine> = async (
   text: string,
   { from, to, config = {} },
 ) => {

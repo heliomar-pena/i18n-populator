@@ -2,7 +2,6 @@ export enum Engines {
   GOOGLE = "google",
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
-  OPENAI = "openAI",
   DEEPL = "deepl",
 }
 
@@ -11,12 +10,6 @@ export type Files = string[];
 export type LibreTranslateEngine = {
   name: Engines.LIBRE_TRANSLATE;
   mirrors?: string[];
-};
-
-export type OpenAiEngine = {
-  name: Engines.OPENAI;
-  key?: string;
-  url?: string;
 };
 
 export type DeepLEngine = {
@@ -29,7 +22,6 @@ export type TranslationEngine =
   | { name: Engines.GOOGLE }
   | { name: Engines.BING }
   | LibreTranslateEngine
-  | OpenAiEngine
   | DeepLEngine;
 
 export type TranslationEngines = TranslationEngine[];
