@@ -19,6 +19,6 @@ To enable this feature permanently, add `"sort": true` in your `i18n-populator.c
   "basePath": "example",
   "sort": true,
   "translationEngines": [],
-  "languages": [...]
+  "languages": []
 }
 ```

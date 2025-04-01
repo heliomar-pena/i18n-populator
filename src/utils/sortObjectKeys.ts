@@ -1,7 +1,10 @@
 import { Settings, SortOrder } from "../types/settings.d";
 import { GenericObject } from "../types/shared";
 
-const sortHandlers = {
+const sortHandlers: Record<
+  SortOrder,
+  (object: GenericObject) => GenericObject
+> = {
   [SortOrder.ASC]: (object: GenericObject) =>
     Object.fromEntries(
       Object.entries(object).sort(([a], [b]) => a.localeCompare(b))
@@ -10,11 +13,16 @@ const sortHandlers = {
     Object.fromEntries(
       Object.entries(object).sort(([a], [b]) => b.localeCompare(a))
     ),
+  [SortOrder.NONE]: (object: GenericObject) => object,
 };
 
 function sortObjectKeys(obj: any, sort: SortOrder = SortOrder.NONE): any {
-  if (!Object.values(SortOrder).includes(sort)) {
-    throw new Error("Invalid sort value");
+  const sortHandler = sortHandlers[sort];
+
+  if (!sortHandler) {
+    throw new Error(
+      `The sort option you've provided is not supported, please try one of the next: ${Object.values(SortOrder).join(", ")}`
+    );
   }
 
   if (sort === SortOrder.NONE || typeof obj !== "object" || obj === null) {
@@ -29,14 +37,6 @@ function sortObjectKeys(obj: any, sort: SortOrder = SortOrder.NONE): any {
     key,
     sortObjectKeys(value, sort),
   ]);
-
-  const sortHandler = sortHandlers[sort];
-
-  if (!sortHandler) {
-    throw new Error(
-      `The sort option you've provided is not supported, please try one of the next: ${Object.values(SortOrder).join(", ")}`
-    );
-  }
 
   return sortHandler(Object.fromEntries(sortedEntries));
 }
