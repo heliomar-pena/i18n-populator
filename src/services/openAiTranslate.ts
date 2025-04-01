@@ -3,7 +3,7 @@ import { TranslateFn } from "./translate";
 
 export const translate: TranslateFn<OpenAiEngine> = async (
   text: string,
-  { from, to, config },
+  { from, to, config = {} },
 ) => {
   const { key, url = "https://api.openai.com/v1/chat/completions" } = config;
 
