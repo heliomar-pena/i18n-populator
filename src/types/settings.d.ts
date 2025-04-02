@@ -16,6 +16,8 @@ export type DeepLEngine = {
   name: Engines.DEEPL;
   key?: string;
   url?: string;
+  max_tokens?: string;
+  model?: string;
 };
 
 export type TranslationEngine =
