@@ -16,6 +16,8 @@ export type OpenAiEngine = {
   name: Engines.OPENAI;
   key?: string;
   url?: string;
+  max_tokens?: string;
+  model?: string;
 };
 
 export type TranslationEngine =

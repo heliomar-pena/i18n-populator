@@ -5,7 +5,12 @@ export const translate: TranslateFn<OpenAiEngine> = async (
   text: string,
   { from, to, config = {} },
 ) => {
-  const { key, url = "https://api.openai.com/v1/chat/completions" } = config;
+  const {
+    key,
+    url = "https://api.openai.com/v1/chat/completions",
+    max_tokens = 1000,
+    model = "gpt-3.5-turbo",
+  } = config;
 
   if (!key) {
     throw new Error("Api key is required to perform translation using openai");
@@ -20,9 +25,9 @@ export const translate: TranslateFn<OpenAiEngine> = async (
       Authorization: `Bearer ${key}`,
     },
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
+      model: model,
       temperature: 0,
-      max_tokens: 1000,
+      max_tokens: max_tokens,
       top_p: 1,
       frequency_penalty: 1,
       presence_penalty: 1,
