@@ -2,7 +2,7 @@ import { Settings, SortOrder } from "../types/settings.d";
 import { GenericObject } from "../types/shared";
 
 const sortHandlers: Record<
-  SortOrder,
+  Exclude<SortOrder, SortOrder.NONE>,
   (object: GenericObject) => GenericObject
 > = {
   [SortOrder.ASC]: (object: GenericObject) =>
@@ -13,20 +13,18 @@ const sortHandlers: Record<
     Object.fromEntries(
       Object.entries(object).sort(([a], [b]) => b.localeCompare(a))
     ),
-  [SortOrder.NONE]: (object: GenericObject) => object,
 };
 
 function sortObjectKeys(obj: any, sort: SortOrder = SortOrder.NONE): any {
-  const sortHandler = sortHandlers[sort];
+  if (sort === SortOrder.NONE || typeof obj !== "object" || obj === null) {
+    return obj;
+  }
 
+  const sortHandler = sortHandlers[sort];
   if (!sortHandler) {
     throw new Error(
       `The sort option you've provided is not supported, please try one of the next: ${Object.values(SortOrder).join(", ")}`
     );
-  }
-
-  if (sort === SortOrder.NONE || typeof obj !== "object" || obj === null) {
-    return obj;
   }
 
   if (Array.isArray(obj)) {
