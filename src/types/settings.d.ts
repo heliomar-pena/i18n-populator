@@ -2,6 +2,7 @@ export enum Engines {
   GOOGLE = "google",
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
+  OPENAI = "openAI",
 }
 
 export type Files = string[];
@@ -11,10 +12,19 @@ export type LibreTranslateEngine = {
   mirrors?: string[];
 };
 
+export type OpenAiEngine = {
+  name: Engines.OPENAI;
+  key?: string;
+  url?: string;
+  max_tokens?: string;
+  model?: string;
+};
+
 export type TranslationEngine =
   | { name: Engines.GOOGLE }
   | { name: Engines.BING }
-  | LibreTranslateEngine;
+  | LibreTranslateEngine
+  | OpenAiEngine;
 
 export type TranslationEngines = TranslationEngine[];
 

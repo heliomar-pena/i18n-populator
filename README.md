@@ -134,7 +134,7 @@ It will generate a `i18n-populator.config.json` file that you can edit later in 
 ```json
 {
   "basePath": "example",
-  "translationEngines": ["google", "bing", "libreTranslate"],
+  "translationEngines": ["google", "bing", "libreTranslate", "openAI"],
   "languages": [
     {
       "name": "en",
