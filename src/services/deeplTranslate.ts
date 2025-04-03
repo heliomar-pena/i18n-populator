@@ -5,13 +5,13 @@ export const translate: TranslateFn<DeepLEngine> = async (
   text: string,
   { from, to, config = {} },
 ) => {
-  const { key, url = "https://api-free.deepl.com/v2/translate" } = config;
+  const { key } = config;
 
   if (!key) {
     throw new Error("Api key is required to perform translation using deepl");
   }
 
-  const response = await fetch(url, {
+  const response = await fetch("https://api-free.deepl.com/v2/translate", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
