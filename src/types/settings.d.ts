@@ -5,6 +5,12 @@ export enum Engines {
   OPENAI = "openAI",
 }
 
+export enum SortOrder {
+  ASC = "A-Z",
+  DESC = "Z-A",
+  NONE = "none",
+}
+
 export type Files = string[];
 
 export type LibreTranslateEngine = {
@@ -41,4 +47,5 @@ export type Settings = {
   basePath: Path;
   translationEngines: Partial<TranslationEngines>;
   languages: Languages;
+  sort?: SortOrder;
 };
