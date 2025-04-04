@@ -3,6 +3,7 @@ export enum Engines {
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
   OPENAI = "openAI",
+  DEEPL = "deepL",
 }
 
 export enum SortOrder {
@@ -18,6 +19,11 @@ export type LibreTranslateEngine = {
   mirrors?: string[];
 };
 
+export type DeepLEngine = {
+  name: Engines.DEEPL;
+  key?: string;
+};
+
 export type OpenAiEngine = {
   name: Engines.OPENAI;
   key?: string;
@@ -30,7 +36,8 @@ export type TranslationEngine =
   | { name: Engines.GOOGLE }
   | { name: Engines.BING }
   | LibreTranslateEngine
-  | OpenAiEngine;
+  | OpenAiEngine
+  | DeepLEngine;
 
 export type TranslationEngines = TranslationEngine[];
 
