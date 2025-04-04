@@ -43,7 +43,7 @@
   "dependencies": {
     "@inquirer/prompts": "^7.3.1",
     "@vitalets/google-translate-api": "^9.2.0",
-    "bing-translate-api": "^4.0.0",
+    "bing-translate-api": "^4.0.2",
     "commander": "^13.1.0",
     "dset": "^3.1.4",
     "node-fetch": "^2.7.0",
