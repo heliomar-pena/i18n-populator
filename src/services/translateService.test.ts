@@ -1,6 +1,6 @@
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
 import { translate as libreTranslate } from "./libreTranslate";
-import { translate as bingTranslate } from "bing-translate-api";
+import { MET } from "bing-translate-api";
 import { translate, validEngines } from "./translateService";
 
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
@@ -27,7 +27,7 @@ describe("translate", () => {
     const engine = { name: Engines.BING };
     const result = await translate(text, from, to, engine);
 
-    expect(bingTranslate).toHaveBeenCalledTimes(1);
+    expect(MET.translate).toHaveBeenCalledTimes(1);
     expect(result.text).toBe(
       `Hello world! translated from ${from} to ${to} using ${engine.name}`,
     );

@@ -12,6 +12,11 @@ export type LibreTranslateEngine = {
   mirrors?: string[];
 };
 
+export type MicrosoftEngine = {
+  name: Engines.BING;
+  key?: string;
+};
+
 export type OpenAiEngine = {
   name: Engines.OPENAI;
   key?: string;
@@ -22,7 +27,7 @@ export type OpenAiEngine = {
 
 export type TranslationEngine =
   | { name: Engines.GOOGLE }
-  | { name: Engines.BING }
+  | MicrosoftEngine
   | LibreTranslateEngine
   | OpenAiEngine;
 
