@@ -35,6 +35,11 @@ jest.mock("./src/types/settings.d", () => ({
     BING: "bing",
     LIBRE_TRANSLATE: "libreTranslate",
   },
+  SortOrder: {
+    ASC: "A-Z",
+    DESC: "Z-A",
+    NONE: "none",
+  },
 }));
 
 jest.mock("prompt-sync-plus/dist/index.d", () => ({
