@@ -134,19 +134,32 @@ It will generate a `i18n-populator.config.json` file that you can edit later in 
 ```json
 {
   "basePath": "example",
-  "translationEngines": ["google", "bing", "libreTranslate", "openAI", "deepL"],
-  "languages": [
+  "translationEngines": [
     {
-      "name": "en",
-      "files": ["en.json"]
+      "name": "google"
     },
     {
-      "name": "es",
-      "files": ["es.json"]
+      "name": "bing"
+    },
+    {
+      "name": "libreTranslate",
+      "mirrors": ["http://127.0.0.1:5000", "http://localhost:5001"]
     }
   ]
 }
 ```
+
+- 📌 Note: You can define one or more mirrors for LibreTranslate. The system will automatically select one available at the time of performing the translations.
+
+#### 🔍 What is a mirror?
+
+A mirror is an alternative instance of a service (in this case, LibreTranslate). By including multiple mirrors, you can ensure:
+
+- Reduced response time (the system selects the fastest or available one)
+
+- Redundancy in case of failures
+
+- Better load distribution if you manage multiple projects or users
 
 ### Generating translations with one command
 
