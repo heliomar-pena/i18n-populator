@@ -7,7 +7,11 @@ const translate: TranslateFn<MicrosoftEngine> = async (
   { from, to, config }
 ): Promise<TranslateResult> => {
   const { key } = config;
-  const result = await MET.translate(text, from, to, { ...(key ? ({ authenticationHeaders: { "Ocp-Apim-Subscription-Key": key } }) : {}) }) as MET.MetTranslationResult[];
+  const headers = key ? { authenticationHeaders: { "Ocp-Apim-Subscription-Key": key } } : {};
+  const result = await MET.translate(text, from, to, headers);
+
+  if (!result) throw new Error('Error translating text with Bing.');
+
   const { translations } = result[0];
 
   return { text: translations[0].text };
