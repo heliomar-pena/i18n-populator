@@ -19,6 +19,11 @@ export type LibreTranslateEngine = {
   mirrors?: string[];
 };
 
+export type MicrosoftEngine = {
+  name: Engines.BING;
+  key?: string;
+};
+
 export type DeepLEngine = {
   name: Engines.DEEPL;
   key?: string;
@@ -34,7 +39,7 @@ export type OpenAiEngine = {
 
 export type TranslationEngine =
   | { name: Engines.GOOGLE }
-  | { name: Engines.BING }
+  | MicrosoftEngine
   | LibreTranslateEngine
   | OpenAiEngine
   | DeepLEngine;
