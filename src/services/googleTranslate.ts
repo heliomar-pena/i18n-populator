@@ -1,7 +1,8 @@
-import { Translate } from "@google-cloud/translate/build/src/v2";
+import { v2 } from "@google-cloud/translate";
 import { TranslateFn } from "./translate";
 import { GoogleEngine } from "../types/settings";
 import { translate as googleTranslate } from "@vitalets/google-translate-api";
+const { Translate } = v2;
 
 export const translate: TranslateFn<GoogleEngine> = async (
   text: string,
