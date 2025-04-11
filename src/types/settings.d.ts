@@ -29,6 +29,11 @@ export type DeepLEngine = {
   key?: string;
 };
 
+export type GoogleEngine = {
+  name: Engines.GOOGLE;
+  key?: string;
+};
+
 export type OpenAiEngine = {
   name: Engines.OPENAI;
   key?: string;
