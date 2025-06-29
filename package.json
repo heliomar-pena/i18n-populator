@@ -1,6 +1,6 @@
 {
   "name": "i18n-populator",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Generate translations in seconds for i18n",
   "type": "module",
   "scripts": {
