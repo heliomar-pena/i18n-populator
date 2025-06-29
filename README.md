@@ -155,7 +155,8 @@ It will generate a `i18n-populator.config.json` file that you can edit later in 
 }
 ```
 
-- 📌 Note: You can define one or more mirrors for LibreTranslate. The system will automatically select one available at the time of performing the translations.
+> [!NOTE]
+> You can define one or more mirrors for LibreTranslate. The system will automatically select one available at the time of performing the translations.
 
 ### Generating translations with one command
 

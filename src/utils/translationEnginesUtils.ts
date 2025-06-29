@@ -1,4 +1,4 @@
-import { translate as googleTranslate } from "@vitalets/google-translate-api";
+import { translate as googleTranslate } from "../services/googleTranslate";
 import { translate as bingTranslate } from "../services/bingTranslate";
 import { translate as libreTranslate } from "../services/libreTranslate";
 import { translate as openAiTranslate } from "../services/openAiTranslate";
