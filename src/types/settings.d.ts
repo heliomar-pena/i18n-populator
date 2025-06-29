@@ -43,7 +43,7 @@ export type OpenAiEngine = {
 };
 
 export type TranslationEngine =
-  | { name: Engines.GOOGLE }
+  | GoogleEngine
   | MicrosoftEngine
   | LibreTranslateEngine
   | OpenAiEngine
