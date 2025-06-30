@@ -8,11 +8,11 @@ This feature "SORTING" proposes that you'll do a BIG change to your .json files,
 
 ## How it works?
 
-Let's imagine I add a translation called "hello_world", and **Samuel**, which is other FrontEnd that works with me, adds a translation called "user_profile", without sorting enabled, it would look like this:
+Let's imagine you add a translation called "hello_world", and **Bob**, which is other FrontEnd that works with you, adds a translation called "user_profile", without sorting enabled, it would look like this:
 
 ### Comparison
 
-**My branch**:
+**Your branch**:
 
 ```js
 {

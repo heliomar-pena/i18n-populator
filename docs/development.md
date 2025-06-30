@@ -4,7 +4,9 @@ This documentation points to help developers that wants to contribute on the pro
 
 ## Requirements
 
-It's recommended used the version of node that is on the [.nvmrc](../.nvmrc) file, if you are using nvm would be enough if you switch to that version before installing dependencies.
+It's recommended used the version of node that is on the [.nvmrc](../.nvmrc) file, if you are using nvm would be enough if you switch to that version before installing dependencies, if you are not familiar with NVM, please check the version mentioned in the [.nvmrc](../.nvmrc) and download that from the [official NodeJS page](https://nodejs.org/en).
+
+### NVM
 
 ```sh
 nvm use && npm i
