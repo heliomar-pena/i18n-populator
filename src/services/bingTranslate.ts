@@ -1,13 +1,20 @@
-import { translate as bingTranslate } from "bing-translate-api";
-import { TranslateOptions, TranslateResult, TranslateText } from "./translate";
+import { MET } from "bing-translate-api";
+import { TranslateFn, TranslateResult, TranslateText } from "./translate";
+import { MicrosoftEngine } from "../types/settings";
 
-const translate = async (
+const translate: TranslateFn<MicrosoftEngine> = async (
   text: TranslateText,
-  { from, to }: TranslateOptions,
+  { from, to, config }
 ): Promise<TranslateResult> => {
-  const { translation } = await bingTranslate(text, from, to);
+  const { key } = config;
+  const headers = key ? { authenticationHeaders: { "Ocp-Apim-Subscription-Key": key } } : {};
+  const result = await MET.translate(text, from, to, headers);
 
-  return { text: translation };
+  if (!result) throw new Error('Error translating text with Bing.');
+
+  const { translations } = result[0];
+
+  return { text: translations[0].text };
 };
 
 export { translate };

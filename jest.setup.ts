@@ -16,9 +16,11 @@ jest.mock("fs", () => ({
 }));
 
 jest.mock("bing-translate-api", () => ({
-  translate: jest.fn((text, from, to) => ({
-    translation: `${text} translated from ${from} to ${to} using bing`,
-  })),
+  MET: {
+    translate: jest.fn((text, from, to) => ([{
+      translations: [{ text: `${text} translated from ${from} to ${to} using bing` },]
+    }])),
+  }
 }));
 
 jest.mock("./src/services/libreTranslate", () => ({
@@ -32,6 +34,11 @@ jest.mock("./src/types/settings.d", () => ({
     GOOGLE: "google",
     BING: "bing",
     LIBRE_TRANSLATE: "libreTranslate",
+  },
+  SortOrder: {
+    ASC: "A-Z",
+    DESC: "Z-A",
+    NONE: "none",
   },
 }));
 

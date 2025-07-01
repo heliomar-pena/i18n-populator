@@ -10,8 +10,9 @@ import {
 import { validateLanguageRequested } from "../utils/supportedLanguagesUtils";
 import { validEngines } from "../utils/translationEnginesUtils";
 import { TranslateController } from "./translateController.d";
-import { Settings } from "../types/settings";
+import { Settings } from "../types/settings.d";
 import { importJsonFile } from "../utils/importJsonFile";
+import { sortObjectKeys } from "../utils/sortObjectKeys";
 
 /**
  * Translates a text to multiple languages and saves the translations in the JSON files
@@ -40,11 +41,12 @@ const translateController = async ({
     languages,
     basePath,
     translationEngines: settingsTranslationEngines,
+    sort,
   } = await importJsonFile<Settings>(settingsFilePath);
 
   if (options.engine && !isEngineValid(options.engine))
     throw new Error(
-      `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`,
+      `You've provided an invalid engine as arg on your CLI Command. Try with one of these: ${validEngines.join(", ")}`
     );
 
   const { translate } = setTranslateWithFallbackEngines({
@@ -56,7 +58,7 @@ const translateController = async ({
     const filesToEdit = await validateAndPromptUserJSONFiles(
       basePath,
       language.files,
-      nameOfTranslation,
+      nameOfTranslation
     );
 
     if (filesToEdit.length === 0) continue;
@@ -64,13 +66,15 @@ const translateController = async ({
     const { text: result } = await translate(
       text,
       sourceLanguage,
-      language.name,
+      language.name
     );
 
     filesToEdit.forEach(({ file, parsedPath }) => {
       setDeepValue(file, nameOfTranslation, result);
 
-      fs.writeFileSync(parsedPath, JSON.stringify(file, null, 2) + "\n");
+      const sortedFile = sortObjectKeys(file, sort);
+
+      fs.writeFileSync(parsedPath, JSON.stringify(sortedFile, null, 2) + "\n");
     });
   }
 };
