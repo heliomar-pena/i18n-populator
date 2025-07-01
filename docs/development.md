@@ -4,7 +4,7 @@ This documentation points to help developers that wants to contribute on the pro
 
 ## Requirements
 
-It's recommended used the version of node that is on the [.nvmrc](../.nvmrc) file, if you are using nvm would be enough if you switch to that version before installing dependencies, if you are not familiar with NVM, please check the version mentioned in the [.nvmrc](../.nvmrc) and download that from the [official NodeJS page](https://nodejs.org/en).
+It's recommended to use the version of node that is on the [.nvmrc](../.nvmrc) file, if you are using nvm would be enough if you switch to that version before installing dependencies, if you are not familiar with NVM, please check the version mentioned in the [.nvmrc](../.nvmrc) and download that from the [official NodeJS page](https://nodejs.org/en).
 
 ### NVM
 
@@ -55,7 +55,7 @@ Example of running the project:
 npx tsx src/cli.ts languages
 ```
 
-#### Starting installation wizard
+#### Starting setup wizard
 
 ```sh
 npx tsx src/cli.ts init
