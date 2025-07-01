@@ -2,6 +2,14 @@ export enum Engines {
   GOOGLE = "google",
   BING = "bing",
   LIBRE_TRANSLATE = "libreTranslate",
+  OPENAI = "openAI",
+  DEEPL = "deepL",
+}
+
+export enum SortOrder {
+  ASC = "A-Z",
+  DESC = "Z-A",
+  NONE = "none",
 }
 
 export type Files = string[];
@@ -11,10 +19,35 @@ export type LibreTranslateEngine = {
   mirrors?: string[];
 };
 
+export type MicrosoftEngine = {
+  name: Engines.BING;
+  key?: string;
+};
+
+export type DeepLEngine = {
+  name: Engines.DEEPL;
+  key?: string;
+};
+
+export type GoogleEngine = {
+  name: Engines.GOOGLE;
+  key?: string;
+};
+
+export type OpenAiEngine = {
+  name: Engines.OPENAI;
+  key?: string;
+  url?: string;
+  max_tokens?: string;
+  model?: string;
+};
+
 export type TranslationEngine =
-  | { name: Engines.GOOGLE }
-  | { name: Engines.BING }
-  | LibreTranslateEngine;
+  | GoogleEngine
+  | MicrosoftEngine
+  | LibreTranslateEngine
+  | OpenAiEngine
+  | DeepLEngine;
 
 export type TranslationEngines = TranslationEngine[];
 
@@ -31,4 +64,5 @@ export type Settings = {
   basePath: Path;
   translationEngines: Partial<TranslationEngines>;
   languages: Languages;
+  sort?: SortOrder;
 };
