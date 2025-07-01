@@ -9,6 +9,12 @@ assignees: ''
 ## Feature Description
 A clear and concise description of the improvement or new feature you'd like to see. What problem does it solve, or what value does it add?
 
+## Type of change
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Automation
+
 ## Use Cases
 Describe how this feature would be used. Who are the primary users, and how would they interact with it?
 
